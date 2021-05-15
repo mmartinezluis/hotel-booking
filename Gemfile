@@ -28,6 +28,7 @@ gem 'jbuilder', '~> 2.7'
 gem 'dotenv-rails'
 gem 'rest-client'
 gem 'json'
+gem 'amadeus'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.4', require: false
