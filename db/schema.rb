@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_16_001313) do
+ActiveRecord::Schema.define(version: 2021_05_16_125946) do
 
   create_table "cities", force: :cascade do |t|
     t.string "name"
@@ -42,10 +42,10 @@ ActiveRecord::Schema.define(version: 2021_05_16_001313) do
   create_table "reservations", force: :cascade do |t|
     t.string "code"
     t.integer "guests"
+    t.string "currency"
     t.decimal "price"
     t.string "checkin_date"
     t.string "checkout_date"
-    t.string "room_info"
     t.integer "user_id"
     t.integer "hotel_id"
     t.datetime "created_at", precision: 6, null: false
@@ -54,6 +54,14 @@ ActiveRecord::Schema.define(version: 2021_05_16_001313) do
 
   create_table "reviews", force: :cascade do |t|
     t.text "description"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "rooms", force: :cascade do |t|
+    t.string "category"
+    t.integer "beds"
+    t.string "bedtype"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

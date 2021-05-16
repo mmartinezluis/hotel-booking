@@ -1,7 +1,7 @@
 require 'amadeus'
 class AmadeusApi 
   attr_accessor :amadeus
-  @a@ll = []
+  @@all = []
 
   def initialize()
     @amadeus = Amadeus::Client.new({
@@ -9,6 +9,10 @@ class AmadeusApi
         client_secret: "#{ENV['AMADEUS_API_SECRET']}"
       })
     @@all << @amadeus
+  end
+
+  def self.all
+    @@all
   end
     
 #   def load_api
@@ -67,5 +71,6 @@ class AmadeusApi
       
     Hotel.build_hotels()
   end
+end
 
 end
