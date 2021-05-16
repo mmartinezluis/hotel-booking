@@ -20,4 +20,4 @@ p response.data #=> The list of locations, extracted from the JSON
 
 
 # Example: hotels from Madrid
-hotels_madrid= amadeus.shopping.hotel_offers.get(cityCode: 'MAD')
+hotels_madrid = amadeus.shopping.hotel_offers.get(cityCode: 'MAD')

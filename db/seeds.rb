@@ -25,12 +25,7 @@ binding.pry
 # response = RestClient.get("test.api.amadeus.com")
 
 
-require 'amadeus'
 
-amadeus = Amadeus::Client.new({
-  client_id: "#{ENV['AMADEUS_API_KEY']}",
-  client_secret: "#{ENV['AMADEUS_API_SECRET']}"
-})
 
 begin
   puts amadeus.shopping.flight_offers_search.get(originLocationCode: 'NYC', destinationLocationCode: 'MAD', departureDate: '2021-06-01', adults: 1, max: 1).body
@@ -45,5 +40,30 @@ hotels_madrid_locations = hotels_madrid_hash.data
 first_hotel_madrid = hotels_madrid_hash.data[0]
 first_hotel_madrid_self_key = first_hotel_madrid["self"]
 
-curl "https://test.api.amadeus.com/v2/shopping/hotel-offers/by-hotel?hotelId=INMAD23B" \
-     -H "Authorization: Bearer #{ENV['AMADEUS_TOKEN_ACCESS']}"
+# curl "https://test.api.amadeus.com/v2/shopping/hotel-offers/by-hotel?hotelId=INMAD23B" \
+#      -H "Authorization: Bearer #{ENV['AMADEUS_TOKEN_ACCESS']}"
+
+
+first_hotel_madrid_name = ["name"=>"Hotel Indigo Gran Via"]
+first_hotel_madrid_hotelId= ["hotelId"=>"INMAD23B"]
+offer = amadeus.shopping.hotel_offers_by_hotel.get(hotelId: 'INMAD23B')
+offers_hash = offer.result
+available_offer = amadeus.shopping.hotel_offer('XW5ZSG4Z53').get
+
+
+all_hotels_new_york = amadeus.shopping.hotel_offers.get(cityCode: 'NYC').result
+total_hotels_new_york = amadeus.shopping.hotel_offers.get(cityCode: 'NYC').data.length
+
+
+# Querying using dates
+trial = amadeus.shopping.hotel_offers.get(
+    cityCode: 'NYC',
+    checkInDate: "2021-05-18",
+    ckeckOutDate: "2021-05-20",
+    adults: 1   
+).data
+
+confirmation = amadeus.shopping.hotel_offer('TI9BPDX9PK').get.result
+
+# curl "https://test.api.amadeus.com/v2/shopping/hotel-offers?checkInDate=2021-05-20&checkOutDate=2021-05-23&cityCode=NYC&page" \
+#      -H "Authorization: Bearer E16aKXFG42BiTbA9IerDGmPqQW6s"
