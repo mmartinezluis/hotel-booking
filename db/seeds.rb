@@ -11,22 +11,6 @@
 
 binding.pry
 
-# THIS ONE WORKS
-# curl -X GET \
-# 'https://www.carboninterface.com/api/v1/auth' \
-# -H 'authorization: Bearer 9IKzAe461HOBAFkGUwbkw' 
-
-# DOES NOT WORK
-# response = RestClient.get("https://www.carboninterface.com/api/v1/auth", {
-#   'authorization: Bearer 9IKzAe461HOBAFkGUwbkw'
-#   }
-# )
-
-# response = RestClient.get("test.api.amadeus.com")
-
-
-
-
 begin
   puts amadeus.shopping.flight_offers_search.get(originLocationCode: 'NYC', destinationLocationCode: 'MAD', departureDate: '2021-06-01', adults: 1, max: 1).body
 rescue Amadeus::ResponseError => error
@@ -65,5 +49,3 @@ trial = amadeus.shopping.hotel_offers.get(
 
 confirmation = amadeus.shopping.hotel_offer('TI9BPDX9PK').get.result
 
-# curl "https://test.api.amadeus.com/v2/shopping/hotel-offers?checkInDate=2021-05-20&checkOutDate=2021-05-23&cityCode=NYC&page" \
-#      -H "Authorization: Bearer E16aKXFG42BiTbA9IerDGmPqQW6s"
