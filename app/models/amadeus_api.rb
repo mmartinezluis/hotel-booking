@@ -1,12 +1,14 @@
 require 'amadeus'
 class AmadeusApi 
   attr_accessor :amadeus
+  @a@ll = []
 
   def initialize()
     @amadeus = Amadeus::Client.new({
         client_id: "#{ENV['AMADEUS_API_KEY']}",
         client_secret: "#{ENV['AMADEUS_API_SECRET']}"
       })
+    @@all << @amadeus
   end
     
 #   def load_api
@@ -19,8 +21,13 @@ class AmadeusApi
   def base_URL
   end
 
-  def query_city(citycode)
-    response = @amadeus.shopping.hotel_offers.get(cityCode: "#{citycode}").data
+  def query_city(citycode, checkin_date = nil, checkout_date = nil, guests = nil)
+    response = @amadeus.shopping.hotel_offers.get(
+      cityCode: "#{citycode}",
+      checkInDate: "#{checkin_date}",
+      checkOutDate: "#{checkout_date}",
+      adults: "#{guests}"
+    ).data
     # parse_city_responnse(response)
   end
 
@@ -47,7 +54,7 @@ class AmadeusApi
       response[0]["hotel"]["address"]
       response[0]["hotel"]["description"]["text"]
       response[0]["hotel"]["amenities"]
-      #  Build nested reservation at this point
+      #  Build nested reservation for hotel at this point
       response[0]["offers"]
       response[0]["offers"][0]["id"]                    # Reservation code in schema, reservations
       response[0]["offers"][0]["guests"]["adults"]      # Number of guests
@@ -55,6 +62,7 @@ class AmadeusApi
       response[0]["offers"][0]["price"]["total"]        # Total price
       response[0]["offers"][0]["checkInDate"]           # Checkin date
       response[0]["offers"][0]["checkOutDate"]          # Checkout date
+      #  Build nested room for reservation at this point
       response[0]["offers"][0]["room"]["typeEstimated"] # All room info
       
     Hotel.build_hotels()

@@ -24,19 +24,13 @@ hotels_madrid_locations = hotels_madrid_hash.data
 first_hotel_madrid = hotels_madrid_hash.data[0]
 first_hotel_madrid_self_key = first_hotel_madrid["self"]
 
-# curl "https://test.api.amadeus.com/v2/shopping/hotel-offers/by-hotel?hotelId=INMAD23B" \
-#      -H "Authorization: Bearer #{ENV['AMADEUS_TOKEN_ACCESS']}"
 
 
-first_hotel_madrid_name = ["name"=>"Hotel Indigo Gran Via"]
-first_hotel_madrid_hotelId= ["hotelId"=>"INMAD23B"]
-offer = amadeus.shopping.hotel_offers_by_hotel.get(hotelId: 'INMAD23B')
-offers_hash = offer.result
-available_offer = amadeus.shopping.hotel_offer('XW5ZSG4Z53').get
 
 
-all_hotels_new_york = amadeus.shopping.hotel_offers.get(cityCode: 'NYC').result
-total_hotels_new_york = amadeus.shopping.hotel_offers.get(cityCode: 'NYC').data.length
+
+
+
 
 
 # Querying using dates

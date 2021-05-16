@@ -7,7 +7,6 @@ class CreateReservations < ActiveRecord::Migration[6.1]
       t.decimal :price
       t.string :checkin_date
       t.string :checkout_date
-      t.string :room_info
       t.integer :user_id
       t.integer :hotel_id
 
