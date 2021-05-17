@@ -14,8 +14,8 @@ class Hotel < ApplicationRecord
     new_hotel.latitude = hotel_hash["hotel"]["latitude"]
     new_hotel.longitude = hotel_hash["hotel"]["longitude"]
     new_hotel.address = hotel_hash["hotel"]["address"]
-    new_hotel.description = hotel_hash["hotel"]["description"]["text"]
-    new_hotel.amenities = hotel_hash["hotel"]["amenities"].take(5).join(", ")
+    # new_hotel.description = hotel_hash["hotel"]["description"]["text"] unless hotel_hash["hotel"]["description"]["text"].nil?
+    # new_hotel.amenities = hotel_hash["hotel"]["amenities"].take(5).join(", ") unless hotel_hash["hotel"]["amenities"].nil?
     #  Build nested reservation for hotel 
     new_reservation = new_hotel.reservations.build(
       code: hotel_hash["offers"][0]["id"],                    # Reservation code in schema, reservations
@@ -25,14 +25,14 @@ class Hotel < ApplicationRecord
       checkin_date: hotel_hash["offers"][0]["checkInDate"],           # Checkin date
       checkout_date: hotel_hash["offers"][0]["checkOutDate"],          # Checkout date
     )
-    user = User.create(first_name: "Luis", last_name: "M")
     new_reservation.user_id = User.first.id
     #  Build nested room for reservation 
     new_room = new_reservation.build_room(
       category: hotel_hash["offers"][0]["room"]["typeEstimated"]["category"],
       beds: hotel_hash["offers"][0]["room"]["typeEstimated"]["beds"],
-      bedtype: hotel_hash["offers"][0]["room"]["typeEstimated"]["bedType"]s
+      bedtype: hotel_hash["offers"][0]["room"]["typeEstimated"]["bedType"]
     )
+    new_hotel
   end
 
 end

@@ -3,5 +3,5 @@ class User < ApplicationRecord
   has_many :hotels, through: :reservations
   has_many :reviews, through: :reservations
   has_many :cities, through: :reservations
-  accepts_nested_attributes_for :reservation
+  accepts_nested_attributes_for :reservations
 end

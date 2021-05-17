@@ -1,9 +1,11 @@
 <div class"view" id="index">
+<div>
 <%= form_with url: "/", method: :get do |form| %>
   <%= form.label :query, "Search for:" %>
   <%= form.text_field :query %>
   <%= form.submit "Search" %>
 <% end %>
+</div>
 
 <div class="msg">
   <% if flash[:msg] %>
@@ -15,9 +17,9 @@
   <% if @hotels %>
     <ul>
       <% @hotels.each do |hotel| %>
-        <a href="/<% =hotel.hotelId %>">
+        <a href="/<%= hotel.hotelId %>">
           <li>
-            <span>hotel.name</span>
+            <%= hotel.name %>
           </li>
         </a>
       <% end %>

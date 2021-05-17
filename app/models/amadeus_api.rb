@@ -49,8 +49,6 @@ class AmadeusApi
   end
 
   def parse_city_responnse(response)
-    collection = []
-    binding.pry
     response.each do |hotel_hash|
       @@collection << Hotel.build_hotel(hotel_hash)
     end
