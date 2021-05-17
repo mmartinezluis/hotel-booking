@@ -9,6 +9,7 @@ class CreateHotels < ActiveRecord::Migration[6.1]
       t.string :address
       t.text :description
       t.string :amenities
+      t.integer :city_id
 
       t.timestamps
     end

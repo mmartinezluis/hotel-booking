@@ -35,6 +35,7 @@ ActiveRecord::Schema.define(version: 2021_05_16_125946) do
     t.string "address"
     t.text "description"
     t.string "amenities"
+    t.integer "city_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -62,6 +63,7 @@ ActiveRecord::Schema.define(version: 2021_05_16_125946) do
     t.string "category"
     t.integer "beds"
     t.string "bedtype"
+    t.integer "reservation_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

@@ -1,0 +1,7 @@
+<div class="single" id="show">
+  <span><%= @hotel.name %></span>
+  <span><%= @hotel.guests %></span>
+  <span><%= @hotel.checkin_date %></span>
+  <span><%= @hotel.checkout_date %></span>
+  <span><%= @hotel.description %></span>
+  <a href="/reserve/<<%= @hote.hotelId %>/%= @hotel.reservations.last.code %>">Reserve</a>
