@@ -1,6 +1,7 @@
 class HotelsController < ApplicationController
     # before_action :set_api, set_hotel on reserve
   def index
+    
     if AmadeusApi.all.first
       api = AmadeusApi.all.first
     else
