@@ -6,7 +6,7 @@ Hi, welcome to my Hotel Booking project. This is the third project in Flatiron s
 ## Functionality
 Hotel Booking uses the [Amadeus Hotel Search API](https://developers.amadeus.com/self-service/category/hotel/api-doc/hotel-search) that comprises more than 150,000 hotels worldwide. The Amadeus API finds the cheapest hotels for a given location. The following are the user stories for Hotel Booking:
 
-* Users can log in to the app by creating a new user account or by using athentication through their Google account
+* Users can log in to the app by creating a new user account or by using athentication through their Google account.
 * Users can search for hotel reservations by a given city, check-in date, checkout-date, and number of guests in real-time.
 * Users can verify the availability of a given hotel reservation in real-time.
 * Users can book a reservation (feature managed by ActiveRecord; reservations are valid at time of booking but booking is not real). 
