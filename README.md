@@ -1,9 +1,12 @@
-# README
-Hi, welcome to my Hotel Booking project. This is the third project in Flatiron school's curriiculum sequence. THe project involves using Ruby on Rails to build an application that processes data through complex forms using RESTful routes and the MVC framework. Some of the project requirements include nested forms, nested routes, scope methods, using OmniAuth for user sign in, and proper handling and displaying of errors. 
+# Project: Hotel Booking
 
-Hotel Booking uses the [Amadeus Hotel Search API](https://developers.amadeus.com/self-service/category/hotel/api-doc/hotel-search) that comprises more than 150,000 hotels worlwide. The Amadeus API finds the cheapest hotels for a given location. The following are the user stories for Hotel Booking:
+## Introduction
+Hi, welcome to my Hotel Booking project. This is the third project in Flatiron school's curriculum sequence. The project involves using Ruby on Rails to build an application that processes data through complex forms using RESTful routes and the MVC framework. Some of the project requirements include nested forms, nested routes, scope methods, using OmniAuth for user sign in, and proper handling and displaying of errors. 
 
-* Users can log in to the app by creating a new user account or by using 
+## Functionality
+Hotel Booking uses the [Amadeus Hotel Search API](https://developers.amadeus.com/self-service/category/hotel/api-doc/hotel-search) that comprises more than 150,000 hotels worldwide. The Amadeus API finds the cheapest hotels for a given location. The following are the user stories for Hotel Booking:
+
+* Users can log in to the app by creating a new user account or by using athentication through 
 * Users can search for hotel reservations by a given city, check-in date, checkout-date, and number of guests in real-time.
 * Users can verify the availability of a given hotel reservation in real-time.
 * Users can book a reservation (feature managed by ActiveRecord; reservations are valid at time of booking but booking is not real). 
@@ -13,11 +16,11 @@ Hotel Booking uses the [Amadeus Hotel Search API](https://developers.amadeus.com
 * Admin users can start a hotel search with a pre-existing or newly created user already loaded in the database for a fast hotel booking process.
 * Admin users can create a new user right before booking a reservation.
 
-Hotel Booking is currently under development and it suports the following functionalities:
+Hotel Booking is under development and it currenlty suports the following functionalities:
 * Users can find hotel reservations by a given city in real-time.
 * Users can verify the availability of a reservation in real-time and can book a reservation. 
 
-# H1 Getting Started
+## Getting Started
 To get started with the app, make sure you have Rails and Git installed on your machine. Clone the repo to your local machine:
 ``` javascript
 $ git clone https://github.com/mmartinezluis/hotel-booking
@@ -48,7 +51,7 @@ Finally, on the root path run a local server:
 ``` javascript
 $ rails server
 ```
-Open browser to view application:
+Open the browser to view application:
 ```javascript
 localhost:3000
 ```
