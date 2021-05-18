@@ -20,8 +20,15 @@ p response.data #=> The list of locations, extracted from the JSON
 # Example: hotels from Madrid
 hotels_madrid = amadeus.shopping.hotel_offers.get(cityCode: 'MAD')
 
+# Querying using dates
+trial = amadeus.shopping.hotel_offers.get(
+    cityCode: 'NYC',
+    checkInDate: "2021-05-18",
+    ckeckOutDate: "2021-05-20",
+    adults: 1   
+).data
 
-hote_hash = 
+hotel_hash = 
    {"type"=>"hotel-offers",
  "hotel"=>
   {"type"=>"hotel",
@@ -144,4 +151,4 @@ hote_hash =
         {"description"=>{"text"=>"2021-05-16T23:59:00\nCancel Penalty Amount: 369.78 "},
          "amount"=>"369.78",
          "deadline"=>"2021-05-16T23:59:00-04:00"}}}],
-  "self"=>"https://test.api.amadeus.com/v2/shopping/hotel-offers/by-hotel?hotelId=WHNYC299&adults=2"},
+  "self"=>"https://test.api.amadeus.com/v2/shopping/hotel-offers/by-hotel?hotelId=WHNYC299&adults=2"}
