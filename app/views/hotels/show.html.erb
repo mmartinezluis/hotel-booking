@@ -1,7 +1,9 @@
 <div class="single" id="show">
-  <span><%= @hotel.name %></span>
-  <span><%= @hotel.reservations.last.guests %></span>
-  <span><%= @hotel.reservations.last.checkin_date %></span>
-  <span><%= @hotel.reservations.last.checkout_date %></span>
+  <span><%= @hotel.name %></span><br>
+  <span><%= hotel_guests(@hotel) %> adults</span><br>
+  <span>Check-in date: <%= hotel_checkin(@hotel) %></span><br>
+  <span>Check-out date: <%= hotel_checkout(@hotel) %></span><br>
+  <%= @hotel.description  %><br>
   
-  <a href="/reserve/<%= @hotel.hotelId %>/<%= @hotel.reservations.last.code %>">Reserve</a>
+  <a href="/reserve/<%= @hotel.hotelId %>/<%= reservation_code(@hotel) %>">Reserve</a>
+  </div>

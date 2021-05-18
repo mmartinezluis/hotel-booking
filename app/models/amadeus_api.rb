@@ -9,9 +9,9 @@ class AmadeusApi
         client_id: "#{ENV['AMADEUS_API_KEY']}",
         client_secret: "#{ENV['AMADEUS_API_SECRET']}"
       })
-    @@all << self
-    city = City.create(code: "LON", name: "London")
-    user = User.create(first_name: "Luis", last_name: "M")
+    
+    city = City.find_or_create_by(code: "LON", name: "London")
+    user = User.find_or_create_by(first_name: "Luis", last_name: "M")
   end
 
   def self.all
@@ -29,12 +29,17 @@ class AmadeusApi
   end
 
   def query_city(citycode, checkin_date = Date.today.to_s, checkout_date = (Date.today+1).to_s, guests = 2)
-    response = @amadeus.shopping.hotel_offers.get(
-      cityCode: citycode,
-      checkInDate: checkin_date,
-      checkOutDate: checkout_date,
-      adults: guests
-    ).data
+    begin
+      response = @amadeus.shopping.hotel_offers.get(
+        cityCode: citycode,
+        checkInDate: checkin_date,
+        checkOutDate: checkout_date,
+        adults: guests
+      ).data
+    rescue StandardError => e
+      flash[:msg] = "#{e.class}: #{e.message}. Please try again..."
+      redirect_to root_path
+    end
     parse_city_responnse(response)
   end
 

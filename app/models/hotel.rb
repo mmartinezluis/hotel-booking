@@ -6,18 +6,22 @@ class Hotel < ApplicationRecord
   belongs_to :city
 
   def self.build_hotel(hotel_hash)
-    new_hotel = Hotel.new
-    new_hotel.city_id = City.first.id
-    new_hotel.hotelId = hotel_hash["hotel"]["hotelId"]
-    new_hotel.citycode = hotel_hash["hotel"]["cityCode"]
-    new_hotel.name = hotel_hash["hotel"]["name"]
-    new_hotel.latitude = hotel_hash["hotel"]["latitude"]
-    new_hotel.longitude = hotel_hash["hotel"]["longitude"]
-    new_hotel.address = hotel_hash["hotel"]["address"]
-    # new_hotel.description = hotel_hash["hotel"]["description"]["text"] unless hotel_hash["hotel"]["description"]["text"].nil?
-    # new_hotel.amenities = hotel_hash["hotel"]["amenities"].take(5).join(", ") unless hotel_hash["hotel"]["amenities"].nil?
+    hotel = Hotel.find_by(hotelId: hotel_hash["hotel"]["hotelId"])
+    unless hotel 
+      hotel = Hotel.new
+      hotel.city_id = City.first.id
+      hotel.hotelId = hotel_hash["hotel"]["hotelId"]
+      hotel.citycode = hotel_hash["hotel"]["cityCode"]
+      hotel.name = hotel_hash["hotel"]["name"]
+      hotel.latitude = hotel_hash["hotel"]["latitude"]
+      hotel.longitude = hotel_hash["hotel"]["longitude"]
+      hotel.address = hotel_hash["hotel"]["address"]
+      hotel.description = hotel_hash["hotel"]["description"]["text"] unless !hotel_hash["hotel"].keys.include?("description")
+      hotel.amenities = hotel_hash["hotel"]["amenities"].take(5).join(", ") unless !hotel_hash["hotel"].keys.include?("amenities")
+    end
+    
     #  Build nested reservation for hotel 
-    new_reservation = new_hotel.reservations.build(
+    new_reservation = hotel.reservations.build(
       code: hotel_hash["offers"][0]["id"],                    # Reservation code in schema, reservations
       guests: hotel_hash["offers"][0]["guests"]["adults"],      # Number of guests
       currency: hotel_hash["offers"][0]["price"]["currency"],     # Currency
@@ -26,13 +30,27 @@ class Hotel < ApplicationRecord
       checkout_date: hotel_hash["offers"][0]["checkOutDate"],          # Checkout date
     )
     new_reservation.user_id = User.first.id
+
     #  Build nested room for reservation 
-    new_room = new_reservation.build_room(
-      category: hotel_hash["offers"][0]["room"]["typeEstimated"]["category"],
-      beds: hotel_hash["offers"][0]["room"]["typeEstimated"]["beds"],
-      bedtype: hotel_hash["offers"][0]["room"]["typeEstimated"]["bedType"]
-    )
-    new_hotel
+    if hotel_hash["offers"][0]["room"].keys.include?("typeEstimated")
+      new_room = new_reservation.build_room(
+        category: hotel_hash["offers"][0]["room"]["typeEstimated"]["category"],
+        beds: hotel_hash["offers"][0]["room"]["typeEstimated"]["beds"],
+        bedtype: hotel_hash["offers"][0]["room"]["typeEstimated"]["bedType"]
+      )
+    else
+      new_room = new_reservation.build_room(
+        category: hotel_hash["offers"][0]["room"]["description"]["text"].split("\n")[1]
+      )
+    end
+    hotel
+  end
+
+  def includes_description?(hotel)
+  end
+
+  def includes_amenities?(hotel)
+    hotel
   end
 
 end
