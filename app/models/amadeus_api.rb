@@ -9,7 +9,7 @@ class AmadeusApi
         client_id: "#{ENV['AMADEUS_API_KEY']}",
         client_secret: "#{ENV['AMADEUS_API_SECRET']}"
       })
-    self << @@all
+    @@all << self
     city = City.find_or_create_by(code: "LON", name: "London")
     user = User.find_or_create_by(first_name: "Luis", last_name: "M")
   end

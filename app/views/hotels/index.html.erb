@@ -1,8 +1,14 @@
 <div class"view" id="index">
 <div>
 <%= form_with url: "/", method: :get do |form| %>
-  <%= form.label :query, "Search for:" %>
-  <%= form.text_field :query %>
+  <%= form.label :city, "Search for:" %>
+  <%= form.text_field :city %>
+  <%= form.label :checkin_date, "Check-in date:" %>
+  <%= form.date_field :checkin_date %>
+  <%= form.label :checkout_date, "Check-out date:" %>
+  <%= form.date_field :checkout_date %>
+  <%= form.label :guests, "Adults:" %>
+  <%= form.number_field :guests %>
   <%= form.submit "Search" %>
 <% end %>
 </div>

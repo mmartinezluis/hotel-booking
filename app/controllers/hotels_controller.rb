@@ -1,14 +1,15 @@
 class HotelsController < ApplicationController
     # before_action :set_api, set_hotel on reserve
   def index
+    
     if AmadeusApi.all.first
       api = AmadeusApi.all.first
     else
       api = AmadeusApi.new
     end
     api.hotels.clear
-    if params[:query] && !params[:query].blank?
-      @hotels = api.query_city(params[:query])
+    if params[:city] && !params[:city].blank?
+      @hotels = api.query_city(params[:city], params[:checkin_date], params[:checkout_date], params[:guests])
       if @hotels.empty?
         flash[:msg] = "Ooops, no hotels could be found for the requsted specifications"
       end
