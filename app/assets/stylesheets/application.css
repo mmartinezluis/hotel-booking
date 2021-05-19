@@ -14,8 +14,17 @@
  *= require_self
  */
 
+ /* 
+  
+ *= require bootstrap-datepicker
+ 
+  */
+
+
  #index {
   display: flex;
   flex-direction: column;
   align-items: center;  
  }
+
+ 

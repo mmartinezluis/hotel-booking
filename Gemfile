@@ -24,11 +24,20 @@ gem 'jbuilder', '~> 2.7'
 
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
-
+gem 'bootstrap'
 gem 'dotenv-rails'
 gem 'rest-client'
 gem 'json'
+# Used for API
 gem 'amadeus'
+# Used for datepicker function
+gem 'bootstrap-datepicker-rails'  
+# Used for daterange picker
+gem 'bootstrap-daterangepicker-rails'
+# Used for daterange picker function
+gem 'jquery-rails'
+# Used for dateprange picker function
+gem 'momentjs-rails'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.4', require: false

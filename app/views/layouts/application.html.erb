@@ -13,4 +13,15 @@
   <body>
     <%= yield %>
   </body>
+
+  <script>
+  //= require bootstrap-datepicker
+  
+  //= require jquery
+  //= require moment
+  //= require daterangepicker
+
+  $('#datepicker').datepicker({format: 'dd/mm/yyyy'});
+
+  </script>
 </html>

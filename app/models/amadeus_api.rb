@@ -49,8 +49,4 @@ class AmadeusApi
     parse_reservation_query = reservation_query
   end
 
-
-
-  
-
 end
