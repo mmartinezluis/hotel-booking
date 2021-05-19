@@ -1,7 +1,6 @@
 class HotelsController < ApplicationController
     # before_action :set_api, set_hotel on reserve
   def index
-    
     if AmadeusApi.all.first
       api = AmadeusApi.all.first
     else
@@ -17,7 +16,7 @@ class HotelsController < ApplicationController
   end
 
   def show
-    api = AmadeusApi.new
+    api = AmadeusApi.all.first
     @hotel = api.hotels.find { |hotel| hotel.hotelId == params[:hotelId] }
   end
 
