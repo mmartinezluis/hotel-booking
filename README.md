@@ -17,8 +17,9 @@ Hotel Booking uses the [Amadeus Hotel Search API](https://developers.amadeus.com
 * Admin users can create a new user right before booking a reservation.
 
 Hotel Booking is under development, and it currenlty supports the following functionalities:
-* Users can find hotel reservations by a given city in real-time.
-* Users can verify the availability of a reservation in real-time and can book a reservation. 
+* Users can find hotel reservations by a given city in real-time. 
+* Users can verify the availability of a reservation in real-time and can book a reservation. (Achieved: May 17)
+* Users can find hotel reservations by location, checkin date, checkout date, and number of guests. (Achieved: May 18)
 
 ## Getting Started
 To get started with the app, make sure you have Rails and Git installed on your machine. Clone the repo to your local machine:
