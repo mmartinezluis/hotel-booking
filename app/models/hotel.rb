@@ -7,9 +7,10 @@ class Hotel < ApplicationRecord
 
   def self.build_hotel(hotel_hash)
     hotel = Hotel.find_by(hotelId: hotel_hash["hotel"]["hotelId"])
+    city = City.find_or_create_by(code: hotel_hash["hotel"]["cityCode"])
     unless hotel 
       hotel = Hotel.new
-      hotel.city_id = City.first.id
+      hotel.city_id = city.id
       hotel.hotelId = hotel_hash["hotel"]["hotelId"]
       hotel.citycode = hotel_hash["hotel"]["cityCode"]
       hotel.name = hotel_hash["hotel"]["name"]
@@ -19,7 +20,6 @@ class Hotel < ApplicationRecord
       hotel.description = hotel_hash["hotel"]["description"]["text"] unless !hotel_hash["hotel"].keys.include?("description")
       hotel.amenities = hotel_hash["hotel"]["amenities"].take(5).join(", ") unless !hotel_hash["hotel"].keys.include?("amenities")
     end
-    
     #  Build nested reservation for hotel 
     new_reservation = hotel.reservations.build(
       code: hotel_hash["offers"][0]["id"],                    # Reservation code in schema, reservations
@@ -30,7 +30,6 @@ class Hotel < ApplicationRecord
       checkout_date: hotel_hash["offers"][0]["checkOutDate"],          # Checkout date
     )
     new_reservation.user_id = User.first.id
-
     #  Build nested room for reservation 
     if hotel_hash["offers"][0]["room"].keys.include?("typeEstimated")
       new_room = new_reservation.build_room(
@@ -44,6 +43,10 @@ class Hotel < ApplicationRecord
       )
     end
     hotel
+  end
+
+  def last_reservation
+    self.reservations.last
   end
 
   def includes_description?(hotel)

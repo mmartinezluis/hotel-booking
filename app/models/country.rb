@@ -1,4 +1,4 @@
 class Country < ApplicationRecord
-  has_many: cities
-  has_mnay :hotels, through: :cities
+  has_many :cities
+  has_many :hotels, through: :cities
 end

@@ -1,9 +1,16 @@
+<div class="msg">
+  <% if flash[:msg] %>
+    <%= flash[:msg] %>
+  <% end %>
+</div>
+
 <div class="single" id="show">
-  <span><%= @hotel.name %></span><br>
-  <span><%= hotel_guests(@hotel) %> adults</span><br>
-  <span>Check-in date: <%= hotel_checkin(@hotel) %></span><br>
-  <span>Check-out date: <%= hotel_checkout(@hotel) %></span><br>
-  <%= @hotel.description  %><br>
-  
-  <a href="/reserve/<%= @hotel.hotelId %>/<%= reservation_code(@hotel) %>">Reserve</a>
+  <div>
+    <span><%= @hotel.name %></span><br>
+    <span><%= hotel_guests(@hotel) %> adults</span><br>
+    <span>Check-in date: <%= hotel_checkin(@hotel) %></span><br>
+    <span>Check-out date: <%= hotel_checkout(@hotel) %></span><br>
+    <%= @hotel.description  %><br>
   </div>
+  <a href="/reserve/<%= @hotel.hotelId %>/<%= reservation_code(@hotel) %>">Reserve</a>
+</div>

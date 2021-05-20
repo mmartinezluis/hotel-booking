@@ -1,14 +1,17 @@
 class HotelsController < ApplicationController
-    # before_action :set_api, set_hotel on reserve
+#   before_action :set_api 
+#   before_action :set_hotel, only: [:show, :reserve]
+
   def index
-    if AmadeusApi.all.first
-      api = AmadeusApi.all.first
-    else
-      api = AmadeusApi.new
-    end
-    api.hotels.clear
+    api = AmadeusApi.all.last
+    api ||= AmadeusApi.new
+    # api.hotels.clear
     if params[:city] && !params[:city].blank?
-      @hotels = api.query_city(params[:city], params[:checkin_date], params[:checkout_date], params[:guests])
+      if params[:checkin_date].blank? && params[:checkout_date].blank? && params[:guests].blank?
+        @hotels = api.query_city(params[:city])
+      else
+        @hotels = api.query_city(params[:city], params[:checkin_date], params[:checkout_date], params[:guests])
+      end
       if @hotels.empty?
         flash[:msg] = "Ooops, no hotels could be found for the requsted specifications"
       end
@@ -16,45 +19,48 @@ class HotelsController < ApplicationController
   end
 
   def show
-    api = AmadeusApi.all.first
-    @hotel = api.hotels.find { |hotel| hotel.hotelId == params[:hotelId] }
+    # api = AmadeusApi.new
+    @hotel = AmadeusApi.hotels.find { |hotel| hotel.hotelId == params[:hotelId] }
   end
 
   def reserve
-    api = AmadeusApi.new
-    @hotel = api.hotels.find { |hotel| hotel.hotelId == params[:hotelId] }
+    api = AmadeusApi.all.last
+    @hotel = AmadeusApi.hotels.find { |hotel| hotel.hotelId == params[:hotelId] }
     begin
       reservation = api.amadeus.shopping.hotel_offer(params[:code]).get.data 
     rescue StandardError => e
       flash[:msg] = "#{e.class}: #{e.message}. Please try again..."
-      # flash[:msg] = "The reservation could not processed as it has already been booked. Please try another reservation."
       redirect_to root_path
-    else
-      if reservation
-        reservation["available"]  == true
-        reservation["offers"][0]["checkInDate"] == @hotel.reservations.last.checkin_date
-        reservation["offers"][0]["checkOutDate"] == @hotel.reservations.last.checkout_date
-        reservation["offers"][0]["guests"]["adults"] == @hotel.reservations.last.guests
-        reservation["offers"][0]["price"]["total"] == @hotel.reservations.last.price
-        @hotel.save
-        api.hotels.clear
-        flash[:msg] = "Congratualtions! Your reservation was successfully processed."
+    else 
+      if reservation && reservation["available"]  == true
+        checkin = reservation["offers"][0]["checkInDate"] == @hotel.last_reservation.checkin_date
+        checkout = reservation["offers"][0]["checkOutDate"] == @hotel.last_reservation.checkout_date
+        guests = reservation["offers"][0]["guests"]["adults"] == @hotel.last_reservation.guests
+        # price = reservation["offers"][0]["price"]["total"] == @hotel.last_reservation.price
+        if checkin && checkout && guests #&& price
+          AmadeusApi.hotels.clear
+          @hotel.save
+          flash[:msg] = "Congratualtions! Your reservation was successfully processed."
+          redirect_to root_path
+        else
+          flash[:msg]= "Sorry, one or more of the reservation conditions have changed. Please retry you hotel search."
+          render :'show.html.erb' and return
+        end
+      else
+        flash[msg] = "Ooops, the reservation has already been booked."
+        render :'show.html.erb' and return
       end
-      redirect_to root_path
     end
-    
   end
 
   private
+
 #   def set_api
-#     if AmadeusApi.all.first
-#       api = AmadeusApi.all.first
-#     else
-#       api = AmadeusApi.new
-#     end
+#     api = AmadeusApi.all.last
+#     api ||= AmadeusApi.new
 #   end
 
 #   def set_hotel
-#     @hotel = api.hotels.select { |hotel| hotel.hotelId == params[:hotelId] }
+#     @hotel = api.hotels.find { |hotel| hotel.hotelId == params[:hotelId] }
 #   end
 end
