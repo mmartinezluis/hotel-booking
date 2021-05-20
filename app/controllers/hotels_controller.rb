@@ -5,15 +5,20 @@ class HotelsController < ApplicationController
   def index
     api = AmadeusApi.all.last
     api ||= AmadeusApi.new
-    # api.hotels.clear
+    AmadeusApi.hotels.clear
     if params[:city] && !params[:city].blank?
-      if params[:checkin_date].blank? && params[:checkout_date].blank? && params[:guests].blank?
-        @hotels = api.query_city(params[:city])
-      else
-        @hotels = api.query_city(params[:city], params[:checkin_date], params[:checkout_date], params[:guests])
+      begin
+        if params[:checkin_date].blank? && params[:checkout_date].blank? && params[:guests].blank?
+          @hotels = api.query_city(params[:city])
+        else
+          @hotels = api.query_city(params[:city], params[:checkin_date], params[:checkout_date], params[:guests])
+        end
+      rescue StandardError => e
+        flash[:msg] = "#{e.class}: #{e.message}. Please try again..."
+        render :'index.html.erb' and return
       end
       if @hotels.empty?
-        flash[:msg] = "Ooops, no hotels could be found for the requsted specifications"
+        flash[:msg] = "Ooops, no hotels could be found for the requested specifications"
       end
     end
   end

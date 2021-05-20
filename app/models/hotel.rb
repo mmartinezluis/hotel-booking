@@ -30,6 +30,7 @@ class Hotel < ApplicationRecord
       checkout_date: hotel_hash["offers"][0]["checkOutDate"],          # Checkout date
     )
     new_reservation.user_id = User.first.id
+    new_reservation.city_id = city.id
     #  Build nested room for reservation 
     if hotel_hash["offers"][0]["room"].keys.include?("typeEstimated")
       new_room = new_reservation.build_room(
