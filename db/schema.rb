@@ -49,7 +49,6 @@ ActiveRecord::Schema.define(version: 2021_05_16_125946) do
     t.string "checkout_date"
     t.integer "user_id"
     t.integer "hotel_id"
-    t.integer "city_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

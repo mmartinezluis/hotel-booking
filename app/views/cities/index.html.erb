@@ -3,7 +3,7 @@
   <ul>
     <% @cities.each do |city| %>
       <li>
-        <p><%= city.name %> <%= city .code %></p>
+        <%= link_to city.code, city_hotels_path(city.id) %>
       </li>
     <% end %>
   </ul>

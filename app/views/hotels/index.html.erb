@@ -23,16 +23,14 @@
   <% if @hotels %>
     <ul>
       <% @hotels.each do |hotel| %>
-        <a href="/<%= hotel.hotelId %>">
-          <div>
-            <li>
-              <%= hotel.name %><br>
-              <%= hotel_price(hotel) %><br>
-              <span>Adults: <%= hotel_guests(hotel) %></span><br>
-              <span>Beds: <%= hotel_beds(hotel) %></span>
-            </li>
-          </div>
-        </a>
+        <div>
+          <li>
+            <%= link_to hotel.name, @nested_city ? "#{city_hotel_path(@nested_city,hotel.id)}" : "hotel.hotelId" %>
+            <%= hotel_price(hotel) %><br>
+            <span>Adults: <%= hotel_guests(hotel) %></span><br>
+            <span>Beds: <%= hotel_beds(hotel) %></span>
+          </li>
+        </div>
       <% end %>
     </ul>
   <% end %>

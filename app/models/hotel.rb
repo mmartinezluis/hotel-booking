@@ -6,8 +6,8 @@ class Hotel < ApplicationRecord
   belongs_to :city
 
   def self.build_hotel(hotel_hash)
-    hotel = Hotel.find_by(hotelId: hotel_hash["hotel"]["hotelId"])
     city = City.find_or_create_by(code: hotel_hash["hotel"]["cityCode"])
+    hotel = Hotel.find_by(hotelId: hotel_hash["hotel"]["hotelId"])
     unless hotel 
       hotel = Hotel.new
       hotel.city_id = city.id
@@ -30,7 +30,6 @@ class Hotel < ApplicationRecord
       checkout_date: hotel_hash["offers"][0]["checkOutDate"],          # Checkout date
     )
     new_reservation.user_id = User.first.id
-    new_reservation.city_id = city.id
     #  Build nested room for reservation 
     if hotel_hash["offers"][0]["room"].keys.include?("typeEstimated")
       new_room = new_reservation.build_room(

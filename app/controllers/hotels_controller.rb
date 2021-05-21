@@ -3,29 +3,41 @@ class HotelsController < ApplicationController
 #   before_action :set_hotel, only: [:show, :reserve]
 
   def index
-    api = AmadeusApi.all.last
-    api ||= AmadeusApi.new
-    AmadeusApi.hotels.clear
-    if params[:city] && !params[:city].blank?
-      begin
-        if params[:checkin_date].blank? && params[:checkout_date].blank? && params[:guests].blank?
-          @hotels = api.query_city(params[:city])
-        else
-          @hotels = api.query_city(params[:city], params[:checkin_date], params[:checkout_date], params[:guests])
+    # If the user uses the city_hotels nested route, display hotels from the nested city only
+    if params[:city_id]
+     @nested_city = City.find_by(id: params[:city_id]).id
+     @hotels = User.first.hotels.where("city_id = ?", params[:city_id])
+    else
+      # If no nested route, load the API for searching hotels
+      api = AmadeusApi.all.last
+      api ||= AmadeusApi.new
+      AmadeusApi.hotels.clear
+      if params[:city] && !params[:city].blank?
+        begin
+          if params[:checkin_date].blank? && params[:checkout_date].blank? && params[:guests].blank?
+            @hotels = api.query_city(params[:city])
+          else
+            @hotels = api.query_city(params[:city], params[:checkin_date], params[:checkout_date], params[:guests])
+          end
+        rescue StandardError => e
+          flash[:msg] = "#{e.class}: #{e.message}. Please try again..."
+          render :'index.html.erb' and return
         end
-      rescue StandardError => e
-        flash[:msg] = "#{e.class}: #{e.message}. Please try again..."
-        render :'index.html.erb' and return
-      end
-      if @hotels.empty?
-        flash[:msg] = "Ooops, no hotels could be found for the requested specifications"
+        if @hotels.empty?
+          flash[:msg] = "Ooops, no hotels could be found for the requested specifications"
+        end
       end
     end
   end
 
   def show
+    
+    if params[:id]
+      @hotel = Hotel.find_by(id: params[:id])
+    else
     # api = AmadeusApi.new
-    @hotel = AmadeusApi.hotels.find { |hotel| hotel.hotelId == params[:hotelId] }
+      @hotel = AmadeusApi.hotels.find { |hotel| hotel.hotelId == params[:hotelId] }
+    end
   end
 
   def reserve
@@ -68,4 +80,9 @@ class HotelsController < ApplicationController
 #   def set_hotel
 #     @hotel = api.hotels.find { |hotel| hotel.hotelId == params[:hotelId] }
 #   end
+
+    def hotel_params
+      params.require(:hotel).permit(:city_id)
+    end
+  
 end
