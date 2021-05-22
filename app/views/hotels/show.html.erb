@@ -1,9 +1,5 @@
 <div class="view" id="hotel-show">
-  <div class="msg">
-    <% if flash[:msg] %>
-      <%= flash[:msg] %>
-    <% end %>
-  </div>
+  <%= render partial: 'messages/msg' %>
 
   <div class="box" id="hotel">
     <h2><%= @hotel.name %></h2>

@@ -1,0 +1,11 @@
+<%= form_with url: "/", method: :get do |form| %>
+  <%= form.label :city, "Search for:" %>
+  <%= form.text_field :city %>
+  <%= form.label :checkin_date, "Check-in date:" %>
+  <%= form.date_field :checkin_date, :class =>"datepicker" %>
+  <%= form.label :checkout_date, "Check-out date:" %>
+  <%= form.date_field :checkout_date %>
+  <%= form.label :guests, "Guests:" %>
+  <%= form.select :guests, [1,2,3,4,5], :include_blank => true %>
+  <%= form.submit "Search" %>
+<% end %>

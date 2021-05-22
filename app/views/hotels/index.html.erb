@@ -1,39 +1,26 @@
 <div class"view" id="index">
-<div>
-<%= form_with url: "/", method: :get do |form| %>
-  <%= form.label :city, "Search for:" %>
-  <%= form.text_field :city %>
-  <%= form.label :checkin_date, "Check-in date:" %>
-  <%= form.date_field :checkin_date, :class =>"datepicker" %>
-  <%= form.label :checkout_date, "Check-out date:" %>
-  <%= form.date_field :checkout_date %>
-  <%= form.label :guests, "Guests:" %>
-  <%= form.select :guests, [1,2,3,4,5], :include_blank => true %>
-  <%= form.submit "Search" %>
-<% end %>
-</div>
 
-<div class="msg">
-  <% if flash[:msg] %>
-    <%= flash[:msg] %>
-  <% end %>
-</div>
+  <div>
+    <%= render 'hotel_search' %>
+  </div>
 
-<div class="series" id="hotels" >
-  <% if @hotels %>
-    <ul>
-      <% @hotels.each do |hotel| %>
-        <div>
-          <li>
-            <%= link_to hotel.name, @nested_city ? "#{city_hotel_path(@nested_city,hotel.id)}" : "#{hotel.hotelId}" %><br>
-            <span>Guests: <%= hotel_guests(hotel) %></span><br>
-            <span>Beds: <%= hotel_beds(hotel) %></span>
-            <p>Price: <%= hotel_currency(hotel) %><%= hotel_price(hotel) %></p>
-          </li>
-        </div>
-      <% end %>
-    </ul>
-  <% end %>
-</div>
+  <%= render partial: 'messages/msg' %>
+
+  <div class="series" id="hotels" >
+    <% if @hotels %>
+      <ul>
+        <% @hotels.each do |hotel| %>
+          <div>
+            <li>
+              <%= link_to hotel.name, @nested_city ? "#{city_hotel_path(@nested_city,hotel.id)}" : "#{hotel.hotelId}" %><br>
+              <span>Guests: <%= hotel_guests(hotel) %></span><br>
+              <span>Beds: <%= hotel_beds(hotel) %></span>
+              <p>Price: <%= hotel_currency(hotel) %><%= hotel_price(hotel) %></p>
+            </li>
+          </div>
+        <% end %>
+      </ul>
+    <% end %>
+  </div>
   
 </div>
