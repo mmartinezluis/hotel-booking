@@ -11,4 +11,18 @@ module ReservationsHelper
 #     current_user.reservations.where("hotel_id = ?", hotel.id).order(checkin_date: :desc)
 #   end
 
+  def unbooked_reservation?(hotel)
+    !User.first.unbooked_reservations(hotel).empty?
+  end
+
+  def upcoming_reservations?(hotel)
+    !User.first.upcoming_reservations(hotel).empty?
+  end
+
+  def previeous_reservations?(hotel)
+    !User.first.previous_reservations(hotel).empty?
+  end
+
+
+
 end

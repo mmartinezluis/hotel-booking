@@ -28,7 +28,17 @@ class User < ApplicationRecord
     end
   end
 
-  
+  def all_reservations
+    self.reservations.order(checkin_date: :desc)
+  end
+
+  def upcoming_reservations(hotel)
+    booked_reservations(hotel).where("checkin_date >= :todays_date", {todays_date: Date.today.to_s})
+  end
+
+  def previous_reservations(hotel)
+    booked_reservations(hotel).where("checkin_date < :todays_date", {todays_date: Date.today.to_s})
+  end
  
     
 end

@@ -9,12 +9,19 @@
 
   <div class="box" id="reservations">
     <% if !User.first.unbooked_reservation(@hotel).empty? %>  
-    <h3>Offer</h3>
+      <h3>Offer</h3>
       <%= render partial: 'reservations/info', collection: User.first.unbooked_reservation(@hotel), as: :reservation %>
       <a href="/reserve/<%= @hotel.hotelId %>/<%= reservation_code(@hotel) %>">Reserve</a>
     <% else %>
-    <h3>Reservations</h3>
-      <%= render partial: 'reservations/info', collection: User.first.booked_reservations(@hotel), as: :reservation %>
+      <h3>Reservations</h3><br>
+      <% if upcoming_reservations?(@hotel) %>
+        <p>Upcoming:</p><br>
+        <%= render partial: 'reservations/info', collection: User.first.upcoming_reservations(@hotel), as: :reservation %>
+      <% end %><br>
+      <% if previeous_reservations?(@hotel) %>
+        <p>Previous:</p><br>
+        <%= render partial: 'reservations/info', collection: User.first.previous_reservations(@hotel), as: :reservation %>
+      <% end %>
     <% end %>
   <div>
 

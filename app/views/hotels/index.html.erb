@@ -8,7 +8,7 @@
 
   <div class="series" id="hotels" >
     <% if @hotels %>
-      <h2>Your hotels in <%= @nested_city.code if @nested_city %></h2><br>
+      <h2>Your hotels in <%= @nested_city.code if @nested_city %>:</h2><br>
       <ul>
         <% @hotels.each do |hotel| %>
           <div>
