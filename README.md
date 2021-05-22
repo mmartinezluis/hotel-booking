@@ -1,21 +1,3 @@
-hotels/show
-     <% if hotel_search(@hotel) %>
-        hotel_search_reservation(@hotel)
-
-Displaying booked reservations
-  <div class="box" id="reservations">
-    <% User.first.booked_reservations(@hotel).each do |reservation| %>
-      <div class="reservation">
-      
-      <%= render partial: 'reservations/info', collection: reservation %>
-        Check-in date: <%= reservation.checkin_date %><br>
-        Check-out date: <%= reservation.checkout_date %><br>
-        Guests:<%= reservation.guests %><br>
-        Price: <%= reservation.price %><br>
-      </div>
-    <% end %>
-  <div>
-
 # Project: Hotel Booking
 
 ## Introduction
@@ -38,6 +20,9 @@ Hotel Booking is under development, and it currenlty supports the following func
 * Users can find hotel reservations by a given city in real-time. 
 * Users can verify the availability of a reservation in real-time and can book a reservation. (Achieved: May 17)
 * Users can find hotel reservations by location, checkin date, checkout date, and number of guests. (Achieved: May 18)
+* Users can see the list of cities where they have reservations.
+* Users can select a city to see the list of hotels that include booked reservations.
+* Users can select a hotel to see the hotel's description and their booked reservations at that hotel. (Achieved: May 22)
 
 ## Getting Started
 To get started with the app, make sure you have Rails and Git installed on your machine. Clone the repo to your local machine:
