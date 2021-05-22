@@ -6,7 +6,7 @@ class HotelsController < ApplicationController
   def index
     # If the user uses the city_hotels nested route, display hotels from the nested city only
     if params[:city_id]
-     @nested_city = City.find_by(id: params[:city_id]).id
+     @nested_city = City.find_by(id: params[:city_id])
      @hotels = User.first.hotels_by_city(params[:city_id])
      #@hotels = User.first.hotels.where("city_id = ?", params[:city_id]).distinct
     else

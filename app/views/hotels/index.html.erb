@@ -1,13 +1,14 @@
 <div class"view" id="index">
 
   <div>
-    <%= render 'hotel_search' %>
+    <%= render 'hotel_search' unless @nested_city %>
   </div>
 
   <%= render partial: 'messages/msg' %>
 
   <div class="series" id="hotels" >
     <% if @hotels %>
+      <h2>Your hotels in <%= @nested_city.code if @nested_city %></h2><br>
       <ul>
         <% @hotels.each do |hotel| %>
           <div>

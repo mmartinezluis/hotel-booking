@@ -1,4 +1,5 @@
 <div class="view" id="hotel-show">
+
   <%= render partial: 'messages/msg' %>
 
   <div class="box" id="hotel">
@@ -7,13 +8,13 @@
   </div>
 
   <div class="box" id="reservations">
-    <% if !unbooked_reservation(User.first, @hotel).empty? %>  
+    <% if !User.first.unbooked_reservation(@hotel).empty? %>  
     <h3>Offer</h3>
-      <%= render partial: 'reservations/info', collection: unbooked_reservation(User.first, @hotel), as: :reservation %>
+      <%= render partial: 'reservations/info', collection: User.first.unbooked_reservation(@hotel), as: :reservation %>
       <a href="/reserve/<%= @hotel.hotelId %>/<%= reservation_code(@hotel) %>">Reserve</a>
     <% else %>
     <h3>Reservations</h3>
-      <%= render partial: 'reservations/info', collection: booked_reservations(User.first, @hotel), as: :reservation %>
+      <%= render partial: 'reservations/info', collection: User.first.booked_reservations(@hotel), as: :reservation %>
     <% end %>
   <div>
 
