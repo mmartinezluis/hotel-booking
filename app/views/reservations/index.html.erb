@@ -1,0 +1,8 @@
+<h1>Reservations</h1>
+
+<% @reservations.each do |reservation| %>
+    <h2><%= reservation.hotel.name %></h2>
+    <p><%= reservation.hotel.city.code %></p>
+    <%= render 'info' %>
+<% end %>
+

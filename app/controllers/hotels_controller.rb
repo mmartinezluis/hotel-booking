@@ -1,12 +1,14 @@
 class HotelsController < ApplicationController
 #   before_action :set_api 
 #   before_action :set_hotel, only: [:show, :reserve]
+#   before_action :verify_params
 
   def index
     # If the user uses the city_hotels nested route, display hotels from the nested city only
     if params[:city_id]
      @nested_city = City.find_by(id: params[:city_id]).id
-     @hotels = User.first.hotels.where("city_id = ?", params[:city_id])
+     @hotels = User.first.hotels_by_city(params[:city_id])
+     #@hotels = User.first.hotels.where("city_id = ?", params[:city_id]).distinct
     else
       # If no nested route, load the API for searching hotels
       api = AmadeusApi.all.last
@@ -31,11 +33,12 @@ class HotelsController < ApplicationController
   end
 
   def show
-    
+    # If nested route, show the hotel from the database by id
     if params[:id]
       @hotel = Hotel.find_by(id: params[:id])
     else
     # api = AmadeusApi.new
+    # If no nested route, show the hotel using the hotel id from the API
       @hotel = AmadeusApi.hotels.find { |hotel| hotel.hotelId == params[:hotelId] }
     end
   end
@@ -43,6 +46,7 @@ class HotelsController < ApplicationController
   def reserve
     api = AmadeusApi.all.last
     @hotel = AmadeusApi.hotels.find { |hotel| hotel.hotelId == params[:hotelId] }
+    # 'reservation' can cause an exception 
     begin
       reservation = api.amadeus.shopping.hotel_offer(params[:code]).get.data 
     rescue StandardError => e
@@ -83,6 +87,9 @@ class HotelsController < ApplicationController
 
     def hotel_params
       params.require(:hotel).permit(:city_id)
+    end
+
+    def verify_params
     end
   
 end

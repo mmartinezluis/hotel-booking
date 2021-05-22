@@ -53,7 +53,6 @@ class Hotel < ApplicationRecord
   end
 
   def includes_amenities?(hotel)
-    hotel
   end
-
+  
 end

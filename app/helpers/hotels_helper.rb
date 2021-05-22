@@ -3,6 +3,10 @@ module HotelsHelper
     hotel.reservations.last.price
   end
 
+  def hotel_currency(hotel)
+    hotel.reservations.last.currency
+  end
+
   def hotel_guests(hotel)
     hotel.reservations.last.guests
   end

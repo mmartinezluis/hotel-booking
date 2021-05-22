@@ -1,16 +1,33 @@
-<div class="msg">
-  <% if flash[:msg] %>
-    <%= flash[:msg] %>
-  <% end %>
-</div>
-
-<div class="view" id="show">
-  <div>
-    <span><%= @hotel.name %></span><br>
-    <span><%= hotel_guests(@hotel) %> adults</span><br>
-    <span>Check-in date: <%= hotel_checkin(@hotel) %></span><br>
-    <span>Check-out date: <%= hotel_checkout(@hotel) %></span><br>
-    <%= @hotel.description  %><br>
+<div class="view" id="hotel-show">
+  <div class="msg">
+    <% if flash[:msg] %>
+      <%= flash[:msg] %>
+    <% end %>
   </div>
-  <a href="/reserve/<%= @hotel.hotelId %>/<%= reservation_code(@hotel) %>">Reserve</a>
+
+  <div class="box" id="hotel">
+    <div>
+      <span><%= @hotel.name %></span><br>
+      <span><%= hotel_guests(@hotel) %> adults</span><br>
+      <span>Check-in date: <%= hotel_checkin(@hotel) %></span><br>
+      <span>Check-out date: <%= hotel_checkout(@hotel) %></span><br>
+      <%= @hotel.description  %><br>
+    </div>
+    <a href="/reserve/<%= @hotel.hotelId %>/<%= reservation_code(@hotel) %>">Reserve</a>
+  </div>
+
+  <div class="box" id="reservations">
+    <% User.first.booked_reservations(@hotel).each do |reservation| %>
+      <div class="reservation">
+        Check-in date: <%= reservation.checkin_date %><br>
+        Check-out date: <%= reservation.checkout_date %><br>
+        Guests:<%= reservation.guests %><br>
+        Price: <%= reservation.price %><br>
+      </div>
+    <% end %>
+  <div>
+
+  <div class="box" id="reviews">
+  </div>
+
 </div>
