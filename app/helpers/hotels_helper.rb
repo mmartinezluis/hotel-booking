@@ -1,4 +1,5 @@
 module HotelsHelper
+
   def hotel_price(hotel)
     hotel.reservations.last.price
   end

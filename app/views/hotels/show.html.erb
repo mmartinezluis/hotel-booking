@@ -6,24 +6,18 @@
   </div>
 
   <div class="box" id="hotel">
-    <div>
-      <span><%= @hotel.name %></span><br>
-      <span><%= hotel_guests(@hotel) %> adults</span><br>
-      <span>Check-in date: <%= hotel_checkin(@hotel) %></span><br>
-      <span>Check-out date: <%= hotel_checkout(@hotel) %></span><br>
-      <%= @hotel.description  %><br>
-    </div>
-    <a href="/reserve/<%= @hotel.hotelId %>/<%= reservation_code(@hotel) %>">Reserve</a>
+    <h2><%= @hotel.name %></h2>
+    <%= @hotel.description  %><br>
   </div>
 
   <div class="box" id="reservations">
-    <% User.first.booked_reservations(@hotel).each do |reservation| %>
-      <div class="reservation">
-        Check-in date: <%= reservation.checkin_date %><br>
-        Check-out date: <%= reservation.checkout_date %><br>
-        Guests:<%= reservation.guests %><br>
-        Price: <%= reservation.price %><br>
-      </div>
+    <% if !unbooked_reservation(User.first, @hotel).empty? %>  
+    <h3>Offer</h3>
+      <%= render partial: 'reservations/info', collection: unbooked_reservation(User.first, @hotel), as: :reservation %>
+      <a href="/reserve/<%= @hotel.hotelId %>/<%= reservation_code(@hotel) %>">Reserve</a>
+    <% else %>
+    <h3>Reservations</h3>
+      <%= render partial: 'reservations/info', collection: booked_reservations(User.first, @hotel), as: :reservation %>
     <% end %>
   <div>
 

@@ -1,3 +1,21 @@
+hotels/show
+     <% if hotel_search(@hotel) %>
+        hotel_search_reservation(@hotel)
+
+Displaying booked reservations
+  <div class="box" id="reservations">
+    <% User.first.booked_reservations(@hotel).each do |reservation| %>
+      <div class="reservation">
+      
+      <%= render partial: 'reservations/info', collection: reservation %>
+        Check-in date: <%= reservation.checkin_date %><br>
+        Check-out date: <%= reservation.checkout_date %><br>
+        Guests:<%= reservation.guests %><br>
+        Price: <%= reservation.price %><br>
+      </div>
+    <% end %>
+  <div>
+
 # Project: Hotel Booking
 
 ## Introduction

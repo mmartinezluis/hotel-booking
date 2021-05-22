@@ -79,6 +79,7 @@ class HotelsController < ApplicationController
 #   def set_api
 #     api = AmadeusApi.all.last
 #     api ||= AmadeusApi.new
+#     api
 #   end
 
 #   def set_hotel
