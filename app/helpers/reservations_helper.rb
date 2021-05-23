@@ -23,6 +23,10 @@ module ReservationsHelper
     !User.first.previous_reservations(hotel).empty?
   end
 
+  def open_for_review?(reservation)
+    reservation.checkout_date < Date.today.to_s
+  end
+
 
 
 end

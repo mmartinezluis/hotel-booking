@@ -15,12 +15,16 @@ Rails.application.routes.draw do
     resources :hotels, only: [:index, :show]
   end
 
-  resources :hotels, only: [:show] do
-    resources :reservations, only: [:new, :show]
-  end
+  # resources :hotels, only: [:show] do
+  #   resources :reservations, only: [:new, :show]
+  # end
 
   resources :users, only: [:show] do
     resources :hotels, only: [:index]
+  end
+
+  resources :reservations, only: [:show] do
+    resources :reviews, only: [:show, :new, :edit]
   end
 
 end

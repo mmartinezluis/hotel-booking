@@ -13,6 +13,7 @@
       <a href="/reserve/<%= @hotel.hotelId %>/<%= reservation_code(@hotel) %>">Reserve</a>
     <% else %>
       <h3>Reservations</h3><br>
+      
       <% if upcoming_reservations?(@hotel) %>
         <p>Upcoming:</p><br>
         <%= render partial: 'reservations/info', collection: User.first.upcoming_reservations(@hotel), as: :reservation %>
