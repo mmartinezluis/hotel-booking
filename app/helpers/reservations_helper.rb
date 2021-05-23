@@ -12,7 +12,7 @@ module ReservationsHelper
 #   end
 
   def unbooked_reservation?(hotel)
-    !User.first.unbooked_reservations(hotel).empty?
+    !User.first.unbooked_reservation(hotel).empty?
   end
 
   def upcoming_reservations?(hotel)
@@ -23,10 +23,12 @@ module ReservationsHelper
     !User.first.previous_reservations(hotel).empty?
   end
 
+  def upcoming_single_reservation?(reservation)
+    reservation.checkin_date >= Date.today.to_s
+  end
+
   def open_for_review?(reservation)
     reservation.checkout_date < Date.today.to_s
   end
-
-
 
 end

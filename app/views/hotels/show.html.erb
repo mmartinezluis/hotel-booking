@@ -3,17 +3,20 @@
   <%= render partial: 'messages/msg' %>
 
   <div class="box" id="hotel">
-    <%= render 'info' %>
+    <%= render 'hotels/info' %>
   </div>
 
   <div class="box" id="reservations">
-    <% if !User.first.unbooked_reservation(@hotel).empty? %>  
-      <h3>Offer</h3>
+    <% if unbooked_reservation?(@hotel) %>  
+      <h3>Offer:</h3>
       <%= render partial: 'reservations/info', collection: User.first.unbooked_reservation(@hotel), as: :reservation %>
       <a href="/reserve/<%= @hotel.hotelId %>/<%= reservation_code(@hotel) %>">Reserve</a>
+    <% elsif @single_reservation %>
+      <h3>Reservation</h3><br>
+      <p><%= upcoming_single_reservation?(@single_reservation) ? 'Upcoming' : 'Previous' %></p>
+      <%= render partial: 'reservations/info', locals: { reservation: @single_reservation} %>
     <% else %>
       <h3>Reservations</h3><br>
-      
       <% if upcoming_reservations?(@hotel) %>
         <p>Upcoming:</p><br>
         <%= render partial: 'reservations/info', collection: User.first.upcoming_reservations(@hotel), as: :reservation %>

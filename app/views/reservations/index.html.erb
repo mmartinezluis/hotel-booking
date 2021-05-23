@@ -1,7 +1,7 @@
 <h1>Reservations</h1>
 
 <% if @reservations.empty? %>
-  <h3>It looks you haven't booked any reservations yet</h3>
+  <h3>It looks you haven't booked any reservations yet :)</h3>
 <% else %>
     <% @reservations.each do |reservation| %>
       <a href="/reservations/<%= reservation.id %>">

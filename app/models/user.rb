@@ -5,12 +5,12 @@ class User < ApplicationRecord
   has_many :reviews, through: :reservations
   # accepts_nested_attributes_for :reservations
 
-  # Used by the API to show a hotel reservation offer; needs to use native Ruby methods as the offer is not persited in database
-  # This method needs to be changed to ".find" instead of ".select" at a later point
   def find_hotel(hotel_id)
     self.hotels.distinct.find_by(id: hotel_id)
   end
 
+  # Used by the API to show a hotel reservation offer; needs to use native Ruby methods as the offer is not persited in database
+  # This method needs to be changed to ".find" instead of ".select" at a later point
   def unbooked_reservation(hotel)
     hotel.reservations.select { |reservation| reservation.id == nil && reservation.user_id = self.id}
   end
@@ -48,6 +48,5 @@ class User < ApplicationRecord
   def previous_reservations(hotel)
     booked_reservations(hotel).where("checkin_date < :todays_date", {todays_date: Date.today.to_s})
   end
- 
-    
+   
 end
