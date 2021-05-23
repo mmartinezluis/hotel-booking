@@ -4,11 +4,11 @@ class HotelsController < ApplicationController
 #   before_action :verify_params
 
   def index
-    
-    # If the user uses the city_hotels nested route, display hotels from the nested city only
+    # If the city_hotels nested route is used, display hotels from the nested city only
     if params[:city_id]
      @nested_city = City.find_by(id: params[:city_id])
      @hotels = User.first.hotels_by_city(params[:city_id])
+    # If the user_hotels nested route is used, display the user's hotels
     elsif params[:user_id]
       @nested_user = params[:user_id]
       @hotels = User.first.all_hotels
@@ -36,12 +36,10 @@ class HotelsController < ApplicationController
   end
 
   def show
-    # If nested city, show the hotel from the database by id
+    # If request comes from the 'city_hotels' nested route, show the hotel from the database by id
     if params[:id]
       @hotel = User.first.find_hotel(params[:id])
-      # @hotel = Hotel.find_by(id: params[:id])
     else
-    # api = AmadeusApi.new
     # If no nested city, show the hotel using the hotelId from the API
       @hotel = AmadeusApi.hotels.find { |hotel| hotel.hotelId == params[:hotelId] }
     end
@@ -50,14 +48,17 @@ class HotelsController < ApplicationController
   def reserve
     api = AmadeusApi.all.last
     @hotel = AmadeusApi.hotels.find { |hotel| hotel.hotelId == params[:hotelId] }
-    # 'reservation' can cause an exception 
+    # 'reservation', below, can cause an exception 
     begin
+      # Use the hotel_offer API endpoint to check in real-time whether the reservation still exists 
       reservation = api.amadeus.shopping.hotel_offer(params[:code]).get.data 
     rescue StandardError => e
       flash[:msg] = "#{e.class}: #{e.message}. Please try again..."
       redirect_to root_path
     else 
+      # If no exception is raised, check whether reservertion is avaiable
       if reservation && reservation["available"]  == true
+        # Check that the reservation attributes did not change since first time reservation was displayed
         checkin = reservation["offers"][0]["checkInDate"] == @hotel.last_reservation.checkin_date
         checkout = reservation["offers"][0]["checkOutDate"] == @hotel.last_reservation.checkout_date
         guests = reservation["offers"][0]["guests"]["adults"] == @hotel.last_reservation.guests
@@ -68,7 +69,7 @@ class HotelsController < ApplicationController
           flash[:msg] = "Congratualtions! Your reservation was successfully processed."
           redirect_to root_path
         else
-          flash[:msg]= "Sorry, one or more of the reservation conditions have changed. Please retry you hotel search."
+          flash[:msg]= "Sorry, one or more of the reservation conditions have changed. Please retry your hotel search."
           render :'show.html.erb' and return
         end
       else

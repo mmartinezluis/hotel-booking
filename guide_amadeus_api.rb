@@ -2,32 +2,36 @@
 
 # Hotel Search
 # Get list of hotels by cityCode
-amadeus.shopping.hotel_offers.get(cityCode: 'MAD')
+amadeus.shopping.hotel_offers.get(cityCode: 'MAD')    # First endpoint; used in index action of hotels_controller.rb and in models/amadeus_api.rb, #query_city method
 # Get list of offers for a specific hotel
-amadeus.shopping.hotel_offers_by_hotel.get(hotelId: 'IALONCHO')
+amadeus.shopping.hotel_offers_by_hotel.get(hotelId: 'IALONCHO')   # Second endpoint; not used in this app
 # Confirm the availability of a specific offer
-amadeus.shopping.hotel_offer('D5BEE9D0D08B6678C2F5FAD910DC110BCDA187D21D4FCE68ED423426D0A246BB').get
+amadeus.shopping.hotel_offer('D5BEE9D0D08B6678C2F5FAD910DC110BCDA187D21D4FCE68ED423426D0A246BB').get    # Third endpoint; used in reserve action of hotels_controller.rb 
 
+# Querying airports; not used in this app
 response = amadeus.reference_data.locations.get(
   keyword: 'LON',
   subType: Amadeus::Location::ANY
 )
 
-p response.body #=> The raw response, as a string
-p response.result #=> The body parsed as JSON, if the result was parsable
-p response.data #=> The list of locations, extracted from the JSON
+response.body #=> The raw response, as a string
+response.result #=> The body parsed as JSON, if the result was parsable
+response.data #=> The list of locations, extracted from the JSON          # Returns a hash; this is the response format used in this app; check models/admadeus_api.rb query_city method
+
 
 # Example: hotels from Madrid
 hotels_madrid = amadeus.shopping.hotel_offers.get(cityCode: 'MAD')
 
-# Querying using dates
-trial = amadeus.shopping.hotel_offers.get(
+
+# Querying using dates                 # This query is used in amadeus_api.rb, #query_city method
+hotel_hash = amadeus.shopping.hotel_offers.get(
     cityCode: 'NYC',
-    checkInDate: "2021-05-18",
-    ckeckOutDate: "2021-05-20",
+    checkInDate: "2021-05-17",
+    ckeckOutDate: "2021-05-18",
     adults: 1   
 ).data
 
+# Example output from above hotel query
 hotel_hash = 
    {"type"=>"hotel-offers",
  "hotel"=>
@@ -125,6 +129,8 @@ hotel_hash =
   "https://test.api.amadeus.com/v2/shopping/hotel-offers/by-hotel?hotelId=WHLON464&adults=2&checkInDate=2021-05-17&checkOutDate=2021-05-18"}
 
 
+  # Most rooms include the "typeEstimated" key; however, some rooms only include the "description" key
+  # This needs to be taken into account when building a room object; see models/hotel, 'build_hotel' method, nested room section
   hote_with_irregular_room =
   "available"=>true,
   "offers"=>

@@ -6,7 +6,7 @@
     <% if reservation.review %>
       <%= link_to 'Show review', reservation_review_path(reservation, review) %>
       <%= linkt_to 'Edit review', edit_reservation_review_path(reservation, review) %>
-    <% elsif open_for_review?(reservation) %>
+    <% elsif open_for_review?(reservation) %>  
       <%= link_to 'Write a review', new_reservation_review_path(reservation) %>
     <% end %>
 </div><br>

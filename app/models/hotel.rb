@@ -5,9 +5,11 @@ class Hotel < ApplicationRecord
   # accepts_nested_attributes_for :reservations
   belongs_to :city
 
+  # Since a hotel comes with a reservation and a room, hotels are built both objects nested
   def self.build_hotel(hotel_hash)
     city = City.find_or_create_by(code: hotel_hash["hotel"]["cityCode"])
     hotel = Hotel.find_by(hotelId: hotel_hash["hotel"]["hotelId"])
+    # If the hotel is already in the database, do not build a new hotel (skip the below block)
     unless hotel 
       hotel = Hotel.new 
       hotel.city_id = city.id
@@ -17,8 +19,8 @@ class Hotel < ApplicationRecord
       hotel.latitude = hotel_hash["hotel"]["latitude"]
       hotel.longitude = hotel_hash["hotel"]["longitude"]
       hotel.address = hotel_hash["hotel"]["address"]
-      hotel.description = hotel_hash["hotel"]["description"]["text"] unless !hotel_hash["hotel"].keys.include?("description")
-      hotel.amenities = hotel_hash["hotel"]["amenities"].take(5).join(", ") unless !hotel_hash["hotel"].keys.include?("amenities")
+      hotel.description = hotel_hash["hotel"]["description"]["text"] unless !hotel_hash["hotel"].keys.include?("description")         # Some hotels do not inlcude a description
+      hotel.amenities = hotel_hash["hotel"]["amenities"].take(5).join(", ") unless !hotel_hash["hotel"].keys.include?("amenities")    # Some hotels do not include amenities
     end
     #  Build nested reservation for hotel 
     new_reservation = hotel.reservations.build(
@@ -31,7 +33,7 @@ class Hotel < ApplicationRecord
     )
     new_reservation.user_id = User.first.id
     #  Build nested room for reservation 
-    # IF the hotel_hash includes the "TypeEstimated" key, build a room with 3 attributes
+    # If the hotel_hash includes the "TypeEstimated" key, build a room with 3 attributes
     if hotel_hash["offers"][0]["room"].keys.include?("typeEstimated")
       new_room = new_reservation.build_room(
         category: hotel_hash["offers"][0]["room"]["typeEstimated"]["category"],
@@ -39,22 +41,14 @@ class Hotel < ApplicationRecord
         bedtype: hotel_hash["offers"][0]["room"]["typeEstimated"]["bedType"]        # King, ect.
       )
     else
-    # Build a rooom with one attribute only
+    # If the hotel_hash does not include the "TypeEstimated" key, Build a rooom with one attribute only
       new_room = new_reservation.build_room(
         category: hotel_hash["offers"][0]["room"]["description"]["text"].split("\n")[1]
       )
     end
+    # Return the hotel with its nested reservation and room
+    # The hotel is not persisted to database unless a reservatino is made; see hotels_controller 'reserve' method
     hotel
-  end
-
-  def last_reservation
-    self.reservations.last
-  end
-
-  def includes_description?(hotel)
-  end
-
-  def includes_amenities?(hotel)
   end
   
 end
