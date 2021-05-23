@@ -1,8 +1,19 @@
 <h1>Reservations</h1>
 
-<% @reservations.each do |reservation| %>
-    <h2><%= reservation.hotel.name %></h2>
-    <p><%= reservation.hotel.city.code %></p>
-    <%= render 'info' %>
-<% end %>
+<% if @reservations.empty? %>
+  <h3>It looks you haven't booked any reservations yet</h3>
+<% else %>
+    <% @reservations.each do |reservation| %>
+      <a href="/reservations/<%= reservation.id %>">
+        <div>
+        <h2><%= reservation.hotel.name %></h2>
+        <p><%= reservation.hotel.city.code %></p>
+        <p>Check-in Date: <%= reservation.checkin_date %></p>
+        <p>Check-out Date: <%= reservation.checkout_date %></p>
+        <p>Guests: <%= reservation.guests %></p>
+        <p>Price: <%= reservation.currency %> <%= reservation.price %></p>
+      </div>
+      </a>
+    <% end %>
+  <% end %>
 

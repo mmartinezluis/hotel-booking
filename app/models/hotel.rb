@@ -9,7 +9,7 @@ class Hotel < ApplicationRecord
     city = City.find_or_create_by(code: hotel_hash["hotel"]["cityCode"])
     hotel = Hotel.find_by(hotelId: hotel_hash["hotel"]["hotelId"])
     unless hotel 
-      hotel = Hotel.new
+      hotel = Hotel.new 
       hotel.city_id = city.id
       hotel.hotelId = hotel_hash["hotel"]["hotelId"]
       hotel.citycode = hotel_hash["hotel"]["cityCode"]
@@ -22,22 +22,24 @@ class Hotel < ApplicationRecord
     end
     #  Build nested reservation for hotel 
     new_reservation = hotel.reservations.build(
-      code: hotel_hash["offers"][0]["id"],                    # Reservation code in schema, reservations
-      guests: hotel_hash["offers"][0]["guests"]["adults"],      # Number of guests
-      currency: hotel_hash["offers"][0]["price"]["currency"],     # Currency
-      price: hotel_hash["offers"][0]["price"]["total"],        # Total price
-      checkin_date: hotel_hash["offers"][0]["checkInDate"],           # Checkin date
-      checkout_date: hotel_hash["offers"][0]["checkOutDate"],          # Checkout date
+      code: hotel_hash["offers"][0]["id"],                       # Reservation code in schema, reservations
+      guests: hotel_hash["offers"][0]["guests"]["adults"],       # Number of guests
+      currency: hotel_hash["offers"][0]["price"]["currency"],    # Currency
+      price: hotel_hash["offers"][0]["price"]["total"],          # Total price
+      checkin_date: hotel_hash["offers"][0]["checkInDate"],      # Checkin date
+      checkout_date: hotel_hash["offers"][0]["checkOutDate"],    # Checkout date
     )
     new_reservation.user_id = User.first.id
     #  Build nested room for reservation 
+    # IF the hotel_hash includes the "TypeEstimated" key, build a room with 3 attributes
     if hotel_hash["offers"][0]["room"].keys.include?("typeEstimated")
       new_room = new_reservation.build_room(
         category: hotel_hash["offers"][0]["room"]["typeEstimated"]["category"],
-        beds: hotel_hash["offers"][0]["room"]["typeEstimated"]["beds"],
-        bedtype: hotel_hash["offers"][0]["room"]["typeEstimated"]["bedType"]
+        beds: hotel_hash["offers"][0]["room"]["typeEstimated"]["beds"],             # Number of beds
+        bedtype: hotel_hash["offers"][0]["room"]["typeEstimated"]["bedType"]        # King, ect.
       )
     else
+    # Build a rooom with one attribute only
       new_room = new_reservation.build_room(
         category: hotel_hash["offers"][0]["room"]["description"]["text"].split("\n")[1]
       )

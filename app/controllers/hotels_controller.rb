@@ -38,7 +38,7 @@ class HotelsController < ApplicationController
       @hotel = Hotel.find_by(id: params[:id])
     else
     # api = AmadeusApi.new
-    # If no nested route, show the hotel using the hotel id from the API
+    # If no nested route, show the hotel using the hotelId from the API
       @hotel = AmadeusApi.hotels.find { |hotel| hotel.hotelId == params[:hotelId] }
     end
   end
