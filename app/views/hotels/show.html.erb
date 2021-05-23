@@ -3,8 +3,7 @@
   <%= render partial: 'messages/msg' %>
 
   <div class="box" id="hotel">
-    <h2><%= @hotel.name %></h2>
-    <%= @hotel.description  %><br>
+    <%= render 'info' %>
   </div>
 
   <div class="box" id="reservations">

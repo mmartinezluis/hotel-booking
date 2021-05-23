@@ -4,11 +4,14 @@ class HotelsController < ApplicationController
 #   before_action :verify_params
 
   def index
+    
     # If the user uses the city_hotels nested route, display hotels from the nested city only
     if params[:city_id]
      @nested_city = City.find_by(id: params[:city_id])
      @hotels = User.first.hotels_by_city(params[:city_id])
-     #@hotels = User.first.hotels.where("city_id = ?", params[:city_id]).distinct
+    elsif params[:user_id]
+      @nested_user = params[:user_id]
+      @hotels = User.first.all_hotels
     else
       # If no nested route, load the API for searching hotels
       api = AmadeusApi.all.last
@@ -33,12 +36,13 @@ class HotelsController < ApplicationController
   end
 
   def show
-    # If nested route, show the hotel from the database by id
+    # If nested city, show the hotel from the database by id
     if params[:id]
-      @hotel = Hotel.find_by(id: params[:id])
+      @hotel = User.first.find_hotel(params[:id])
+      # @hotel = Hotel.find_by(id: params[:id])
     else
     # api = AmadeusApi.new
-    # If no nested route, show the hotel using the hotelId from the API
+    # If no nested city, show the hotel using the hotelId from the API
       @hotel = AmadeusApi.hotels.find { |hotel| hotel.hotelId == params[:hotelId] }
     end
   end
@@ -87,10 +91,15 @@ class HotelsController < ApplicationController
 #   end
 
     def hotel_params
-      params.require(:hotel).permit(:city_id)
+      params.require(:hotel).permit(
+        # params from API
+        :city, :checkin_date, :checkout_date,:guests, 
+        # params from city_hotels and user_hotels nested routes
+        :city_id, :user_id
+      )
     end
 
-    def verify_params
+    def verify_api_params
     end
   
 end

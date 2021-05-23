@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   resources :hotels, :only => [:index, :show]
   resources :reservations, :only => [:index, :show]
   resources :reviews, :only => [:index, :show, :new, :create, :edit, :update, :delete]
-  resources :users
+  resources :users, :only =>[:new, :create, :show]
   
   root "hotels#index"
   get "/:hotelId", to: "hotels#show"
@@ -17,6 +17,10 @@ Rails.application.routes.draw do
 
   resources :hotels, only: [:show] do
     resources :reservations, only: [:new, :show]
+  end
+
+  resources :users, only: [:show] do
+    resources :hotels, only: [:index]
   end
 
 end

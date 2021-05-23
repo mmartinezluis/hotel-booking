@@ -1,7 +1,7 @@
 class ReservationsController < ApplicationController
 
   def index
-    @reservations = User.first.reservations
+    @reservations = User.first.all_reservations
   end
   
 end

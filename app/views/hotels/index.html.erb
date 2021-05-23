@@ -1,26 +1,27 @@
 <div class"view" id="index">
 
   <div>
-    <%= render 'hotel_search' unless @nested_city %>
+    <%= render 'hotel_search' unless @nested_city || @nested_user %>
   </div>
 
   <%= render partial: 'messages/msg' %>
-
+  
   <div class="series" id="hotels" >
     <% if @hotels %>
-      <h2>Your hotels in <%= @nested_city.code if @nested_city %>:</h2><br>
-      <ul>
-        <% @hotels.each do |hotel| %>
-          <div>
-            <li>
-              <%= link_to hotel.name, @nested_city ? "#{city_hotel_path(@nested_city,hotel.id)}" : "#{hotel.hotelId}" %><br>
-              <span>Guests: <%= hotel_guests(hotel) %></span><br>
-              <span>Beds: <%= hotel_beds(hotel) %></span>
-              <p>Price: <%= hotel_currency(hotel) %><%= hotel_price(hotel) %></p>
-            </li>
-          </div>
-        <% end %>
-      </ul>
+      <% if @nested_city.nil? && @nested_user.nil? %>
+        <%= render partial: 'search_results', collection: @hotels, as: :hotel %>
+      <% else %>
+        <h2><%= @nested_city ? "My Hotels in #{@nested_city.code}" : "My Hotels" %>:</h2><br>
+        <ul>
+          <% @hotels.each do |hotel| %>
+            <div>
+              <li>
+                <%= link_to hotel.name, hotel_path(hotel.id) %>
+              </li><br>
+            </div>
+          <% end %>
+        </ul>
+      <% end %>
     <% end %>
   </div>
   
