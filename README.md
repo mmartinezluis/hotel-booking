@@ -1,23 +1,3 @@
-    <% @reservations.each do |reservation| %>
-      <a href="/reservations/<%= reservation.id %>">
-        <div>
-        <h2><%= reservation.hotel.name %></h2>
-        <p><%= reservation.hotel.city.code %></p>
-        <p>Check-in Date: <%= reservation.checkin_date %></p>
-        <p>Check-out Date: <%= reservation.checkout_date %></p>
-        <p>Guests: <%= reservation.guests %></p>
-        <p>Price: <%= reservation.currency %> <%= reservation.price %></p>
-        <% if reservation.review %>
-          <%= link_to 'Show review', reservation_review_path(reservation, review) %><br>
-          <%= linkt_to 'Edit review', edit_reservation_review_path(reservation, review) %>
-        <% elsif open_for_review?(reservation) %>  
-          <%= link_to 'Write a review', new_reservation_review_path(reservation) %>
-        <% end %>
-      </div>
-      </a>
-    <% end %>
-
-
 # Project: Hotel Booking
 
 ## Introduction
