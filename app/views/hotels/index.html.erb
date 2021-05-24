@@ -16,7 +16,7 @@
           <% @hotels.each do |hotel| %>
             <div>
               <li>
-                <%= link_to hotel.name, hotel_path(hotel.id) %>
+                <%= link_to hotel.name, @nested_city ? "#{city_hotel_path(@nested_city, hotel.id)}" : "#{hotel_path(hotel.id)}" %>
               </li><br>
             </div>
           <% end %>

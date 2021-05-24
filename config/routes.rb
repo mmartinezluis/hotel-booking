@@ -8,7 +8,8 @@ Rails.application.routes.draw do
   resources :users, :only =>[:new, :create, :show]
   
   root "hotels#index"
-  get "/:hotelId", to: "hotels#show"
+  get "hotel_search", to: "hotels#index"
+  get "hotel_search/:hotelId", to: "hotels#show"
   get "/reserve/:hotelId/:code", to: "hotels#reserve"
 
   resources :cities, only: [:index, :show] do

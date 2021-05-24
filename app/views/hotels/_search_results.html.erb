@@ -1,4 +1,4 @@
-<%= link_to hotel.name, "#{hotel.hotelId}" %>
+<%= link_to hotel.name, "hotel_search/#{hotel.hotelId}" %>
 <p>Guests: <%= hotel_guests(hotel) %></p>
 <p>Beds: <%= hotel_beds(hotel) %></p>
 <p>Price: <%= hotel_currency(hotel) %> <%= hotel_price(hotel) %></p>
