@@ -25,6 +25,7 @@ Hotel Booking is under development, and it currenlty supports the following func
 * Users can select a hotel to see the hotel's description and their booked reservations at that hotel.
 * For a given booked hotel, users can see their upcoming and/or previous reservations. 
 * Users can see all of their booked reservations. (Achieved: May 22)
+* Users can write a review for past reservations; users can see their review for a given reservation. (Achieved: May 23)
 
 ## Getting Started
 To get started with the app, make sure you have Rails and Git installed on your machine. Clone the repo to your local machine:
