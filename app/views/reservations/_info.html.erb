@@ -4,8 +4,8 @@
     <p>Guests: <%= reservation.guests %></p>
     <p>Price: <%= reservation.currency %> <%= reservation.price %></p>
     <% if reservation.review %>
-      <%= link_to 'Show review', reservation_review_path(reservation, review) %>
-      <%= linkt_to 'Edit review', edit_reservation_review_path(reservation, review) %>
+      <%= link_to 'Show review', reservation_review_path(reservation, reservation.review) %><br>
+      <%= link_to 'Edit review', edit_reservation_review_path(reservation, reservation.review) %>
     <% elsif open_for_review?(reservation) %>  
       <%= link_to 'Write a review', new_reservation_review_path(reservation) %>
     <% end %>

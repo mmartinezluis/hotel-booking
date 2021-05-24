@@ -14,7 +14,7 @@
     <% elsif @single_reservation %>
       <h3>Reservation</h3><br>
       <p><%= upcoming_single_reservation?(@single_reservation) ? 'Upcoming' : 'Previous' %></p>
-      <%= render partial: 'reservations/info', locals: { reservation: @single_reservation} %>
+      <%= render partial: 'reservations/info', locals: {reservation: @single_reservation} %>
     <% else %>
       <h3>Reservations</h3><br>
       <% if upcoming_reservations?(@hotel) %>

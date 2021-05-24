@@ -31,4 +31,7 @@ module ReservationsHelper
     reservation.checkout_date < Date.today.to_s
   end
 
+  def full_info(reservations)
+  end
+
 end

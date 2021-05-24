@@ -1,19 +1,23 @@
-<h1>Reservations</h1>
+<h1>My Reservations</h1>
 
 <% if @reservations.empty? %>
-  <h3>It looks you haven't booked any reservations yet :)</h3>
+  <h3>It seems you haven't booked any reservations yet :)</h3>
 <% else %>
     <% @reservations.each do |reservation| %>
-      <a href="/reservations/<%= reservation.id %>">
         <div>
-        <h2><%= reservation.hotel.name %></h2>
+        <h2><%= link_to reservation.hotel.name, reservation_path(reservation) %></h2>
         <p><%= reservation.hotel.city.code %></p>
         <p>Check-in Date: <%= reservation.checkin_date %></p>
         <p>Check-out Date: <%= reservation.checkout_date %></p>
         <p>Guests: <%= reservation.guests %></p>
         <p>Price: <%= reservation.currency %> <%= reservation.price %></p>
+        <% if reservation.review %>
+          <%= link_to 'Show review', reservation_review_path(reservation, reservation.review) %><br>
+          <%= link_to 'Edit review', edit_reservation_review_path(reservation, reservation.review) %>
+        <% elsif open_for_review?(reservation) %>  
+          <%= link_to 'Write a review', new_reservation_review_path(reservation) %>
+        <% end %>
       </div>
-      </a>
     <% end %>
   <% end %>
 
