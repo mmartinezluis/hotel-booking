@@ -16,7 +16,7 @@ class HotelsController < ApplicationController
     # If the user_hotels nested route is used, display the user's hotels
     elsif params[:user_id]
       nested_user = User.find_by(id: params[:user_id])
-      redirect_to hotels_path, alert: "Users can only see their own hotels." if current_user != nested_user
+      redirect_to hotels_path alert: "Users can only see their own hotels." and return if current_user != nested_user
       @nested_user = params[:user_id]
       @hotels = current_user.all_hotels
     else

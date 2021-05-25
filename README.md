@@ -10,11 +10,9 @@ Hotel Booking uses the [Amadeus Hotel Search API](https://developers.amadeus.com
 * Users can search for hotel reservations by a given city, check-in date, checkout-date, and number of guests in real-time.
 * Users can verify the availability of a given hotel reservation in real-time.
 * Users can book a reservation (feature managed by ActiveRecord; reservations are valid at time of booking but booking is not real). 
-* Users can browser their visited countries, cities, and hotels.
+* Users can browse their visited cities and hotels.
 * Users can create a new review for past hotel reservations.
-* Users can edit or delete their reviews.
-* Admin users can start a hotel search with a pre-existing or newly created user already loaded in the database for a fast hotel booking process for the user.
-* Admin users can create a new user right before booking a reservation.
+* Users can edit their reviews.
 
 Hotel Booking is under development, and it currenlty supports the following functionalities:
 * Users can find hotel reservations by a given city in real-time. 
@@ -24,7 +22,7 @@ Hotel Booking is under development, and it currenlty supports the following func
 * Users can select a city to see the list of hotels that include booked reservations.
 * Users can select a hotel to see the hotel's description and their booked reservations at that hotel.
 * For a given booked hotel, users can see their upcoming and/or previous reservations. 
-* Users can see all of their booked reservations. (Achieved: May 22)
+* Users can see all of their reservations. (Achieved: May 22)
 * Users can write a review for past reservations; users can see their review for a given reservation. (Achieved: May 23)
 
 ## Getting Started
