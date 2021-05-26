@@ -6,7 +6,7 @@
   <% @reviews.each do |review| %>
     <h3><%= review.reservation.hotel.name %></h3>
     <p><%= review.reservation.hotel.city.code %></p>
-    <%= render 'reservations/info_no_links', :reservation => review.reservation %><br>
+    <%= render 'reservations/info_no_links', :reservation => review.reservation %>
     <h4>Review description:</h4>
     <%= review.description %><br>
     <%= link_to 'Edit review', edit_review_path(review) %><br><br>

@@ -29,6 +29,11 @@
   <div>
 
   <div class="box" id="reviews">
+    <div>
+      <% @hotel.reviews.each do |review| %>
+        <p><%= review.reservation.user.first_name %></p>
+        <p>Posted on <%= review.created_at %></p>
+        <p><%= review.description %></p>    
+      <% end %>  
   </div>
-
 </div>

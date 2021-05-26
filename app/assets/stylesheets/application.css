@@ -36,7 +36,7 @@
  #hotel-show {
   display: grid;
   grid-template-columns: 65% 35%;
-  grid-template-rows: 70% 30%;
+  grid-template-rows: 70%;
   grid-template-areas:
     "hotel reservations"
     "reviews reviews";
