@@ -15,12 +15,12 @@ module ReservationsHelper
     !User.first.unbooked_reservation(hotel).empty?
   end
 
-  def upcoming_reservations?(hotel)
-    !User.first.upcoming_reservations(hotel).empty?
+  def upcoming_reservations?(hotel = nil)
+    hotel ? !User.first.upcoming_reservations(hotel).empty? : !User.first.upcoming_reservations.empty?
   end
 
-  def previeous_reservations?(hotel)
-    !User.first.previous_reservations(hotel).empty?
+  def previous_reservations?(hotel = nil)
+    hotel ? !User.first.previous_reservations(hotel).empty? : !User.first.previous_reservations.empty?
   end
 
   def upcoming_single_reservation?(reservation)

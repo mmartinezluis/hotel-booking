@@ -17,11 +17,11 @@ class User < ApplicationRecord
 
   # For the current user, find the user's reservations for the given hotel, and order them from most recent to least recent checkin date
   def booked_reservations(hotel)
-    self.reservations.where("hotel_id = ?", hotel.id).order(checkin_date: :desc)
+    self.reservations.where("hotel_id = ?", hotel.id)
   end
 
   def most_recent_reservation(hotel)
-    booked_reservations(hotel).first
+    booked_reservations(hotel).order(checkin_date: :desc).first
   end
   
   # For the current user, find the user's hotels for the given city and sort them by most recent checkin date
@@ -37,16 +37,30 @@ class User < ApplicationRecord
     end
   end
 
+  def all_reviews_sorted
+    self.reviews.sort do |review_1, review_2| 
+      review_2.reservation.checkin_date <=> review_1.reservation.checkin_date
+    end
+  end
+
   def all_reservations
     self.reservations.order(checkin_date: :desc)
   end
 
-  def upcoming_reservations(hotel)
-    booked_reservations(hotel).where("checkin_date >= :todays_date", {todays_date: Date.today.to_s})
+  def upcoming_reservations(hotel = nil)
+    if hotel
+      booked_reservations(hotel).where("checkin_date >= :todays_date", {todays_date: Date.today.to_s}).order(checkin_date: :asc)
+    else
+      self.reservations.where("checkin_date >= ?", Date.today.to_s).order(checkin_date: :asc)
+    end
   end
 
-  def previous_reservations(hotel)
-    booked_reservations(hotel).where("checkin_date < :todays_date", {todays_date: Date.today.to_s})
+  def previous_reservations(hotel = nil)
+    if hotel
+      booked_reservations(hotel).where("checkin_date < :todays_date", {todays_date: Date.today.to_s}).order(checkin_date: :desc)
+    else
+      self.reservations.where("checkin_date < ?", Date.today.to_s).order(checkin_date: :desc)
+    end
   end
    
 end

@@ -3,21 +3,21 @@
 <% if @reservations.empty? %>
   <h3>It seems you haven't booked any reservations yet :)</h3>
 <% else %>
-    <% @reservations.each do |reservation| %>
-        <div>
-        <h2><%= link_to reservation.hotel.name, reservation_path(reservation) %></h2>
-        <p><%= reservation.hotel.city.code %></p>
-        <p>Check-in Date: <%= reservation.checkin_date %></p>
-        <p>Check-out Date: <%= reservation.checkout_date %></p>
-        <p>Guests: <%= reservation.guests %></p>
-        <p>Price: <%= reservation.currency %> <%= reservation.price %></p>
-        <% if reservation.review %>
-          <%= link_to 'Show review', reservation_review_path(reservation, reservation.review) %><br>
-          <%= link_to 'Edit review', edit_reservation_review_path(reservation, reservation.review) %>
-        <% elsif open_for_review?(reservation) %>  
-          <%= link_to 'Write a review', new_reservation_review_path(reservation) %>
-        <% end %>
-      </div>
+  <% if upcoming_reservations? %>
+    <p>Upcoming:</p><br>
+    <% User.first.upcoming_reservations.each do |reservation| %>
+      <h2><%= link_to reservation.hotel.name, reservation_path(reservation) %></h2>
+      <p><%= reservation.hotel.city.code %></p>
+      <%= render 'reservations/info', :reservation => reservation %>
+    <% end %><br>
+  <% end %>
+  <% if previous_reservations? %>
+    <p>Previous:</p><br>
+    <% User.first.previous_reservations.each do |reservation| %>
+      <h2><%= link_to reservation.hotel.name, reservation_path(reservation) %></h2>
+      <p><%= reservation.hotel.city.code %></p>
+      <%= render 'reservations/info', :reservation => reservation %>
     <% end %>
   <% end %>
+<% end %>
 

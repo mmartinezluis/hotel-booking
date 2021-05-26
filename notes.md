@@ -1,5 +1,3 @@
-
-
 user model
 has_many reservations
 has_mnay hotels:: through reservations
@@ -20,3 +18,12 @@ reservation model
 user_id
 hotelid
 _________________________
+
+
+    <% @reservations.each do |reservation| %>
+      <div>
+        <h2><%= link_to reservation.hotel.name, reservation_path(reservation) %></h2>
+        <p><%= reservation.hotel.city.code %></p>
+        <%= render 'reservations/info', :reservation => reservation %>
+      </div>
+    <% end %>

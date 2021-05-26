@@ -1,0 +1,5 @@
+<h1>Editing Review</h1>
+<p><%= @review.reservation.hotel.name %></p>
+<p><%= @review.reservation.hotel.city.code %></p>
+<%= render partial: 'reservations/info_no_links', locals: {reservation: @review.reservation} %><br>
+<%= render 'form' %>

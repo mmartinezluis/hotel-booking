@@ -3,7 +3,7 @@
   <%= render partial: 'messages/msg' %>
 
   <div class="box" id="hotel">
-    <%= render 'hotels/info' %>
+    <%= render partial: 'hotels/info', locals: { hotel: @hotel}  %>
   </div>
 
   <div class="box" id="reservations">
@@ -21,7 +21,7 @@
         <p>Upcoming:</p><br>
         <%= render partial: 'reservations/info', collection: User.first.upcoming_reservations(@hotel), as: :reservation %>
       <% end %><br>
-      <% if previeous_reservations?(@hotel) %>
+      <% if previous_reservations?(@hotel) %>
         <p>Previous:</p><br>
         <%= render partial: 'reservations/info', collection: User.first.previous_reservations(@hotel), as: :reservation %>
       <% end %>

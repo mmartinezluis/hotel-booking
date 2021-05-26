@@ -1,7 +1,7 @@
 class ReviewsController < ApplicationController
 
   def index
-    @reviews= Review.joins(:reservations).where("user_id = ?", User.first.id)
+    @reviews = User.first.all_reviews_sorted
   end
 
   def new
@@ -17,7 +17,19 @@ class ReviewsController < ApplicationController
     @review = Review.find(params[:id])
   end
 
+  def edit
+    @review = Review.find(params[:id])
+  end
 
+  def update
+    @review = Review.find(params[:id])
+    @review.save
+    redirect_to review_path(@review)
+  end
 
+  private
+  def review_params
+    params.require(:review).permit(:description, :review_id)
+  end
 
 end

@@ -50,5 +50,9 @@ class Hotel < ApplicationRecord
     # The hotel is not persisted to database unless a reservatino is made; see hotels_controller 'reserve' method
     hotel
   end
+
+  def last_reservation
+    self.reservations.last
+  end
   
 end

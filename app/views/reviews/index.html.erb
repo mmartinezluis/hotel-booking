@@ -1,0 +1,14 @@
+
+<h1>My Reviews</h1>
+<% if @reviews.empty? %>
+  <h3>It seems you haven't written any reviews yet :)</h3>
+<% else %>
+  <% @reviews.each do |review| %>
+    <h3><%= review.reservation.hotel.name %></h3>
+    <p><%= review.reservation.hotel.city.code %></p>
+    <%= render 'reservations/info_no_links', :reservation => review.reservation %><br>
+    <h4>Review description:</h4>
+    <%= review.description %><br>
+    <%= link_to 'Edit review', edit_review_path(review) %><br><br>
+  <% end %>
+<% end %>
