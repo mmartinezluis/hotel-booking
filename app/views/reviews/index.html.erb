@@ -1,5 +1,7 @@
 
 <h1>My Reviews</h1>
+<%= render partial: 'messages/msg' %><br>
+
 <% if @reviews.empty? %>
   <h3>It seems you haven't written any reviews yet :)</h3>
 <% else %>

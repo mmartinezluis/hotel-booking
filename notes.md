@@ -20,6 +20,12 @@ hotelid
 _________________________
 
 
+Add most popular hotels, 
+users with most reserations,
+
+
+
+
     <% @reservations.each do |reservation| %>
       <div>
         <h2><%= link_to reservation.hotel.name, reservation_path(reservation) %></h2>

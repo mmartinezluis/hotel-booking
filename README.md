@@ -29,7 +29,7 @@ Hotel Booking is under development, and it currenlty supports the following func
 ## Getting Started
 To get started with the app, make sure you have Rails and Git installed on your machine. Clone the repo to your local machine:
 ``` javascript
-$ git clone https://github.com/mmartinezluis/hotel-booking
+$ git clone https://github.com/mmartinezluis/hotel-booking.git
 ```
 
 Install the needed gems:
@@ -51,6 +51,11 @@ Then, in this `.env` file include the following lines, replacing "API_KEY" and "
 AMADEUS_API_KEY = API_KEY
 
 AMADEUS_API_SECRET = API_SECRET
+```
+
+Run the application migrations's through:
+``` javascript
+$ rails db:migrate
 ```
 
 Finally, on the root path run a local server:
