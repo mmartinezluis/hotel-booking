@@ -14,15 +14,5 @@ module ReviewsHelper
       hidden_field_tag "review[author_id]", review.reservation_id
     end
   end
-
-  def hotel_info(review)
-    if !review.reservation.nil?
-      review.reservation.hotel.name 
-      review.reservation.hotel.city.code 
-      render partial: 'reservations/info_no_links', locals: {reservation: review.reservation} 
-    end
-  end
-
-
-
+  
 end
