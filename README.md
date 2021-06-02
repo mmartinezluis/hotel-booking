@@ -25,6 +25,8 @@ Hotel Booking is under development, and it currenlty supports the following func
 * Users can see all of their reservations. (Achieved: May 22)
 * Users can write a review for past reservations; users can see their review for a given reservation. (Achieved: May 23)
 * Users can see all of their reviews; hotels display users' reviews. (Achieved: May 25)
+* Users can write a new review and select a previous reservation that is open for review
+* Writing a review from a reservation automatically loads the reservatin to the new review form (Achieved: June 1)
 
 ## Getting Started
 To get started with the app, make sure you have Rails and Git installed on your machine. Clone the repo to your local machine:

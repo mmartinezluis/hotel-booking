@@ -24,6 +24,8 @@ Add most popular hotels,
 users with most reserations,
 
 
+Navigation bar: Dashboard | Hotel Search | Hotels | Rservations | Cities | Reviews | Trending
+
 
 
     <% @reservations.each do |reservation| %>

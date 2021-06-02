@@ -62,5 +62,12 @@ class User < ApplicationRecord
       self.reservations.where("checkin_date < ?", Date.today.to_s).order(checkin_date: :desc)
     end
   end
+
+  def open_for_review_reservations
+    if !self.previous_reservations.empty?
+      self.previous_reservations.includes(:review).where(review: {id: nil })
+    end
+  end
+      
    
 end
