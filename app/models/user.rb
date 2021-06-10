@@ -1,4 +1,7 @@
 class User < ApplicationRecord
+  has_secure_password
+  validates_presence_of :username, :email, :password, on: :create
+  validates :email, uniqueness: true
   has_many :reservations
   has_many :hotels, through: :reservations
   has_many :cities, through: :hotels

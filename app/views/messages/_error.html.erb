@@ -1,0 +1,13 @@
+<% if agnostic.errors.any? %>
+  <div>
+    <h3>
+      There were some errors:
+    </h3>
+
+    <ul>
+      <% agnostic.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
