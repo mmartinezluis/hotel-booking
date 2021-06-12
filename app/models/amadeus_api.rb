@@ -10,7 +10,6 @@ class AmadeusApi
         client_secret: "#{ENV['AMADEUS_API_SECRET']}"
       })
     @@all << self
-    user = User.find_or_create_by(first_name: "Luis", last_name: "M")
   end
 
   def self.all

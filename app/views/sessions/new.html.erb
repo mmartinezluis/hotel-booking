@@ -1,6 +1,7 @@
 <h1>Log In</h1>
 <%= render partial: 'messages/msg' %>
 
+
 <%= form_tag "/login", method: :post do %>
   <%= label_tag :email, "Email" %>
   <%= text_field_tag :email %>

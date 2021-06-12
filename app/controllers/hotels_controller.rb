@@ -6,7 +6,7 @@ class HotelsController < ApplicationController
   def index
     # If the city_hotels nested route is used, display hotels from the nested city only
     if params[:city_id]
-      @nested_city = City.user_cities(current_user).find_by(id: params[:city_id])
+      @nested_city = current_user.cities.find_by(id: params[:city_id])
       if @nested_city.nil?
         flash[:msg] = "City not found."
         redirect_to cities_path
@@ -45,7 +45,7 @@ class HotelsController < ApplicationController
   def show
     # If request comes from the 'city_hotels' nested route, show the hotel from the database by city id and hotel id
     if params[:city_id]
-      city = City.user_cities(current_user).find_by(id: params[:city_id])
+      city = current_user.cities.find_by(id: params[:city_id])
       if city.nil? 
         flash[:msg] = "City not found."
         redirect_to cities_path and return 

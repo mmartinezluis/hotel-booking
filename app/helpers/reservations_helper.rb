@@ -11,16 +11,16 @@ module ReservationsHelper
 #     current_user.reservations.where("hotel_id = ?", hotel.id).order(checkin_date: :desc)
 #   end
 
-  def unbooked_reservation?(hotel)
-    !User.first.unbooked_reservation(hotel).empty?
+  def unbooked_reservation?(user, hotel)
+    !user.unbooked_reservation(hotel).empty?
   end
 
-  def upcoming_reservations?(hotel = nil)
-    hotel ? !User.first.upcoming_reservations(hotel).empty? : !User.first.upcoming_reservations.empty?
+  def upcoming_reservations?(user, hotel = nil)
+    hotel ? !user.upcoming_reservations(hotel).empty? : !user.upcoming_reservations.empty?
   end
 
-  def previous_reservations?(hotel = nil)
-    hotel ? !User.first.previous_reservations(hotel).empty? : !User.first.previous_reservations.empty?
+  def previous_reservations?(user, hotel = nil)
+    hotel ? !user.previous_reservations(hotel).empty? : !user.previous_reservations.empty?
   end
 
   def upcoming_single_reservation?(reservation)
@@ -28,8 +28,8 @@ module ReservationsHelper
   end
 
   def open_for_review?(reservation)
-    # reservation.checkout_date < Date.today.to_s
-    reservation.checkin_date <= Date.today.to_s
+    reservation.checkout_date < Date.today.to_s
+    # reservation.checkin_date <= Date.today.to_s
   end
 
   def full_info(reservations)

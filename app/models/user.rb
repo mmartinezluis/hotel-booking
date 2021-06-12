@@ -8,7 +8,15 @@ class User < ApplicationRecord
   has_many :hotels, through: :reservations
   has_many :cities, through: :hotels
   has_many :reviews, through: :reservations
-  
+
+
+  def self.from_omniauth(auth)
+    self.find_or_create_by(provider: auth["provider"], uid: auth["uid"]) do |u|
+      u.email = auth["info"]["email"]
+      u.username = auth['info']['name'].downcase.gsub(" ", "_")
+      u.password = SecureRandom.hex(20)
+    end
+  end
 
   def find_hotel(hotel_id)
     self.hotels.distinct.find_by(id: hotel_id)

@@ -18,12 +18,13 @@ class SessionsController < ApplicationController
   end
 
   def omniauth
-    @user = User.find_or_create_by(provider: auth["provider"], uid: auth['uid']) do |u|
-      u.email = auth["info"]["email"]
-      u.username = auth['info']['name'].downcase.gsub(" ", "_")
-      u.password = SecureRandmo.hex(20)
+    @user = User.from_omniauth(auth)
+    if @user.valid?
+      session[:user_id] = @user.id
+      redirect_to hotel_search_path
+    else
+      render :new
     end
-    redirecto_to hotels_path
   end
 
   def destroy
@@ -32,8 +33,9 @@ class SessionsController < ApplicationController
   end
 
   private
+
   def auth
-    request.env['omniauth.env']
+    request.env['omniauth.auth']
   end
 
 end

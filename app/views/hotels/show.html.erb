@@ -7,7 +7,7 @@
   </div>
 
   <div class="box" id="reservations">
-    <% if unbooked_reservation?(@hotel) %>  
+    <% if unbooked_reservation?(@user, @hotel) %>  
       <h3>Offer:</h3>
       <%= render partial: 'reservations/info', collection: @user.unbooked_reservation(@hotel), as: :reservation %>
       <a href="/reserve/<%= @hotel.hotelId %>/<%= reservation_code(@hotel) %>">Reserve</a>
@@ -17,11 +17,11 @@
       <%= render partial: 'reservations/info', locals: {reservation: @single_reservation} %>
     <% else %>
       <h3>Reservations</h3><br>
-      <% if upcoming_reservations?(@hotel) %>
+      <% if upcoming_reservations?(@user, @hotel) %>
         <p>Upcoming:</p><br>
         <%= render partial: 'reservations/info', collection: @user.upcoming_reservations(@hotel), as: :reservation %>
       <% end %><br>
-      <% if previous_reservations?(@hotel) %>
+      <% if previous_reservations?(@user, @hotel) %>
         <p>Previous:</p><br>
         <%= render partial: 'reservations/info', collection: @user.previous_reservations(@hotel), as: :reservation %>
       <% end %>
