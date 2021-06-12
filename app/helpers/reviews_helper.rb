@@ -11,7 +11,7 @@ module ReviewsHelper
         "You don't currently have open for review reservations"
       end
     else
-      hidden_field_tag "review[author_id]", review.reservation_id
+      hidden_field_tag "review[reservation_id]", review.reservation_id
     end
   end
   

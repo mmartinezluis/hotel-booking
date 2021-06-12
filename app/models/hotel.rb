@@ -6,7 +6,7 @@ class Hotel < ApplicationRecord
   belongs_to :city
 
   # Since a hotel comes with a reservation and a room, hotels are built with both objects nested
-  def self.build_hotel(hotel_hash)
+  def self.build_hotel(hotel_hash, user_id)
     city = City.find_or_create_by(code: hotel_hash["hotel"]["cityCode"])
     hotel = Hotel.find_by(hotelId: hotel_hash["hotel"]["hotelId"])
     # If the hotel is already in the database, do not build a new hotel (skip the below block)
@@ -31,7 +31,7 @@ class Hotel < ApplicationRecord
       checkin_date: hotel_hash["offers"][0]["checkInDate"],      # Checkin date
       checkout_date: hotel_hash["offers"][0]["checkOutDate"],    # Checkout date
     )
-    new_reservation.user_id = User.first.id
+    new_reservation.user_id = user_id
     #  Build nested room for reservation 
     # If the hotel_hash includes the "TypeEstimated" key, build a room with 3 attributes
     if hotel_hash["offers"][0]["room"].keys.include?("typeEstimated")

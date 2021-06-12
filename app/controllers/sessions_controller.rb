@@ -1,24 +1,24 @@
 class SessionsController < ApplicationController
+  skip_before_action :require_login, :current_user
+  before_action :redirect_if_logged_in, only: [:new]
 
   def new
   end
 
   def create
-    @user = User.find_by(username: params[:name])
+    @user = User.find_by(email: params[:email])
     if @user && @user.authenticate(params[:password])
       session[:user_id] = @user.id
       redirect_to hotels_path
     else
-      flash[:msg] = 'Invalid username and/or password'
+      flash[:msg] = 'Invalid email and/or password'
       render :new
     end
   end
 
-  def logout
-    if logged_in
+  def destroy
     session.clear
-    redirect_to login_path
-    end
+    redirect_to "/login"
   end
 
 end

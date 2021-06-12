@@ -5,14 +5,15 @@ Rails.application.routes.draw do
   resources :hotels, :only => [:index, :show]
   resources :reservations, :only => [:index, :show]
   resources :reviews, :only => [:index, :show, :new, :create, :edit, :update, :delete]
-  resources :users, :only =>[:new, :create, :show]
+  resources :users, :only =>[:create, :show]
   # resources :sessions, :only =>[:new, :create, :destroy]
 
   # Sessions controller routes
   root 'sessions#new'
-  get '/signin', to: "sessions#new"
-  post '/signin', to: "sessions#create"
-  get '/logout', to: "sessions#destroy"
+  get '/login', to: "sessions#new"
+  post '/login', to: "sessions#create"
+  get '/logout', to: "sessions#destroy", as: "logout"
+  get '/signup', to: 'users#new', as: 'signup'
 
   #  API routes
   get "hotel_search", to: "hotels#index", as: 'hotel_search'

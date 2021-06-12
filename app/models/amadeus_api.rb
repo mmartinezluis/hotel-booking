@@ -21,7 +21,7 @@ class AmadeusApi
     @@collection
   end
 
-  def query_city(citycode, checkin_date = Date.today.to_s, checkout_date = (Date.today+1).to_s, guests = 2)
+  def query_city(citycode, checkin_date = Date.today.to_s, checkout_date = (Date.today+1).to_s, guests = 2, user_id)
     begin
       response = @amadeus.shopping.hotel_offers.get(
         cityCode: citycode,
@@ -33,12 +33,12 @@ class AmadeusApi
       flash[:msg] = "#{e.class}: #{e.message}. Please try again..."
       redirect_to root_path
     end
-    parse_city_responnse(response)
+    parse_city_responnse(response, user_id)
   end
 
-  def parse_city_responnse(response)
+  def parse_city_responnse(response, user_id)
     response.each do |hotel_hash|
-      @@collection << Hotel.build_hotel(hotel_hash)
+      @@collection << Hotel.build_hotel(hotel_hash, user_id)
     end
     @@collection
   end

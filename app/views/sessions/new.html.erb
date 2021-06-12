@@ -1,14 +1,14 @@
 <h1>Log In</h1>
 <%= render partial: 'messages/msg' %>
 
-<%= form_tag "/signin", method: :post do %>
-  <%= label_tag :username, "Username" %>
-  <%= text_field_tag :username %>
+<%= form_tag "/login", method: :post do %>
+  <%= label_tag :email, "Email" %>
+  <%= text_field_tag :email %>
   <%= label_tag :password, "Password" %>
   <%= password_field_tag :password %>
-  <%= submit_tag("Sign In") %>
+  <%= submit_tag("Log In") %>
 <% end %>
 
 <%= link_to "Log in with Google", "/" %><br>
 <%= link_to "Log in with GitHub", "/" %><br>
-<%= link_to "Create an account", new_user_path %>
+<%= link_to "Create an account", "/signup" %>

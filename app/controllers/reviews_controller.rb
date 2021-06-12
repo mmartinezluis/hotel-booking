@@ -3,7 +3,7 @@ class ReviewsController < ApplicationController
   before_action :check_review_id, only: [:show, :edit]
 
   def index
-    @reviews = User.first.all_reviews_sorted
+    @reviews = current_user.all_reviews_sorted
   end
 
   def new
@@ -35,14 +35,14 @@ class ReviewsController < ApplicationController
   end
 
   def check_reservation_id
-    if params[:reservation_id] && !User.first.reservations.exists?(params[:reservation_id])
+    if params[:reservation_id] && !current_user.reservations.exists?(params[:reservation_id])
       flash[:msg] = "Reservation not found"
       redirect_to reservations_path and return
     end
   end
 
   def check_review_id
-    if !User.first.reviews.exists?(params[:id])
+    if !current_user.reviews.exists?(params[:id])
       flash[:msg] = "Review not found"
       redirect_to reviews_path and return
     end

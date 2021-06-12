@@ -4,7 +4,6 @@ class HotelsController < ApplicationController
 #   before_action :verify_params
 
   def index
-    current_user = User.first
     # If the city_hotels nested route is used, display hotels from the nested city only
     if params[:city_id]
       @nested_city = City.user_cities(current_user).find_by(id: params[:city_id])
@@ -24,12 +23,13 @@ class HotelsController < ApplicationController
       api = AmadeusApi.all.last
       api ||= AmadeusApi.new
       AmadeusApi.hotels.clear
+      user_id = current_user.id
       if params[:city] && !params[:city].blank?
         begin
           if params[:checkin_date].blank? && params[:checkout_date].blank? && params[:guests].blank?
-            @hotels = api.query_city(params[:city])
+            @hotels = api.query_city(params[:city], user_id)
           else
-            @hotels = api.query_city(params[:city], params[:checkin_date], params[:checkout_date], params[:guests])
+            @hotels = api.query_city(params[:city], params[:checkin_date], params[:checkout_date], params[:guests], user_id)
           end
         rescue StandardError => e
           flash[:msg] = "#{e.class}: #{e.message}. Please try again..."
@@ -43,7 +43,6 @@ class HotelsController < ApplicationController
   end
 
   def show
-    current_user = User.first
     # If request comes from the 'city_hotels' nested route, show the hotel from the database by city id and hotel id
     if params[:city_id]
       city = City.user_cities(current_user).find_by(id: params[:city_id])
@@ -96,7 +95,7 @@ class HotelsController < ApplicationController
           AmadeusApi.hotels.clear
           @hotel.save
           flash[:msg] = "Congratualtions! Your reservation was successfully processed."
-          redirect_to root_path
+          redirect_to hotel_search_path
         else
           flash[:msg]= "Sorry, one or more of the reservation conditions have changed. Please retry your hotel search."
           render :'show.html.erb' and return

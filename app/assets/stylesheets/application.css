@@ -27,6 +27,32 @@
   box-sizing: inherit;
  }
 
+ /* .nav {  
+  display: flex;
+  justify-content: flex-start;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: var(--main-blue);
+  box-shadow: 0 2px 0 rgba(0, 0, 0, 0.4);
+  z-index: 10;
+} */
+
+/* body {
+  display: grid;
+  grid-template-rows: 20%;
+  grid-template-areas:
+    "nav"
+    "main";
+  color: bisque;
+} */
+
+#main {
+  background: bisque;
+  
+}
+
  #index {
   display: flex;
   flex-direction: column;

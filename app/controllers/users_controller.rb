@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
-#   validates_presence_of :username, :email, :password, on: [:create]
-
+  skip_before_action :current_user, :require_login, only: [:new, :create]
+  before_action :redirect_if_logged_in, only: [:new]
+  
   def new
     @user = User.new
   end

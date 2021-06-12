@@ -26,12 +26,24 @@ users with most reserations,
 
 Navigation bar: Dashboard | Hotel Search | Hotels | Rservations | Cities | Reviews | Trending
 
-
-
-    <% @reservations.each do |reservation| %>
-      <div>
-        <h2><%= link_to reservation.hotel.name, reservation_path(reservation) %></h2>
-        <p><%= reservation.hotel.city.code %></p>
-        <%= render 'reservations/info', :reservation => reservation %>
-      </div>
-    <% end %>
+NAVABAR
+    <header>
+    <nav class="nav" id="navbar">
+      <% if !!session[:user_id] %>
+        <ul class="nav-list">
+          <li><%= link_to "Hotel Search", hotel_search_path %></li>
+          <li><%= link_to "Hotels" %></li>
+          <li><%= link_to "Reservations", reservations_path %></li>
+          <li><%= link_to "Cities", cities_path %></li>
+          <li><%= link_to "Reviews", reviews_path %></li>
+          <li><%= link_to "Trending", hotels_path %></li>
+          <li><%= link_to "Logout", logout_path %></li>
+        </ul>
+      <% else %>
+        <ul class="nav-list">
+          <li><%= link_to "Log In", "/singin" %></li>
+          <li><%= link_to "Sign Up", new_user_path %></li>
+        </ul>
+      <% end %>
+    </nav>
+    </header>

@@ -1,11 +1,11 @@
 
 <h1>My Reviews</h1>
 <%= render partial: 'messages/msg' %><br>
-<%= link_to "New Review", new_review_path %><br>
 <% if @reviews.empty? %>
   <h3>It seems you haven't written any reviews yet :)</h3><br>
 <% else %>
   <% @reviews.each do |review| %>
+    <%= link_to "New Review", new_review_path %><br>
     <h3><%= review.reservation.hotel.name %></h3>
     <p><%= review.reservation.hotel.city.code %></p>
     <%= render 'reservations/info_no_links', :reservation => review.reservation %>
