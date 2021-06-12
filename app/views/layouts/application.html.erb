@@ -25,7 +25,7 @@
               <a class="nav-link active" aria-current="page" href="/hotels">Dashboard</a>
               <a class="nav-link active" aria-current="page" href="/hotels">Hotel Search</a>
               <a class="nav-link active" aria-current="page" href="/users/<%= @user.id %>/hotels">Hotels</a>
-              <a class="nav-link active" aria-current="page" href="/reservations">Reservations (<%= (@user.upcoming_reservations.length) if @user.upcoming_reservations != [] %>)</a>
+              <a class="nav-link active" aria-current="page" href="/reservations">Reservations <%= ((@user.upcoming_reservations.length)) if @user.upcoming_reservations != [] %></a>
               <a class="nav-link active" aria-current="page" href="/cities">Cities</a>
               <a class="nav-link active" aria-current="page" href="/reviews">Reviews</a>
               <a class="nav-link active" aria-current="page" href="/hotels">Trending</a>
