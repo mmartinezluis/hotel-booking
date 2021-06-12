@@ -42,9 +42,9 @@ class AmadeusApi
     @@collection
   end
 
-  def query_reservation(offerId)
-    reservation_query = @amadeus.shopping.hotel_offer("#{offerId}").get.data
-    parse_reservation_query = reservation_query
-  end
+  # def query_reservation(offerId)
+  #   reservation_query = @amadeus.shopping.hotel_offer("#{offerId}").get.data
+  #   parse_reservation_query = reservation_query
+  # end
 
 end

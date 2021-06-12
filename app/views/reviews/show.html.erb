@@ -1,9 +1,12 @@
+<%= render partial: 'messages/msg' %><br>
+
 <h2>Review for</h2> 
+
 <p><%= @review.reservation.hotel.name %></p>
 <p><%= @review.reservation.hotel.city.code %></p>
-<%= render partial: 'reservations/info_no_links', locals: {reservation: @review.reservation} %><br>
+<%= render partial: 'reservations/info_no_links', locals: {reservation: @review.reservation} %>
 <h3>Review description:</h3>
-<%= @review.description %><br>
-<%= link_to 'Edit review', edit_review_path(@review) %><br><br>
-<%= link_to 'Delete review', @review, method: :delete, data: { confirm: "Are you sure?" } %><br><br>
+<%= @review.description %><br><br>
+<%= link_to 'Edit review', edit_review_path(@review) %><br>
+<%= link_to 'Delete review', @review, method: :delete, data: { confirm: "Are you sure?" } %><br>
 <%= link_to 'Back', reviews_path %>

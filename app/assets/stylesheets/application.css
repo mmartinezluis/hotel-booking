@@ -48,12 +48,12 @@
   color: bisque;
 } */
 
-#main {
+/* #main {
   background: bisque;
   
-}
+} */
 
- #index {
+ .index {
   display: flex;
   flex-direction: column;
   align-items: center;  
@@ -65,17 +65,21 @@
   grid-template-rows: 70%;
   grid-template-areas:
     "hotel reservations"
-    "reviews reviews";
+    "reviews . ";
  }
 
  #hotel {
   grid-area: hotel;
+  border: solid blue 2px;
+  
  }
 
  #reservations {
   grid-area: reservations;
+  border: solid yellow 2px;
  }
 
  #reviews {
   grid-area: reviews;
+  border: solid gray 2px;
  }

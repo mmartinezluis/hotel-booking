@@ -7,12 +7,19 @@ class ReviewsController < ApplicationController
   end
 
   def new
+    #  I the new review is requested from the nested reservation_review route, catch the nested reservation's id
     @review = Review.new(reservation_id: params[:reservation_id])
   end
 
   def create
-    review = Review.create(review_params)
-    redirect_to review_path(review)
+    @review = Review.new(review_params)
+    if @review.valid?
+      @review.save
+      flash[:msg] = "Review succesfully created"
+      redirect_to review_path(@review)
+    else
+      render :new
+    end
   end
 
   def show
@@ -25,14 +32,19 @@ class ReviewsController < ApplicationController
 
   def update
     @review = Review.find(params[:id])
-    @review.update(review_params)
-    redirect_to review_path(@review)
+    if @review.update(review_params)
+      @review.update(review_params)
+      flash[:msg] = "Review succesfully updated"
+      redirect_to review_path(@review)
+    else
+      render :edit
+    end
   end
 
   def destroy
     review = Review.find_by(id: params[:id])
     review.destroy
-    flash = "Review successfully deleted"
+    flash[:msg] = "Review successfully deleted"
     redirect_to reviews_path
   end
 

@@ -1,7 +1,7 @@
-<div class="view">
+<div class="view index">
+<%= render partial: 'messages/msg' %>
+
   <h1>Cities Visited</h1>
-  
-  <%= render partial: 'messages/msg' %>
 
   <% if @user.cities.blank? %>
     <p>You haven't visited any cities yet<p>

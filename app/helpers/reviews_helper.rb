@@ -1,15 +1,8 @@
 module ReviewsHelper
 
-  def ready_for_review
-  end
-
-  def reservation_id_field(review)
+  def reservation_id_field(review, user)
     if review.reservation.nil?
-      if User.first.open_for_review_reservations
-        select_tag "review[reservation_id", options_from_collection_for_select(User.first.open_for_review_reservations, :id, :hotel_and_checkin)
-      else
-        "You don't currently have open for review reservations"
-      end
+      select_tag "review[reservation_id", options_from_collection_for_select(user.open_for_review_reservations, :id, :hotel_and_checkin)
     else
       hidden_field_tag "review[reservation_id]", review.reservation_id
     end

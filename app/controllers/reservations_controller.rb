@@ -1,10 +1,10 @@
 class ReservationsController < ApplicationController
 
-
   def index
     @reservations = current_user.all_reservations
   end
 
+  #  The show action uses the hotels/show template; reservations don't have their own show page
   def show
     if !current_user.reservations.exists?(params[:id])
       flash[:msg] = "Reservation not found"

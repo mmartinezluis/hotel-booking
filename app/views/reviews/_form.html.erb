@@ -1,9 +1,7 @@
 <%= form_for @review do |f| %>
-  <%= reservation_id_field(@review) %><br>
+  <%= reservation_id_field(@review, @user) %><br>
   <%= f.label 'Review description:' %><br>
   <%= f.text_area :description %><br>
   <%= f.submit %>
-<% end %><br>
-<% if @nested_reservation %>
-  <%= button_to 'Cancel', @review.id ? reservation_review_path(@nested_reservation, @review) : reviews_path  %>
 <% end %>
+

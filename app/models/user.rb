@@ -25,7 +25,7 @@ class User < ApplicationRecord
   # Used by the API to show a hotel reservation offer; needs to use native Ruby methods as the offer is not persited in database
   # This method needs to be changed to ".find" instead of ".select" at a later point
   def unbooked_reservation(hotel)
-    hotel.reservations.select { |reservation| reservation.id == nil && reservation.user_id = self.id}
+    hotel.reservations.find{|reservation| reservation.id == nil && reservation.user_id = self.id}
   end
 
   # For the current user, find the user's reservations for the given hotel, and order them from most recent to least recent checkin date
@@ -82,5 +82,4 @@ class User < ApplicationRecord
     end
   end
       
-   
 end
