@@ -25,8 +25,15 @@ class ReviewsController < ApplicationController
 
   def update
     @review = Review.find(params[:id])
-    @review.save
+    @review.update(review_params)
     redirect_to review_path(@review)
+  end
+
+  def destroy
+    review = Review.find_by(id: params[:id])
+    review.destroy
+    flash = "Review successfully deleted"
+    redirect_to reviews_path
   end
 
   private

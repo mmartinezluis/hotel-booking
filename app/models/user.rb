@@ -3,11 +3,12 @@ class User < ApplicationRecord
   validates_presence_of :username, :email, :password, on: :create
   validates :email, uniqueness: true
   validates_format_of :email, with: URI::MailTo::EMAIL_REGEXP
+
   has_many :reservations
   has_many :hotels, through: :reservations
   has_many :cities, through: :hotels
   has_many :reviews, through: :reservations
-  # accepts_nested_attributes_for :reservations
+  
 
   def find_hotel(hotel_id)
     self.hotels.distinct.find_by(id: hotel_id)

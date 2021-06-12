@@ -1,5 +1,4 @@
 <%= form_for @review do |f| %>
-  <%= f.text_field :reservation_id, type: :hidden %>
   <%= reservation_id_field(@review) %><br>
   <%= f.label 'Review description:' %><br>
   <%= f.text_area :description %><br>

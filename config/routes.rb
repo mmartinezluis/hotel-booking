@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   resources :cities, :only => [:index, :show]
   resources :hotels, :only => [:index, :show]
   resources :reservations, :only => [:index, :show]
-  resources :reviews, :only => [:index, :show, :new, :create, :edit, :update, :delete]
+  resources :reviews, :only => [:index, :show, :new, :create, :edit, :update, :destroy]
   resources :users, :only =>[:create, :show]
   # resources :sessions, :only =>[:new, :create, :destroy]
 
@@ -14,6 +14,9 @@ Rails.application.routes.draw do
   post '/login', to: "sessions#create"
   get '/logout', to: "sessions#destroy", as: "logout"
   get '/signup', to: 'users#new', as: 'signup'
+
+  # Omniuath routes
+  get '/auth/:provider/callback', to: 'sessions#omniauth'
 
   #  API routes
   get "hotel_search", to: "hotels#index", as: 'hotel_search'

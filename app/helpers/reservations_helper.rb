@@ -28,7 +28,8 @@ module ReservationsHelper
   end
 
   def open_for_review?(reservation)
-    reservation.checkout_date < Date.today.to_s
+    # reservation.checkout_date < Date.today.to_s
+    reservation.checkin_date <= Date.today.to_s
   end
 
   def full_info(reservations)
