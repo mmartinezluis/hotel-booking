@@ -1,4 +1,8 @@
-<%= link_to hotel.name, "hotel_search/#{hotel.hotelId}" %>
-<p>Guests: <%= hotel_guests(hotel, @user) %></p>
-<p>Beds: <%= hotel_beds(hotel, @user) %></p>
-<p>Price: <%= hotel_currency(hotel, @user) %> <%= hotel_price(hotel, @user) %></p>
+<div class="row">
+  
+    <h3><%= link_to hotel.name, "hotel_search/#{hotel.hotelId}" %></h3>
+    <p>Guests: <%= hotel_guests(hotel, @user) %></p>
+    <p>Beds: <%= hotel_beds(hotel, @user) %></p>
+    <p>Price: <%= hotel_currency(hotel, @user) %> <%= hotel_price(hotel, @user) %></p>
+  
+</div>

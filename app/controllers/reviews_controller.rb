@@ -7,8 +7,13 @@ class ReviewsController < ApplicationController
   end
 
   def new
-    #  I the new review is requested from the nested reservation_review route, catch the nested reservation's id
-    @review = Review.new(reservation_id: params[:reservation_id])
+    if params[:reservation_id] && (current_user.reservations.find_by(id: params[:reservation_id]).checkout_date >= Date.today.to_s)
+      flash[:msg] = "Reservations open for review one day after the reservation's checkout date"
+      redirect_to reservations_path
+    else
+      #  I the new review is requested from the nested reservation_review route, catch the nested reservation's id
+      @review = Review.new(reservation_id: params[:reservation_id])
+    end
   end
 
   def create

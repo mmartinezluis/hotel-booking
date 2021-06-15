@@ -9,7 +9,9 @@
   <div class="series" id="hotels" >
     <% if @hotels %>
       <% if @nested_city.nil? && @nested_user.nil? %>
-        <%= render partial: 'search_results', collection: @hotels, as: :hotel %>
+        <div class="container">
+          <%= render partial: 'search_results', collection: @hotels, as: :hotel %>
+        </div>
       <% else %>
         <h2><%= @nested_city ? "My Hotels in #{@nested_city.code}" : "My Hotels" %>:</h2><br>
         <ul>
@@ -25,4 +27,6 @@
     <% end %>
   </div>
   
+
+
 </div>

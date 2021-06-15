@@ -12,11 +12,12 @@
  *
  *= require_tree .
  *= require_self
+ *= require carousel.css
  */
 
  /*  *= require bootstrap-datepicker    */
 
- * {
+ /* * {
   margin: 0;
   padding: 0;
  }
@@ -25,7 +26,7 @@
  *:before,
  *:after {
   box-sizing: inherit;
- }
+ } */
 
  /* .nav {  
   display: flex;
@@ -53,11 +54,11 @@
   
 } */
 
- .index {
+ /* .index {
   display: flex;
   flex-direction: column;
   align-items: center;  
- }
+ } */
 
  #hotel-show {
   display: grid;
@@ -70,16 +71,20 @@
 
  #hotel {
   grid-area: hotel;
-  border: solid blue 2px;
+  /* border: solid blue 2px; */
   
  }
 
  #reservations {
   grid-area: reservations;
-  border: solid yellow 2px;
+  /* border: solid yellow 2px; */
  }
 
  #reviews {
   grid-area: reviews;
-  border: solid gray 2px;
+  /* border: solid gray 2px; */
+ }
+
+ #main {
+   margin: 1rem 1rem 0rem 1rem;
  }

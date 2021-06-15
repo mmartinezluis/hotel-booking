@@ -10,28 +10,47 @@
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+   
   </head>
 
   <body>
     <% if session[:user_id] %>
-      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <nav class="navbar navbar-expand-lg navbar-light fixed-top bg-light">
         <div class="container-fluid">
           <a class="navbar-brand" href="#">Navbar</a>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
-          <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-            <div class="navbar-nav">
-              <a class="nav-link active" aria-current="page" href="/hotels">Dashboard</a>
-              <a class="nav-link active" aria-current="page" href="/hotels">Hotel Search</a>
-              <a class="nav-link active" aria-current="page" href="/users/<%= @user.id %>/hotels">Hotels</a>
-              <a class="nav-link active" aria-current="page" href="/reservations">Reservations <%= ((@user.upcoming_reservations.length)) if @user.upcoming_reservations != [] %></a>
-              <a class="nav-link active" aria-current="page" href="/cities">Cities</a>
-              <a class="nav-link active" aria-current="page" href="/reviews">Reviews</a>
-              <a class="nav-link active" aria-current="page" href="/hotels">Trending</a>
-              <a class="nav-link active" aria-current="page" href="/logout">Logout</a>
-              <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-            </div>
+          <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="#">Dashboard</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="/hotels">Hotel Search</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="/users/<%= @user.id %>/hotels">Hotels</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="/reservations">Reservations (<%= @user.upcoming_reservations.length if @user.upcoming_reservations != [] %>)</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="/cities">Cities</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="/reviews">Reviews</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="/hotels">Trending</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="/logout">Logout</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+              </li>
+            </ul>
           </div>
         </div>
       </nav>
@@ -41,6 +60,7 @@
       <%= yield %>
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
   </body>
 
   <script>
@@ -55,6 +75,6 @@
   # document.addEventListener("DOMContentLoaded", function() {
   #   document.getElementById("text").textContent = "This is really cool!";
   # });
-
   </script>
+
 </html>
