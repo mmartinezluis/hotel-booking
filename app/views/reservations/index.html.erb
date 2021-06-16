@@ -1,5 +1,6 @@
-<h1>My Reservations</h1>
-<%= render partial: 'messages/msg' %><br>
+<%= render partial: 'messages/msg' %>
+
+<h1>My Reservations</h1><br>
 
 <% if @reservations.empty? %>
   <h3>It seems you haven't booked any reservations yet :)</h3>
@@ -10,13 +11,9 @@
     <ul>
       <% @user.upcoming_reservations.each do |reservation| %>
         <li>
-        <div class="card border-dark mb-3" style="max-width: 28rem;">
-          <div class="card-body">
-          <h5 class="card-header"><%= link_to reservation.hotel.name, reservation_path(reservation) %></h5>
-          <p class="card-text"><%= reservation.hotel.city.code %></p>
+          <h3><%= link_to reservation.hotel.name, reservation_path(reservation) %></h3>
+          <%= reservation.hotel.city.code %>
           <%= render 'reservations/info', :reservation => reservation %>
-          </div>
-        </div>
         </li>
       <% end %>
     </ul>
@@ -27,8 +24,8 @@
     <ul>
       <% @user.previous_reservations.each do |reservation| %>
         <li>
-          <h2><%= link_to reservation.hotel.name, reservation_path(reservation) %></h2>
-          <p><%= reservation.hotel.city.code %></p>
+          <h3><%= link_to reservation.hotel.name, reservation_path(reservation) %></h3>
+          <%= reservation.hotel.city.code %>
           <%= render 'reservations/info', :reservation => reservation %>
         </li>
       <% end %>

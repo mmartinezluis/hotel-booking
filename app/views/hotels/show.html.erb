@@ -12,30 +12,35 @@
       <%= render partial: 'reservations/info_no_links', locals: { reservation: @user.unbooked_reservation(@hotel) } %>
       <a href="/reserve/<%= @hotel.hotelId %>/<%= reservation_code(@hotel, @user) %>">Reserve</a>
     <% elsif @single_reservation %>
-      <h3>Reservation</h3><br>
+      <h3>Reservation</h3>
       <p><%= upcoming_single_reservation?(@single_reservation) ? 'Upcoming' : 'Previous' %></p>
       <%= render partial: 'reservations/info', locals: {reservation: @single_reservation} %>
     <% else %>
-      <h3>Reservations</h3><br>
+      <h3>Reservations</h3>
       <% if upcoming_reservations?(@user, @hotel) %>
-        <p>Upcoming:</p><br>
+        <p>Upcoming:</p>
         <%= render partial: 'reservations/info', collection: @user.upcoming_reservations(@hotel), as: :reservation %>
-      <% end %><br>
+      <% end %>
       <% if previous_reservations?(@user, @hotel) %>
-        <p>Previous:</p><br>
+        <p>Previous:</p>
         <%= render partial: 'reservations/info', collection: @user.previous_reservations(@hotel), as: :reservation %>
       <% end %>
     <% end %>
-  <div>
+  </div>
 
   <div class="box" id="reviews">
     <h3>Reviews</h3>
     <div>
       <% @hotel.reviews.each do |review| %>
-        <p><%= review.reservation.user.username %></p>
-        <p>Posted on <%= review.created_at %></p>
-        <p><%= review.description %></p>    
+        <p>
+          <%= review.reservation.user.username %><br>
+          Posted on <%= review.created_at %><br>
+        </p>
+        <blockquote class="blockquote">
+          <p><%= review.description %></p>
+        </blockquote>
       <% end %>  
+    </div>
   </div>
 
 </div>

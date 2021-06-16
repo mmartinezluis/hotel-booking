@@ -1,6 +1,6 @@
-<%= render partial: 'messages/msg' %><br>
+<%= render partial: 'messages/msg' %>
 
-<h1>My Reviews</h1>
+<h1>My Reviews</h1><br>
 
 <% if @user.open_for_review_reservations != [] && @user.open_for_review_reservations != nil %>
   <p>You have open for review reservations: <%= link_to "New Review", new_review_path %></p><br>

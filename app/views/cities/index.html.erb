@@ -10,7 +10,7 @@
       <% @user.cities.distinct.each do |city| %>
         <li>
           <%= link_to city.code, city_hotels_path(city.id) %>
-        </li>
+        </li><br>
       <% end %>
     </ul>
   <% end %>

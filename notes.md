@@ -47,3 +47,9 @@ NAVABAR
       <% end %>
     </nav>
     </header>
+
+
+      #   Implement the below function to change the root page background upon loading of the page with a new picture
+  # document.addEventListener("DOMContentLoaded", function() {
+  #   document.getElementById("text").textContent = "This is really cool!";
+  # });

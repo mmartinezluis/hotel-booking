@@ -1,3 +1,4 @@
+
 <div class= "view index" >
 
   <div>
@@ -18,7 +19,7 @@
           <% @hotels.each do |hotel| %>
             <div>
               <li>
-                <%= link_to hotel.name, @nested_city ? "#{city_hotel_path(@nested_city, hotel.id)}" : "#{hotel_path(hotel.id)}" %>
+                <h6><%= link_to hotel.name, @nested_city ? "#{city_hotel_path(@nested_city, hotel.id)}" : "#{hotel_path(hotel.id)}" %></h6>
               </li><br>
             </div>
           <% end %>

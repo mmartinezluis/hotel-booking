@@ -1,11 +1,13 @@
 <div class="reservation">
-  <p>Check-in Date: <%= reservation.checkin_date %></p>
-  <p>Check-out Date: <%= reservation.checkout_date %></p>
-  <p>Guests: <%= reservation.guests %></p>
-  <p>Price: <%= reservation.currency %> <%= reservation.price %></p>
+  <p>
+    Check-in Date: <%= reservation.checkin_date %><br>
+    Check-out Date: <%= reservation.checkout_date %><br>
+    Guests: <%= reservation.guests %><br>
+    Price: <%= reservation.currency %> <%= reservation.price %><br>
   <% if reservation.review %>
-    <%= link_to 'Show review', reservation_review_path(reservation, reservation.review) %><br>
+    <%= link_to 'Show review', reservation_review_path(reservation, reservation.review) %>
   <% elsif open_for_review?(reservation) %>  
     <%= link_to 'Write a review', new_reservation_review_path(reservation) %>
   <% end %>
+  </p>
 </div>
