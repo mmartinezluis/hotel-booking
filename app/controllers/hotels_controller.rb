@@ -9,20 +9,22 @@ class HotelsController < ApplicationController
     # If the city_hotels nested route is used, display hotels from the nested city only
     # If the user_hotels nested route is used, display the user's hotels
     # If no nested route is used, load the API for searching hotels, below
-    api = AmadeusApi.all.last
-    api ||= AmadeusApi.new
+  
+    api = AmadeusApi.new
     AmadeusApi.hotels.clear
     user_id = current_user.id
     if params[:city] && !params[:city].blank?
       begin
+        # byebug
         if params[:checkin_date].blank? && params[:checkout_date].blank? && params[:guests].blank?
           @hotels = api.query_city(params[:city], user_id)
         else
           @hotels = api.query_city(params[:city], params[:checkin_date], params[:checkout_date], params[:guests], user_id)
         end
       rescue StandardError => e
+        # byebug
         flash[:msg] = "#{e.class}: #{e.message}. Please try again..."
-        render :'index.html.erb' and return
+         render :'index.html.erb' and return
       end
       if @hotels.empty?
         flash[:msg] = "Ooops, no hotels could be found for the requested specifications"
@@ -50,11 +52,12 @@ class HotelsController < ApplicationController
   end
 
   def reserve
+    # byebug
     api = AmadeusApi.all.last
     @hotel = AmadeusApi.hotels.find { |hotel| hotel.hotelId == params[:hotelId] }
-    # 'reservation', below, can cause an exception 
+    # 'reservation', below, can cause an exception and it needs to be rescued
     begin
-      # Use the hotel_offer API endpoint to check in real-time whether the reservation still exists 
+      # Use the HOTEL_OFFER API ENDPOINT to check in real-time whether the reservation still exists 
       reservation = api.amadeus.shopping.hotel_offer(params[:code]).get.data 
     rescue StandardError => e
       flash[:msg] = "#{e.class}: #{e.message}. Please try again..."
@@ -70,7 +73,7 @@ class HotelsController < ApplicationController
         if checkin && checkout && guests #&& price
           AmadeusApi.hotels.clear
           @hotel.save
-          flash[:msg] = "Congratualtions! Your reservation was successfully processed."
+          flash[:msg] = "Congratulations! Your reservation was successfully processed."
           redirect_to hotel_search_path
         else
           flash[:msg]= "Sorry, one or more of the reservation conditions have changed. Please retry your hotel search."
@@ -84,6 +87,14 @@ class HotelsController < ApplicationController
   end
 
   private
+    def hotel_params
+      params.require(:hotel).permit(
+        # params for API:
+        :city, :checkin_date, :checkout_date,:guests, :hotelId,
+        # params from city_hotels and user_hotels nested routes:
+        :city_id, :user_id
+      )
+    end
 
 #   def set_api
 #     api = AmadeusApi.all.last
@@ -116,13 +127,4 @@ class HotelsController < ApplicationController
       end
     end
 
-    def hotel_params
-      params.require(:hotel).permit(
-        # params for API:
-        :city, :checkin_date, :checkout_date,:guests, :hotelId,
-        # params from city_hotels and user_hotels nested routes:
-        :city_id, :user_id
-      )
-    end
-  
 end
