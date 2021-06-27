@@ -1,7 +1,7 @@
 # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 
 Rails.application.routes.draw do
-  resources :cities, :only => [:index, :show]
+  resources :cities, :only => [:index]
   resources :hotels, :only => [:index, :show]
   resources :reservations, :only => [:index, :show]
   resources :reviews, :only => [:index, :show, :new, :create, :edit, :update, :destroy]
@@ -24,7 +24,7 @@ Rails.application.routes.draw do
   get "/reserve/:hotelId/:code", to: "hotels#reserve"
 
   # Nested routes
-  resources :cities, only: [:index, :show] do
+  resources :cities, only: [:show] do
     resources :hotels, only: [:index, :show]
   end
 

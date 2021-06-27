@@ -53,3 +53,25 @@ NAVABAR
   # document.addEventListener("DOMContentLoaded", function() {
   #   document.getElementById("text").textContent = "This is really cool!";
   # });
+
+
+  JAVASCRIPT CODE FOR DATEPICKER PLUG IN 
+
+    $(function(){
+    $('[data-behavior=daterangepicker]').daterangepicker({
+      locale: { format: 'MM/DD/YYYY'},
+      cancelLabel: 'Clear',
+      minDate: moment(),
+      endDate: moment().add(1, 'days'),
+      autoApply: true
+    });
+  
+    $('[data-behavior=daterangepicker]').on('cancel.daterangepicker', function(){
+      $(this).val(' ');
+    });
+  });
+
+
+In app/assets/ javascipts/ .js
+
+  //= require bootstrap-datepicker

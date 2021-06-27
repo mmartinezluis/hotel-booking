@@ -9,7 +9,7 @@
   <div class="box" id="reservations">
     <% if unbooked_reservation?(@user, @hotel) %>  
       <h3>Offer:</h3>
-      <%= render partial: 'reservations/info_no_links', locals: { reservation: @user.unbooked_reservation(@hotel) } %>
+      <%= render partial: 'reservations/info_no_links', locals: { reservation: @user.unbooked_reservation(@hotel) } %><br>
       <a href="/reserve/<%= @hotel.hotelId %>/<%= reservation_code(@hotel, @user) %>">Reserve</a>
     <% elsif @single_reservation %>
       <h3>Reservation</h3>

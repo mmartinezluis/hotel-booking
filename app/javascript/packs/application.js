@@ -4,9 +4,9 @@
 // that code so it'll be compiled.
 
 //= require bootstrap-datepicker
-//= require daterangepicker
 //= require jquery
 //= require moment
+//= require daterangepicker
 
 import Rails from "@rails/ujs"
 import Turbolinks from "turbolinks"

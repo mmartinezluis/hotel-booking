@@ -44,7 +44,7 @@ class User < ApplicationRecord
     end
   end
 
-  def all_hotels
+  def all_hotels_sorted
     self.hotels.distinct.sort do |hotel_1, hotel_2| 
       self.most_recent_reservation(hotel_2).checkin_date <=> self.most_recent_reservation(hotel_1).checkin_date
     end

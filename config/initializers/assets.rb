@@ -15,5 +15,5 @@ Rails.application.config.assets.paths << Rails.root.join('node_modules')
 
 
 
-Rails.application.config.assets.precompile += %w( daterangepicker_initializer.js )
+# Rails.application.config.assets.precompile += %w( daterangepicker_initializer.js )
 # Rails.application.config.assets.precompile = ["daterangepicker_initializer.js" ]
