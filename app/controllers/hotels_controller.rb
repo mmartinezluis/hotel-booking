@@ -6,66 +6,40 @@ class HotelsController < ApplicationController
 #   before_action :verify_params
 
   def index
-    
     # If the city_hotels nested route is used, display hotels from the nested city only
-    # if params[:city_id]
-    #   @nested_city = current_user.cities.find_by(id: params[:city_id])
-    #   if @nested_city.nil?
-    #     flash[:msg] = "City not found."
-    #     redirect_to cities_path
-    #   end
-    #   @hotels = current_user.hotels_by_city(params[:city_id])
-    # # If the user_hotels nested route is used, display the user's hotels
-    # elsif params[:user_id]
-    #   nested_user = User.find_by(id: params[:user_id])
-    #   redirect_to hotels_path alert: "Users can only see their own hotels." and return if current_user != nested_user
-    #   @nested_user = params[:user_id]
-    #   @hotels = current_user.all_hotels_sorted
-    # else
-      # If no nested route, load the API for searching hotels
-      api = AmadeusApi.all.last
-      api ||= AmadeusApi.new
-      AmadeusApi.hotels.clear
-      user_id = current_user.id
-      if params[:city] && !params[:city].blank?
-        begin
-          if params[:checkin_date].blank? && params[:checkout_date].blank? && params[:guests].blank?
-            @hotels = api.query_city(params[:city], user_id)
-          else
-            @hotels = api.query_city(params[:city], params[:checkin_date], params[:checkout_date], params[:guests], user_id)
-          end
-        rescue StandardError => e
-          flash[:msg] = "#{e.class}: #{e.message}. Please try again..."
-          render :'index.html.erb' and return
+    # If the user_hotels nested route is used, display the user's hotels
+    # If no nested route is used, load the API for searching hotels, below
+    api = AmadeusApi.all.last
+    api ||= AmadeusApi.new
+    AmadeusApi.hotels.clear
+    user_id = current_user.id
+    if params[:city] && !params[:city].blank?
+      begin
+        if params[:checkin_date].blank? && params[:checkout_date].blank? && params[:guests].blank?
+          @hotels = api.query_city(params[:city], user_id)
+        else
+          @hotels = api.query_city(params[:city], params[:checkin_date], params[:checkout_date], params[:guests], user_id)
         end
-        if @hotels.empty?
-          flash[:msg] = "Ooops, no hotels could be found for the requested specifications"
-        end
+      rescue StandardError => e
+        flash[:msg] = "#{e.class}: #{e.message}. Please try again..."
+        render :'index.html.erb' and return
       end
+      if @hotels.empty?
+        flash[:msg] = "Ooops, no hotels could be found for the requested specifications"
+      end
+    end
   end
 
   def show
     # If request comes from the 'city_hotels' nested route, show the hotel from the database by city id and hotel id
-    # if params[:city_id]
-    #   city = current_user.cities.find_by(id: params[:city_id])
-    #   if city.nil? 
-    #     flash[:msg] = "City not found."
-    #     redirect_to cities_path and return 
-    #   else
-    #     @hotel = current_user.hotels.find_by(id: params[:id], city_id: params[:city_id])
-    #     if @hotel.nil?
-    #       flash[:msg] = "Hotel not found for this city." 
-    #       redirect_to city_hotels_path(city) and return
-    #     end
-    #   end
-    # # If request comes from 'hotel_path', show the hotel from the database by user id and hotel id
+    # If request comes from 'hotel_path', show the hotel from the database by user id and hotel id
     if params[:id]  
       @hotel = current_user.find_hotel(params[:id])
       if @hotel.nil?
         flash[:msg] = "Hotel not found." 
         redirect_to user_hotels_path(current_user) and return
       end
-    # If no nested city or no nested user, show the hotel using the hotelId from the API
+    # If no nested city or no hotel from database, show the hotel using the hotelId from the API
     elsif params[:hotelId]
       @hotel = AmadeusApi.hotels.find { |hotel| hotel.hotelId == params[:hotelId] }
       if @hotel.nil?
@@ -117,17 +91,10 @@ class HotelsController < ApplicationController
 #     api
 #   end
 
-#   def set_hotel
-#     @hotel = api.hotels.find { |hotel| hotel.hotelId == params[:hotelId] }
-#   end
-
     def check_city_id
-      
       if params[:city_id]
-        
         @nested_city = current_user.cities.find_by(id: params[:city_id])
         @hotels = current_user.hotels_by_city(params[:city_id])
-        # byebug
         if @nested_city.nil? 
           flash[:msg] = "City not found."
           redirect_to cities_path and return    
@@ -139,50 +106,23 @@ class HotelsController < ApplicationController
     end
 
     def check_user_id
-      # byebug
       if params[:user_id] 
-        # byebug
         @nested_user = User.find_by(id: params[:user_id])
         @hotels = current_user.all_hotels_sorted
         if current_user != @nested_user
           flash[:msg] = "Users can only see their own hotels."
           redirect_to hotels_path and return
-        # elsif params[:id] && current_user.hotels.find_by(id: params[:id]).nil?
-        #   flash[:msg] = "Hotel not found." 
-        #   redirect_to user_hotels_path(current_user) and return
-        # else
-        #   @hotel = current_user.hotels.find_by(id: params[:id])
         end
       end
     end
 
-
-
-    #   if params[:city_id]
-    #     city = current_user.cities.find_by(id: params[:city_id])
-    #     if city.nil? 
-    #       flash[:msg] = "City not found."
-    #       redirect_to cities_path and return 
-    #     else
-    #       @hotel = current_user.hotels.find_by(id: params[:id], city_id: params[:city_id])
-    #       if @hotel.nil?
-    #         flash[:msg] = "Hotel not found for this city." 
-    #         redirect_to city_hotels_path(city) and return
-    #       end
-    #     end
-    # end
-
     def hotel_params
       params.require(:hotel).permit(
-        # params for API
+        # params for API:
         :city, :checkin_date, :checkout_date,:guests, :hotelId,
-        # params from city_hotels and user_hotels nested routes
+        # params from city_hotels and user_hotels nested routes:
         :city_id, :user_id
       )
     end
-
-    def verify_api_params
-    end
-
   
 end
