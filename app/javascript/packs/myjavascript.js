@@ -3,14 +3,14 @@
 $(function(){
     $('[data-behavior=daterangepicker]').daterangepicker({
       locale: { format: 'MM/DD/YYYY'},
-      cancelLabel: 'Clear',
+      locale: { cancelLabel: 'Clear'},
       minDate: moment(),
       endDate: moment().add(1, 'days'),
       autoApply: false
     });
   
     $('[data-behavior=daterangepicker]').on('cancel.daterangepicker', function(){
-      $(this).val(' ');
+      $(this).val(' ');   
     });
   });
 

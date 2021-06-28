@@ -11,9 +11,9 @@ class HotelsController < ApplicationController
       AmadeusApi.hotels.clear
       user_id = current_user.id
       begin
-        @hotels = api.query_city(params[:city], params[:checkin_date], params[:checkout_date], params[:guests], user_id)
+        @hotels = api.query_city(params[:city], convert_dates[0], convert_dates[1], params[:guests], user_id)
       rescue StandardError => e
-        flash[:msg] = "#{e.class}: #{e.message}. One or more search inputs were invalid. Please try again..."
+        flash[:msg] = "#{e.class}: #{e.message}. Invalid city code or input value. Please try again..."
         render :'index.html.erb' and return
       end
       if @hotels.empty?
@@ -110,6 +110,17 @@ class HotelsController < ApplicationController
           redirect_to hotels_path and return
         end
       end
+    end
+
+    def convert_dates
+      dates = params[:dates].split("-")
+      start = dates[0].strip.split("/")
+      last = dates[1].strip.split("/")
+      checkin_date = "#{start[2]}-#{start[0]}-#{start[1]}"
+      checkout_date = "#{last[2]}-#{last[0]}-#{last[1]}"
+      [checkin_date, checkout_date]
+      # Date.strptime(checkin_date, '%Y-%m-%d')
+      # Date.strptime(checkout_date, '%Y-%m-%d')
     end
 
 end
