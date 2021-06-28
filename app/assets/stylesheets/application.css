@@ -12,9 +12,7 @@
  *
  *= require_tree .
  *= require_self
- *= require carousel.css
- *= require bootstrap-datepicker
- *= require daterangepicker
+
  */
 
 

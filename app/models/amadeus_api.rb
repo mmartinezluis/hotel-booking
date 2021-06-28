@@ -27,11 +27,12 @@ class AmadeusApi
         cityCode: citycode,
         checkInDate: checkin_date,
         checkOutDate: checkout_date,
-        adults: guests
+        adults: guests,
+        currency: "USD"
       ).data
     # rescue StandardError => e
       # byebug
-      puts "#{e.class}: #{e.message}. Please try again..."
+      # puts "#{e.class}: #{e.message}. Please try again..."
       # render :'hotels/index.html.erb' and return
     # end
     parse_city_responnse(response, user_id)
