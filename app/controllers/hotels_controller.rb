@@ -1,29 +1,18 @@
 class HotelsController < ApplicationController
-#   before_action :set_api 
-    before_action :check_city_id, only: [:index, :show]
-    before_action :check_user_id, only: [:index]
-#   before_action :set_hotel, only: [:show, :reserve]
-#   before_action :verify_params
+  before_action :check_city_id, only: [:index, :show]
+  before_action :check_user_id, only: [:index]
 
   def index
     # If the city_hotels nested route is used, display hotels from the nested city only
     # If the user_hotels nested route is used, display the user's hotels
     # If no nested route is used, load the API for searching hotels, below
-  
-   
     if params[:city] && !params[:city].blank?
       api = AmadeusApi.new
       AmadeusApi.hotels.clear
       user_id = current_user.id
       begin
-        # byebug
-        # if params[:checkin_date].blank? && params[:checkout_date].blank? && params[:guests].blank?
-        #   @hotels = api.query_city(params[:city], user_id)
-        # else
-          @hotels = api.query_city(params[:city], params[:checkin_date], params[:checkout_date], params[:guests], user_id)
-        # end
+        @hotels = api.query_city(params[:city], params[:checkin_date], params[:checkout_date], params[:guests], user_id)
       rescue StandardError => e
-        # byebug
         flash[:msg] = "#{e.class}: #{e.message}. One or more search inputs were invalid. Please try again..."
         render :'index.html.erb' and return
       end
@@ -88,6 +77,7 @@ class HotelsController < ApplicationController
   end
 
   private
+
     def hotel_params
       params.require(:hotel).permit(
         # params for API:
@@ -96,12 +86,6 @@ class HotelsController < ApplicationController
         :city_id, :user_id
       )
     end
-
-#   def set_api
-#     api = AmadeusApi.all.last
-#     api ||= AmadeusApi.new
-#     api
-#   end
 
     def check_city_id
       if params[:city_id]

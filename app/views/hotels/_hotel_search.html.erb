@@ -1,34 +1,22 @@
 
-<%= form_with url: "/hotel_search", html: {class: "row row-cols-lg-auto g-3 align-items-center"}, method: :get do |f| %>
-  <div class="col-12">
+<%= form_with url: "/hotel_search", html: {class: "row g-4"}, method: :get do |f| %>
+  <div class="col-sm-4">
     <%= f.label :city, "Search for:", :class => "form-label" %>
     <%= f.text_field :city, :class => "form-control", :placeholder => "City name" %>
   </div>
 
-  <div class="col-sm">
-    <%= f.label :checkin_date, "Check-in date:", :class => "form-label" %>
-    <%= f.date_field :checkin_date, :class =>"datepicker form-control" %>
-  </div>
-
-  <div class="col-sm">
-    <%= f.label :checkout_date, "Check-out date:", :class => "form-label" %>
-    <%= f.date_field :checkout_date, :class => "form-control" %>
-  </div>
-
-  <div class="col-sm">
+  <div class="col-sm-4">
     <%= f.label :testing, "Select your dates:", :class => "form-label" %>
-    <%= f.text_field :dates, :class => "form-control", id:"pickme", data: {behavior: "daterangepicker" } %>
+    <%= f.text_field :dates, :class => "form-control", id:"dates", data: {behavior: "daterangepicker" } %>
   </div>
 
-  <div class="col-sm">
+  <div class="col-sm-2">
     <%= f.label :guests, "Guests:", :class => "form-label" %>
     <%= f.select(:guests, [1,2,3,4,5], {}, {class: "form-select"}) %>
   </div>
 
-  <div id="search-button">
-    <div class="col-sm">
+  <div id="search-button" class="col-sm">
       <%= f.submit "Search", class: "btn btn-secondary" %>
-    </div>
   </div>
 <% end %>
 

@@ -62,7 +62,7 @@
   margin-top: auto;
  }
 
- @media (max-width: 1200px) {
+ @media (max-width: 570px) {
   #search-button {
     margin-top: 1rem;
   }
