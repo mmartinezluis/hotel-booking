@@ -1,6 +1,4 @@
 # Hotel Booking
-
-## Introduction
 Hi, welcome to Hotel Booking. This is the third project for Flatiron school's curriculum sequence. The project involves using Ruby on Rails to build an application that processes data through complex forms using RESTful routes and the MVC framework. Some of the project requirements include: nested forms, nested routes, scope methods, using OmniAuth for user sign in, and proper handling and displaying of errors. 
 
 ## Functionality
@@ -21,12 +19,12 @@ Video walkthrough on YouTube: https://www.youtube.com/watch?v=sMv64I-NbZU
 
 ## Getting Started
 To get started with the app, make sure you have Rails installed on your machine. Clone the repo to your local machine:
-``` javascript
+``` ruby
 $ git clone https://github.com/mmartinezluis/hotel-booking.git
 ```
 
 Install the needed gems:
-``` javascript
+``` ruby
 $ bundle install
 ```
 
@@ -47,16 +45,16 @@ AMADEUS_API_SECRET = API_SECRET
 ```
 
 Run the application migrations's through:
-``` javascript
+``` ruby
 $ rails db:migrate
 ```
 
 Finally, on the root path run a local server:
-``` javascript
+``` ruby
 $ rails server
 ```
 Open the browser to view application:
-```javascript
+```ruby
 localhost:3000
 ```
 
