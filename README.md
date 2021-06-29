@@ -6,13 +6,14 @@ Hotel Booking uses the [Amadeus Hotel Search API](https://developers.amadeus.com
 
 * Log in to the app by creating a new user account or by OmniAuth authentication through their Google accounts.
 * Search for hotel reservations by a given city, check-in date, checkout-date, and number of guests in real-time.
-* Book a hotel reservation in real-time (reservations are valid in real-time at moment of booking but booking occurs within the app only). 
+* Book a hotel reservation in real-time (note: reservations are valid in real-time at moment of booking but booking occurs within the app only). 
 * Browse a list of the cities of their booked hotels.
 * Browse a list of their booked hotels.
 * See a list of their booked hotels at a given city upon click on a city name. 
 * See their upcoming and/or previous reservations for a given hotel upon click on the hotel name.
 * Write a review for past hotel reservations.
 * Edit or delete their hotel reviews. 
+* Browse a list of their reservations.
 * Some more things ...
 
 Video walkthrough on YouTube: https://www.youtube.com/watch?v=sMv64I-NbZU
@@ -30,18 +31,14 @@ $ bundle install
 
 Follow Amadeus' Self-Service APIs [instructions](https://developers.amadeus.com/get-started/get-started-with-self-service-apis-335) to obtain an Amadeus API key and secret.
 
-Create a new file in the main directory of this repository in your local machine called
+Create a new file in the main directory of this repository in your local machine called `.env`
+
+Then, in this `.env` file include the following lines, replacing "MY_API_KEY" and "MY_API_SECRET" with your API key and API secret, respectively:
 
 ```
-.env
-```
+AMADEUS_API_KEY = MY_API_KEY
 
-Then, in this `.env` file include the following lines, replacing "API_KEY" and "API_SECRET" with your API key and API secret, respectively:
-
-```
-AMADEUS_API_KEY = API_KEY
-
-AMADEUS_API_SECRET = API_SECRET
+AMADEUS_API_SECRET = MY_API_SECRET
 ```
 
 Run the application migrations's through:
@@ -67,5 +64,5 @@ Contributions and pull requests are welcomed. You can also create an issue to re
 5. Create a pull request, and explain the reason for the requested change (why the written code should be implemented).
 
 ## License
-Hotel Booking is available as open source under the terms of the [MIT License](https://github.com/mmartinezluis/SellBy-Online-Store-Sinatra-Project/blob/main/LICENSE.txt). 
+Hotel Booking is available as open source under the terms of the [MIT License](https://github.com/mmartinezluis/hotel-booking/blob/main/LICENCE.txt). 
 
