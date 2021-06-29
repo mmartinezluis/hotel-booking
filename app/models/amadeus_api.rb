@@ -1,5 +1,5 @@
 require 'amadeus'
-# require 'rack-flash3'
+
 class AmadeusApi 
   attr_accessor :amadeus
   @@all = []
@@ -22,7 +22,6 @@ class AmadeusApi
   end
 
   def query_city(citycode, checkin_date = Date.today.to_s, checkout_date = (Date.today+1).to_s, guests = 2, user_id)
-    # begin
       response = @amadeus.shopping.hotel_offers.get(
         cityCode: citycode,
         checkInDate: checkin_date,
@@ -30,11 +29,6 @@ class AmadeusApi
         adults: guests,
         currency: "USD"
       ).data
-    # rescue StandardError => e
-      # byebug
-      # puts "#{e.class}: #{e.message}. Please try again..."
-      # render :'hotels/index.html.erb' and return
-    # end
     parse_city_responnse(response, user_id)
   end
 
@@ -44,10 +38,5 @@ class AmadeusApi
     end
     @@collection
   end
-
-  # def query_reservation(offerId)
-  #   reservation_query = @amadeus.shopping.hotel_offer("#{offerId}").get.data
-  #   parse_reservation_query = reservation_query
-  # end
 
 end

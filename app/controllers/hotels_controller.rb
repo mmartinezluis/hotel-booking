@@ -12,7 +12,8 @@ class HotelsController < ApplicationController
       user_id = current_user.id
       begin
         @hotels = api.query_city(params[:city], convert_dates[0], convert_dates[1], params[:guests], user_id)
-      rescue StandardError => e
+        # @hotels = api.query_city(params[:city], params[:checkin_date], params[:checout_date], params[:guests], user_id)
+      rescue Amadeus::ResponseError => e
         flash[:msg] = "#{e.class}: #{e.message}. Invalid city code or input value. Please try again..."
         render :'index.html.erb' and return
       end
@@ -44,12 +45,15 @@ class HotelsController < ApplicationController
   def reserve
     # byebug
     api = AmadeusApi.all.last
+    # byebug
     @hotel = AmadeusApi.hotels.find { |hotel| hotel.hotelId == params[:hotelId] }
     # 'reservation', below, can cause an exception and it needs to be rescued
     begin
       # Use the HOTEL_OFFER API ENDPOINT to check in real-time whether the reservation still exists 
       reservation = api.amadeus.shopping.hotel_offer(params[:code]).get.data 
-    rescue StandardError => e
+      # reservation = api.shopping.hotel_offer(params[:code]).get.data 
+    # rescue StandardError => e
+    rescue Amadeus::ResponseError => e
       flash[:msg] = "#{e.class}: #{e.message}. Please try again..."
       redirect_to root_path
     else 

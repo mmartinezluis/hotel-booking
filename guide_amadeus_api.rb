@@ -7,7 +7,7 @@ amadeus.shopping.hotel_offers.get(cityCode: 'MAD')    # First endpoint; used in 
 amadeus.shopping.hotel_offers_by_hotel.get(hotelId: 'IALONCHO')   # Second endpoint; not used in this app
 # Confirm the availability of a specific offer
 amadeus.shopping.hotel_offer('D5BEE9D0D08B6678C2F5FAD910DC110BCDA187D21D4FCE68ED423426D0A246BB').get    # Third endpoint; used in reserve action of hotels_controller.rb 
-
+ 
 # Querying airports; not used in this app
 response = amadeus.reference_data.locations.get(
   keyword: 'LON',

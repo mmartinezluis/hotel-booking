@@ -5,6 +5,8 @@ class Hotel < ApplicationRecord
   # accepts_nested_attributes_for :reservations
   belongs_to :city
 
+  scope :alphabetized, -> {order(name: :asc)}
+  
   # Since a hotel comes with a reservation and a room, hotels are built with both objects nested
   def self.build_hotel(hotel_hash, user_id)
     city = City.find_or_create_by(code: hotel_hash["hotel"]["cityCode"])
