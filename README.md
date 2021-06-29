@@ -50,10 +50,7 @@ Finally, on the root path run a local server:
 ``` ruby
 $ rails server
 ```
-Open the browser to view application:
-```ruby
-localhost:3000
-```
+Open your browser at `http://localhost:3000` to run the app.
 
 ## Contributing
 Contributions and pull requests are welcomed. You can also create an issue to report a bug or make a request. For pull requests, you may follow these steps:
