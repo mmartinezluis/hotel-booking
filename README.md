@@ -1,35 +1,26 @@
-# Project: Hotel Booking
+# Hotel Booking
 
 ## Introduction
-Hi, welcome to my Hotel Booking project. This is the third project in Flatiron school's curriculum sequence. The project involves using Ruby on Rails to build an application that processes data through complex forms using RESTful routes and the MVC framework. Some of the project requirements include: nested forms, nested routes, scope methods, using OmniAuth for user sign in, and proper handling and displaying of errors. 
+Hi, welcome to Hotel Booking. This is the third project for Flatiron school's curriculum sequence. The project involves using Ruby on Rails to build an application that processes data through complex forms using RESTful routes and the MVC framework. Some of the project requirements include: nested forms, nested routes, scope methods, using OmniAuth for user sign in, and proper handling and displaying of errors. 
 
 ## Functionality
-Hotel Booking uses the [Amadeus Hotel Search API](https://developers.amadeus.com/self-service/category/hotel/api-doc/hotel-search) that comprises more than 150,000 hotels worldwide. The Amadeus API finds the cheapest hotels for a given location. The following are the user stories for Hotel Booking:
+Hotel Booking uses the [Amadeus Hotel Search API](https://developers.amadeus.com/self-service/category/hotel/api-doc/hotel-search) that comprises more than 150,000 hotels worldwide. The Amadeus API finds the cheapest hotels for a given location. In Hotel Booking users have the ability to:
 
-* Users can log in to the app by creating a new user account or by using authentication through their Google accounts.
-* Users can search for hotel reservations by a given city, check-in date, checkout-date, and number of guests in real-time.
-* Users can verify the availability of a given hotel reservation in real-time.
-* Users can book a reservation (feature managed by ActiveRecord; reservations are valid at time of booking but booking is not real). 
-* Users can browse their visited cities and hotels.
-* Users can create a new review for past hotel reservations.
-* Users can edit their reviews.
+* Log in to the app by creating a new user account or by OmniAuth authentication through their Google accounts.
+* Search for hotel reservations by a given city, check-in date, checkout-date, and number of guests in real-time.
+* Book a hotel reservation in real-time (reservations are valid in real-time at moment of booking but booking occurs within the app only). 
+* Browse a list of the cities of their booked hotels.
+* Browse a list of their booked hotels.
+* See a list of their booked hotels at a given city upon click on a city name. 
+* See their upcoming and/or previous reservations for a given hotel upon click on the hotel name.
+* Write a review for past hotel reservations.
+* Edit or delete their hotel reviews. 
+* Some more things ...
 
-Hotel Booking is under development, and it currenlty supports the following functionalities:
-* Users can find hotel reservations by a given city in real-time. 
-* Users can verify the availability of a reservation in real-time and can book a reservation. (Achieved: May 17)
-* Users can find hotel reservations by location, checkin date, checkout date, and number of guests. (Achieved: May 18)
-* Users can see the list of cities where they have reservations.
-* Users can select a city to see the list of hotels that include booked reservations.
-* Users can select a hotel to see the hotel's description and their booked reservations at that hotel.
-* For a given booked hotel, users can see their upcoming and/or previous reservations. 
-* Users can see all of their reservations. (Achieved: May 22)
-* Users can write a review for past reservations; users can see their review for a given reservation. (Achieved: May 23)
-* Users can see all of their reviews; hotels display users' reviews. (Achieved: May 25)
-* Users can write a new review and select a previous reservation that is open for review.
-* Writing a review from a reservation automatically loads the reservation to the new review form. (Achieved: June 1)
+Video walkthrough on YouTube: https://www.youtube.com/watch?v=sMv64I-NbZU
 
 ## Getting Started
-To get started with the app, make sure you have Rails and Git installed on your machine. Clone the repo to your local machine:
+To get started with the app, make sure you have Rails installed on your machine. Clone the repo to your local machine:
 ``` javascript
 $ git clone https://github.com/mmartinezluis/hotel-booking.git
 ```
@@ -69,5 +60,14 @@ Open the browser to view application:
 localhost:3000
 ```
 
+## Contributing
+Contributions and pull requests are welcomed. You can also create an issue to report a bug or make a request. For pull requests, you may follow these steps:
+1. Fork and clone the repository.
+2. Create a branch name denoting the feature or bug. For example: `git checkout -b feature/new-feature` or `git checkout -b bug/bug-fix`.
+3. Write your code and submit changes with a clear commit message.
+4. Push to the branch with `git push origin feature/new-feature`. 
+5. Create a pull request, and explain the reason for the requested change (why the written code should be implemented).
 
+## License
+Hotel Booking is available as open source under the terms of the [MIT License](https://github.com/mmartinezluis/SellBy-Online-Store-Sinatra-Project/blob/main/LICENSE.txt). 
 
