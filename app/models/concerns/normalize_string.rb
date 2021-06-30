@@ -1,8 +1,0 @@
-class Normalizable
-
-
-
-
-    
-end
-

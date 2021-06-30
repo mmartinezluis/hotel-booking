@@ -4,11 +4,13 @@ class Hotel < ApplicationRecord
   has_many :reviews, through: :reservations
   belongs_to :city
 
+  include Normalizable::Parse
+
   scope :most_popular, -> {order(reservation_ids: :asc)}
   
   # Since a hotel comes with a reservation and a room, hotels are built with both objects nested
   def self.build_hotel(hotel_hash, user_id)
-    city = City.find_or_create_by(code: hotel_hash["hotel"]["cityCode"])
+    city = City.find_or_create_by(code: hotel_hash["hotel"]["cityCode"])  # , name: hotel_hash["hotel"]["address"]["cityName"]
     hotel = Hotel.find_by(hotelId: hotel_hash["hotel"]["hotelId"])
     # If the hotel is already in the database, do not build a new hotel (skip the below block)
     unless hotel 
@@ -16,12 +18,15 @@ class Hotel < ApplicationRecord
       hotel.city_id = city.id
       hotel.hotelId = hotel_hash["hotel"]["hotelId"]
       hotel.citycode = hotel_hash["hotel"]["cityCode"]
-      hotel.name = hotel_hash["hotel"]["name"]
+      # hotel.name = hotel_hash["hotel"]["name"]
+      hotel.name = hotel.general_parsing(hotel_hash["hotel"]["name"])
       hotel.latitude = hotel_hash["hotel"]["latitude"]
       hotel.longitude = hotel_hash["hotel"]["longitude"]
-      hotel.address = hotel_hash["hotel"]["address"]
+      # hotel.address = hotel_hash["hotel"]["address"]
+      hotel.address = hotel.parse_address(hotel_hash["hotel"]["address"])
       hotel.description = hotel_hash["hotel"]["description"]["text"] unless !hotel_hash["hotel"].keys.include?("description")         # Some hotels do not inlcude a description
-      hotel.amenities = hotel_hash["hotel"]["amenities"].take(5).join(", ") unless !hotel_hash["hotel"].keys.include?("amenities")    # Some hotels do not include amenities
+      # hotel.amenities = hotel_hash["hotel"]["amenities"].take(5).join(", ") unless !hotel_hash["hotel"].keys.include?("amenities")    # Some hotels do not include amenities
+      hotel.amenities = hotel.general_parsing(hotel_hash["hotel"]["amenities"].take(5).join(", ")) unless !hotel_hash["hotel"].keys.include?("amenities")    # Some hotels do not include amenities
     end
     #  Build nested reservation for hotel 
     new_reservation = hotel.reservations.build(
@@ -51,9 +56,5 @@ class Hotel < ApplicationRecord
     # The hotel is not persisted to database unless a reservatino is made; see hotels_controller 'reserve' method
     hotel
   end
-
-  # def last_reservation
-  #   self.reservations.last
-  # end
   
 end

@@ -55,9 +55,9 @@ class HotelsController < ApplicationController
       # If no exception is raised, check whether reservertion is avaiable
       if reservation && reservation["available"]  == true
         # Check that the reservation attributes did not change since first time reservation was displayed
-        checkin = reservation["offers"][0]["checkInDate"] == @hotel.last_reservation.checkin_date
-        checkout = reservation["offers"][0]["checkOutDate"] == @hotel.last_reservation.checkout_date
-        guests = reservation["offers"][0]["guests"]["adults"] == @hotel.last_reservation.guests
+        checkin = reservation["offers"][0]["checkInDate"] == @hotel.reservations.last.checkin_date
+        checkout = reservation["offers"][0]["checkOutDate"] == @hotel.reservations.last.checkout_date
+        guests = reservation["offers"][0]["guests"]["adults"] == @hotel.reservations.last.guests
         # price = reservation["offers"][0]["price"]["total"] == @hotel.last_reservation.price
         if checkin && checkout && guests #&& price
           AmadeusApi.hotels.clear
