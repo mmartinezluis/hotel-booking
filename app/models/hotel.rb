@@ -2,10 +2,9 @@ class Hotel < ApplicationRecord
   has_many :reservations
   has_many :users, through: :reservations
   has_many :reviews, through: :reservations
-  # accepts_nested_attributes_for :reservations
   belongs_to :city
 
-  scope :alphabetized, -> {order(name: :asc)}
+  scope :most_popular, -> {order(reservation_ids: :asc)}
   
   # Since a hotel comes with a reservation and a room, hotels are built with both objects nested
   def self.build_hotel(hotel_hash, user_id)
@@ -53,8 +52,8 @@ class Hotel < ApplicationRecord
     hotel
   end
 
-  def last_reservation
-    self.reservations.last
-  end
+  # def last_reservation
+  #   self.reservations.last
+  # end
   
 end

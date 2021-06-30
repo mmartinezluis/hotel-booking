@@ -1,4 +1,6 @@
 <%= form_for @review do |f| %>
+  <%# reservation_id_field is defined in helpers/reviews_helper %>
+  
   <%= reservation_id_field(@review, @user) %><br>
   <%= f.label 'Review description:' %><br>
   <%= f.text_area :description %><br>

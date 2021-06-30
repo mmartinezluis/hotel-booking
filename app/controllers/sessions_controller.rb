@@ -18,7 +18,6 @@ class SessionsController < ApplicationController
   end
 
   def omniauth
-  
     @user = User.from_omniauth(auth)
     if @user.valid?
       session[:user_id] = @user.id

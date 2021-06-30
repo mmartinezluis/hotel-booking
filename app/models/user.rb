@@ -78,7 +78,7 @@ class User < ApplicationRecord
 
   def open_for_review_reservations
     if !self.previous_reservations.empty?
-      self.previous_reservations.includes(:review).where(review: {id: nil })
+      self.previous_reservations.where("checkout_date < ?", Date.today.to_s).includes(:review).where(review: {id: nil })
     end
   end
       
