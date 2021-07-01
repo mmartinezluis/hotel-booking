@@ -19,21 +19,22 @@ Hotel Booking uses the [Amadeus Hotel Search API](https://developers.amadeus.com
 Video walkthrough on YouTube: https://www.youtube.com/watch?v=sMv64I-NbZU
 
 ## Getting Started
-To get started with the app, make sure you have Rails installed on your machine. Clone the repo to your local machine:
+To get started with the app, make sure you have Rails installed on your machine. 
+1, Clone the repo to your local machine:
 ``` ruby
 $ git clone https://github.com/mmartinezluis/hotel-booking.git
 ```
 
-Install the needed gems:
+2. Install the needed gems:
 ``` ruby
 $ bundle install
 ```
 
-Follow Amadeus' Self-Service APIs [instructions](https://developers.amadeus.com/get-started/get-started-with-self-service-apis-335) to obtain an Amadeus API key and secret.
+3. Follow Amadeus' Self-Service APIs [instructions](https://developers.amadeus.com/get-started/get-started-with-self-service-apis-335) to obtain an Amadeus API key and secret.
 
-Create a new file in the main directory of this repository in your local machine called `.env`
+4. Create a new file in the main directory of this repository in your local machine called `.env`
 
-Then, in this `.env` file include the following lines, replacing "MY_API_KEY" and "MY_API_SECRET" with your API key and API secret, respectively:
+5. Then, in this `.env` file include the following lines, replacing "MY_API_KEY" and "MY_API_SECRET" with your API key and API secret, respectively:
 
 ```
 AMADEUS_API_KEY = MY_API_KEY
@@ -41,16 +42,16 @@ AMADEUS_API_KEY = MY_API_KEY
 AMADEUS_API_SECRET = MY_API_SECRET
 ```
 
-Run the application migrations's through:
+6. Run the application migrations's through:
 ``` ruby
 $ rails db:migrate
 ```
 
-Finally, on the root path run a local server:
+7. Finally, on the root path run a local server:
 ``` ruby
 $ rails server
 ```
-Open your browser at `http://localhost:3000` to run the app.
+8. Open your browser at `http://localhost:3000` to run the app.
 
 ## Contributing
 Contributions and pull requests are welcomed. You can also create an issue to report a bug or make a request. For pull requests, you may follow these steps:
