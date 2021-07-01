@@ -20,7 +20,7 @@ Video walkthrough on YouTube: https://www.youtube.com/watch?v=sMv64I-NbZU
 
 ## Getting Started
 To get started with the app, make sure you have Rails installed on your machine. 
-1, Clone the repo to your local machine:
+1. Clone the repo to your local machine:
 ``` ruby
 $ git clone https://github.com/mmartinezluis/hotel-booking.git
 ```
