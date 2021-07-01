@@ -61,5 +61,5 @@ Contributions and pull requests are welcomed. You can also create an issue to re
 5. Create a pull request, and explain the reason for the requested change (why the written code should be implemented).
 
 ## License
-Hotel Booking is available as open source under the terms of the [MIT License](https://github.com/mmartinezluis/hotel-booking/blob/main/LICENCE.txt). 
+Hotel Booking is available as open source under the terms of the [MIT License](https://github.com/mmartinezluis/hotel-booking/blob/main/LICENSE.md). 
 
