@@ -36,4 +36,6 @@ Rails.application.routes.draw do
     resources :reviews, only: [:show, :new, :edit]
   end
 
+  get 'trending', to: 'hotels#trending'
+  
 end

@@ -75,6 +75,9 @@ class HotelsController < ApplicationController
     end
   end
 
+  def trending
+  end
+
   private
 
     def hotel_params
