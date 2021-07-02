@@ -1,8 +1,10 @@
 
 <%= form_with url: "/hotel_search", html: {class: "row g-4"}, method: :get do |f| %>
   <div class="col-sm-4">
-    <%= f.label :city, "Search for:", :class => "form-label" %>
-    <%= f.text_field :city, :class => "form-control", :placeholder => "City name" %>
+    <%= f.label :city, "Search for:", :class => "form-label"%>
+    <%= f.text_field :city, :class => "form-control", :placeholder => "City name", list: "city_name" %>
+    <datalist id="city_name">
+    </datalist>
   </div>
 
   <div class="col-sm-4">
@@ -19,6 +21,8 @@
       <%= f.submit "Search", class: "btn btn-secondary" %>
   </div>
 <% end %>
+
+<%= javascript_pack_tag 'city', 'data-turbolinks-track': 'reload' %>
 
 
 
