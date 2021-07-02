@@ -1,13 +1,14 @@
 class City {
   static all = []
   static datalist = document.getElementById('city_name')
-  constructor({code}){
+  constructor({code, name}){
       // this.name = name
       this.code = code
+      this.name = name
 
       this.option = document.createElement('option')
       // debugger
-      this.option.value = this.code
+      this.option.value = `${this.name} (${this.code})`
   }
 
   static getCities(){

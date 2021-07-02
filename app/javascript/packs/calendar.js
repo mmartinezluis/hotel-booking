@@ -13,11 +13,3 @@ $(function(){
       $(this).val(' ');   
     });
   });
-
-
-// Code for applciation.js
-
-//= require bootstrap-datepicker
-//= require jquery
-//= require moment
-//= require daterangepicker
