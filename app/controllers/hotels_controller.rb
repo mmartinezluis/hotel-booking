@@ -76,6 +76,7 @@ class HotelsController < ApplicationController
   end
 
   def trending
+    @hotels = Hotel.most_popular
   end
 
   private
