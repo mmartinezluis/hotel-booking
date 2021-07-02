@@ -13,7 +13,7 @@
     <% @reviews.each do |review| %>  
       <li>
         <h3><%= review.reservation.hotel.name %></h3>
-        <p><%= review.reservation.hotel.city.code %></p>
+        <p><%= review.reservation.hotel.city.name %></p>
         <%# <%= render 'reservations/info_no_links', :reservation => review.reservation %>
         <h4>Review description:</h4>
         <%= review.description %><br>

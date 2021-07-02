@@ -14,7 +14,7 @@
           <%= render partial: 'search_results', collection: @hotels, as: :hotel %>
         </div>
       <% else %>
-        <h1><%= @nested_city ? "My Hotels in #{@nested_city.code}" : "My Hotels" %></h1><br>
+        <h1><%= @nested_city ? "My Hotels in #{@nested_city.name}" : "My Hotels" %></h1><br>
         <ul>
           <% @hotels.each do |hotel| %>
             <div>

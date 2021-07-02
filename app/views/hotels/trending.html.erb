@@ -19,7 +19,7 @@
             <div class="container">
               <div class="carousel-caption text-start">
                 <h1><%= hotel.name %></h1> 
-                <p><%= hotel.city.code %></p>
+                <p><%= hotel.city.name %></p>
                 <% if index == 0 %>
                  <p><a class='btn btn-lg btn-primary' data-id="button-1">Reserve today</a></p>
                 <% elsif index == 1 %>
@@ -57,7 +57,7 @@
       <div class="row featurette" id="hotel-<%= index %>" >
         <div class="col-md-7">
           <h2 class="featurette-heading"><%= hotel.name %></h2>
-          <span class="text-muted"><%= hotel.city.code %></span>
+          <span class="text-muted"><%= hotel.city.name %></span>
           <p class="lead"><%= hotel.description %></p>
         </div>
         <div class="col-md-5">

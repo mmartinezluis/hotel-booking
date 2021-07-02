@@ -45,7 +45,7 @@
                   <a class="nav-link active" aria-current="page" href="/users/<%= @user.id %>/hotels">Hotels</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link active" aria-current="page" href="/reservations">Reservations <%= (@user.upcoming_reservations.length) if @user.upcoming_reservations != [] %></a>
+                  <a class="nav-link active" aria-current="page" href="/reservations">Reservations (<%= @user.upcoming_reservations.length if @user.upcoming_reservations != [] %>)</a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link active" aria-current="page" href="/cities">Cities</a>

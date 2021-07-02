@@ -11,7 +11,7 @@ class Hotel < ApplicationRecord
   
   # Since a hotel comes with a reservation and a room, hotels are built with both objects nested
   def self.build_hotel(hotel_hash, user_id)
-    city = City.find_or_create_by(code: hotel_hash["hotel"]["cityCode"])  #, name: hotel_hash["hotel"]["address"]["cityName"]
+    city = City.find_or_create_by(code: hotel_hash["hotel"]["cityCode"], name: hotel_hash["hotel"]["address"]["cityName"])
     hotel = Hotel.find_by(hotelId: hotel_hash["hotel"]["hotelId"])
     # If the hotel is already in the database, do not build a new hotel (skip the below block)
     unless hotel 

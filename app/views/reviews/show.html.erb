@@ -3,7 +3,7 @@
 <h2>Review for:</h2> 
 <p>
   <%= @review.reservation.hotel.name %><br>
-  <%= @review.reservation.hotel.city.code %><br>
+  <%= @review.reservation.hotel.city.name %><br>
   <%= render partial: 'reservations/info_no_links', locals: {reservation: @review.reservation} %>
 </p>
 

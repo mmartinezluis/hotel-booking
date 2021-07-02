@@ -1,7 +1,7 @@
 <h1>Editing Review</h1>
 <%= render partial: 'messages/error', locals: { agnostic: @review } %>
 <p><%= @review.reservation.hotel.name %></p>
-<p><%= @review.reservation.hotel.city.code %></p>
+<p><%= @review.reservation.hotel.city.name %></p>
 <%= render partial: 'reservations/info_no_links', locals: {reservation: @review.reservation} %><br>
 <%= render 'form' %>
 <%= link_to "Cancel", reviews_path %>

@@ -12,7 +12,7 @@
       <% @user.upcoming_reservations.each do |reservation| %>
         <li>
           <h3><%= link_to reservation.hotel.name, reservation_path(reservation) %></h3>
-          <%= reservation.hotel.city.code %>
+          <%= reservation.hotel.city.name %>
           <%= render 'reservations/info', :reservation => reservation %>
         </li>
       <% end %>
@@ -25,7 +25,7 @@
       <% @user.previous_reservations.each do |reservation| %>
         <li>
           <h3><%= link_to reservation.hotel.name, reservation_path(reservation) %></h3>
-          <%= reservation.hotel.city.code %>
+          <%= reservation.hotel.city.name %>
           <%= render 'reservations/info', :reservation => reservation %>
         </li>
       <% end %>
