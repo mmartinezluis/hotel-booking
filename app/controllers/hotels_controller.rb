@@ -7,11 +7,12 @@ class HotelsController < ApplicationController
     # If the user_hotels nested route is used, display the user's hotels
     # If no nested route is used, load the API for searching hotels, below
     if params[:city] && !params[:city].blank?
+      city_code = filter_city_name
       api = AmadeusApi.new
       AmadeusApi.hotels.clear
       user_id = current_user.id
       begin
-        @hotels = api.query_city(params[:city], convert_dates[0], convert_dates[1], params[:guests], user_id)
+        @hotels = api.query_city(city_code, convert_dates[0], convert_dates[1], params[:guests], user_id)
       rescue Amadeus::ResponseError => e
         flash[:msg] = "#{e.class}: #{e.message}. Invalid city code or input value. Please try again..."
         render :'index.html.erb' and return
@@ -113,6 +114,20 @@ class HotelsController < ApplicationController
           redirect_to hotels_path and return
         end
       end
+    end
+
+    def filter_city_name
+      if params[:city].length == 3
+        iatacode = params[:city]
+      else
+        # grab the content inside the parenthesis
+        iatacode = params[:city][/\((.*?)\)/, 1]
+        if iatacode.length < 3
+          flash[:msg] = "Please select a city from the list or use the 3 letters IATA code for your desired city."
+          render :'index.html.erb' and return
+        end
+      end
+      iatacode
     end
 
     def convert_dates
