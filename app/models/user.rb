@@ -23,7 +23,6 @@ class User < ApplicationRecord
   end
 
   # Used by the API to show a hotel reservation offer; needs to use native Ruby methods as the offer is not persited in database
-  # This method needs to be changed to ".find" instead of ".select" at a later point
   def unbooked_reservation(hotel)
     hotel.reservations.find{|reservation| reservation.id == nil && reservation.user_id = self.id}
   end
@@ -38,48 +37,73 @@ class User < ApplicationRecord
   end
   
   # For the current user, find the user's hotels for the given city and sort them by most recent checkin date
+  # ORIGNIAL
+  # def hotels_by_city(city_id)
+  #   self.hotels.where("city_id = ?", city_id).distinct.sort do |hotel_1, hotel_2| 
+  #     self.most_recent_reservation(hotel_2).checkin_date <=> self.most_recent_reservation(hotel_1).checkin_date
+  #   end
+  # end
   def hotels_by_city(city_id)
-    self.hotels.where("city_id = ?", city_id).distinct.sort do |hotel_1, hotel_2| 
-      self.most_recent_reservation(hotel_2).checkin_date <=> self.most_recent_reservation(hotel_1).checkin_date
-    end
+    self.hotels.distinct.where("city_id = ?", city_id).includes(:reservations).order(checkin_date: :desc)
   end
 
+  # ORIGINAL
+  # def all_hotels_sorted
+  #   self.hotels.distinct.sort do |hotel_1, hotel_2| 
+  #     self.most_recent_reservation(hotel_2).checkin_date <=> self.most_recent_reservation(hotel_1).checkin_date
+  #   end
+  # end
   def all_hotels_sorted
-    self.hotels.distinct.sort do |hotel_1, hotel_2| 
-      self.most_recent_reservation(hotel_2).checkin_date <=> self.most_recent_reservation(hotel_1).checkin_date
-    end
+    self.hotels.distinct.includes(:reservations).order(checkin_date: :desc)
   end
+  # Original
+  # def all_reviews_sorted
+  #   self.reviews.sort do |review_1, review_2| 
+  #     review_2.reservation.checkin_date <=> review_1.reservation.checkin_date
+  #   end
+  # end
 
   def all_reviews_sorted
-    self.reviews.sort do |review_1, review_2| 
-      review_2.reservation.checkin_date <=> review_1.reservation.checkin_date
-    end
+    self.reviews.includes(:reservation).order(checkin_date: :desc) 
   end
 
-  def all_reservations
+  def all_reservations_sorted
     self.reservations.order(checkin_date: :desc)
   end
+  # ORIGINAL
+  # def upcoming_reservations(hotel = nil)
+  #   if hotel
+  #     booked_reservations(hotel).where("checkin_date >= :todays_date", {todays_date: Date.today.to_s}).order(checkin_date: :asc)
+  #   else
+  #     self.reservations.where("checkin_date >= ?", Date.today.to_s).order(checkin_date: :asc)
+  #   end
+  # end
 
   def upcoming_reservations(hotel = nil)
     if hotel
-      booked_reservations(hotel).where("checkin_date >= :todays_date", {todays_date: Date.today.to_s}).order(checkin_date: :asc)
+      booked_reservations(hotel).where("checkin_date >= :todays_date", {todays_date: Date.today.to_s}).includes(hotel: [:city]).order(checkin_date: :asc)
     else
-      self.reservations.where("checkin_date >= ?", Date.today.to_s).order(checkin_date: :asc)
+      self.reservations.where("checkin_date >= ?", Date.today.to_s).includes(hotel: [:city]).order(checkin_date: :asc)
     end
   end
 
   def previous_reservations(hotel = nil)
     if hotel
-      booked_reservations(hotel).where("checkin_date < :todays_date", {todays_date: Date.today.to_s}).order(checkin_date: :desc)
+      booked_reservations(hotel).where("checkin_date < :todays_date", {todays_date: Date.today.to_s}).includes(hotel: [:city]).order(checkin_date: :desc)
     else
-      self.reservations.where("checkin_date < ?", Date.today.to_s).order(checkin_date: :desc)
+      self.reservations.where("checkin_date < ?", Date.today.to_s).includes(hotel: [:city]).order(checkin_date: :desc)
     end
   end
 
+  # Original
+  # def open_for_review_reservations
+  #   if !self.previous_reservations.empty?
+  #     self.previous_reservations.where("checkout_date < ?", Date.today.to_s).includes(:review).where(review: {id: nil })
+  #   end
+  # end
+
   def open_for_review_reservations
-    if !self.previous_reservations.empty?
-      self.previous_reservations.where("checkout_date < ?", Date.today.to_s).includes(:review).where(review: {id: nil })
-    end
+    self.reservations.where("checkout_date < ?", Date.today.to_s).includes(:review).where(review: {id: nil })
   end
       
 end

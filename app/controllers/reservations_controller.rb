@@ -1,7 +1,7 @@
 class ReservationsController < ApplicationController
 
   def index
-    @reservations = current_user.all_reservations
+    @reservations = current_user.all_reservations_sorted
   end
 
   #  The show action uses the hotels/show template; reservations don't have their own show page
