@@ -30,7 +30,6 @@ Rails.application.routes.draw do
 
   resources :users, only: [:show] do
     resources :hotels, only: [:index]
-    # resources :cities, only: [:index]
   end
 
   resources :reservations, only: [:show] do

@@ -34,10 +34,10 @@
       <% @hotel.reviews.each do |review| %>
         <p>
           <%= review.reservation.user.username %><br>
-          Posted on <%= review.created_at %><br>
+          Posted on <%= review.creation_time %><br>
         </p>
         <blockquote class="blockquote">
-          <p><%= review.description %></p>
+          <%= review.description %>
         </blockquote>
       <% end %>  
     </div>
