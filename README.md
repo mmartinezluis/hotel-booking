@@ -16,7 +16,7 @@ Hotel Booking uses the [Amadeus Hotel Search API](https://developers.amadeus.com
 * Browse a list of their reservations.
 * Some more features ...
 
-Video walkthrough on YouTube: https://www.youtube.com/watch?v=sMv64I-NbZU
+Video walkthrough on YouTube: https://www.youtube.com/watch?v=p1-Fz3bk0QE&t=7s
 
 ## Getting Started
 To get started with the app, make sure you have Rails installed on your machine. 
