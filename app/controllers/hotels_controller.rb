@@ -122,7 +122,7 @@ class HotelsController < ApplicationController
       else
         # grab the content inside the parenthesis
         iatacode = params[:city][/\((.*?)\)/, 1]
-        if iatacode.length < 3
+        if !iatacode.nil? && iatacode.length < 3
           flash[:msg] = "Please select a city from the list or use the 3 letters IATA code for your desired city."
           render :'index.html.erb' and return
         end

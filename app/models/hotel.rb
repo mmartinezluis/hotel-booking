@@ -23,7 +23,7 @@ class Hotel < ApplicationRecord
       hotel.latitude = hotel_hash["hotel"]["latitude"]
       hotel.longitude = hotel_hash["hotel"]["longitude"]
       hotel.address = hotel.parse_address(hotel_hash["hotel"]["address"])   # 'parse_address' method comes from the Normalizable module
-      hotel.description = hotel_hash["hotel"]["description"]["text"] unless !hotel_hash["hotel"].keys.include?("description")         # Some hotels do not inlcude a description
+      hotel.description = hotel.general_parsing(hotel_hash["hotel"]["description"]["text"]) unless !hotel_hash["hotel"].keys.include?("description")         # Some hotels do not inlcude a description
       hotel.amenities = hotel.general_parsing(hotel_hash["hotel"]["amenities"].take(5).join(", ")) unless !hotel_hash["hotel"].keys.include?("amenities")    # Some hotels do not include amenities
     end
     #  Build nested reservation for hotel 
