@@ -6,8 +6,7 @@ Rails.application.routes.draw do
   resources :reservations, :only => [:index, :show]
   resources :reviews, :only => [:index, :show, :new, :create, :edit, :update, :destroy]
   resources :users, :only =>[:create, :show]
-  # resources :sessions, :only =>[:new, :create, :destroy]
-
+  
   # Sessions controller routes
   root 'sessions#new'
   get '/login', to: "sessions#new"
