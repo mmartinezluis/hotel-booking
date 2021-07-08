@@ -5,9 +5,6 @@ class Hotel < ApplicationRecord
   belongs_to :city
 
   include Normalizable::Parse
-  # scope :most_popular, -> {order(reservation_ids: :asc).joins(:reservations).order(checkout_date: :desc)}
-  # scope :most_popular, -> {order("LENGTH(reservation_ids) desc")}
-  # scope :most_popular, -> {order(reservation_ids: :asc)}
   
   # Since a hotel comes with a reservation and a room, hotels are built with both objects nested
   def self.build_hotel(hotel_hash, user_id)
@@ -58,7 +55,7 @@ class Hotel < ApplicationRecord
   def self.most_popular
     Hotel.all.sort do |a,b|
       b.reservation_ids.length <=> a.reservation_ids.length
-    end.take(3)#.includes(:reservations).order(checkin_date: :desc)
+    end.take(3)
   end
   
 end
