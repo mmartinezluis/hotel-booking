@@ -3,9 +3,9 @@ class HotelsController < ApplicationController
   before_action :check_user_id, only: [:index]
 
   def index
-    # If the city_hotels nested route is used, display hotels from the nested city only
-    # If the user_hotels nested route is used, display the user's hotels
-    # If no nested route is used, load the API for searching hotels, below
+    # If the city_hotels nested route is used, display hotels from the nested city only (:check_city_id filter)
+    # If the user_hotels nested route is used, display the user hotels (:check_user_id filter)
+    # If no nested route is used, load the API for searching hotels (the below lines)
     if params[:city] && !params[:city].blank?
       city_code = filter_city_name
       api = AmadeusApi.new
@@ -24,8 +24,8 @@ class HotelsController < ApplicationController
   end
 
   def show
-    # If request comes from the 'city_hotels' nested route, show the hotel from the database by city id and hotel id
-    # If request comes from 'hotel_path', show the hotel from the database by user id and hotel id
+    # If request comes from the 'city/hotel' nested route, check that the city and the hotel are valid (:check_city_id filter)
+    # If request comes from 'hotel_path',show the hotel from the database by user id and hotel id
     if params[:id]  
       @hotel = current_user.find_hotel(params[:id])
       if @hotel.nil?
