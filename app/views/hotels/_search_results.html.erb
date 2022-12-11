@@ -1,5 +1,5 @@
 <div class="row">
-  <h3><%= link_to hotel.name, "hotel_search/#{hotel.hotelId}" %></h3>
+  <h3><%= link_to hotel.name, search_results_path(hotelId: hotel.hotelId) %></h3>
   <p>
     Guests: <%= hotel_guests(hotel, @user) %><br>
     Beds: <%= hotel_beds(hotel, @user) %><br>

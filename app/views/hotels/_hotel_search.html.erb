@@ -1,5 +1,5 @@
 
-<%= form_with url: "/hotel_search", html: {class: "row g-4"}, method: :get do |f| %>
+<%= form_with url: "/hotel_search", html: {class: "row g-4 hotel-search"}, method: :get do |f| %>
   <div class="col-sm-4">
     <%= f.label :city, "Search for:", :class => "form-label"%>
     <%= f.text_field :city, :class => "form-control searchName", :placeholder => "City name", list: "city_name" %>
@@ -22,7 +22,7 @@
   </div>
 <% end %>
 
-<%= javascript_pack_tag 'city', 'data-turbolinks-track': 'reload' %>
+<%= javascript_pack_tag 'calendar', 'data-turbolinks-track': 'reload' %>
 
 
 

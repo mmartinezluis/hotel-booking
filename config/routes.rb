@@ -17,9 +17,9 @@ Rails.application.routes.draw do
   # Omniuath routes
   get '/auth/:provider/callback', to: 'sessions#omniauth'
 
-  #  API routes
-  get "hotel_search", to: "hotels#index", as: 'hotel_search'
-  get "hotel_search/:hotelId", to: "hotels#show"
+  #  Amadeus API routes
+  get "hotel_search", to: "hotels#index"
+  get "search_results", to: "hotels#search_results"
   get "/reserve/:hotelId/:code", to: "hotels#reserve"
 
   # Nested routes

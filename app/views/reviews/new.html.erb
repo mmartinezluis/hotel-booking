@@ -7,4 +7,4 @@
   <%= render partial: 'reservations/info_no_links', locals: {reservation: @review.reservation} %><br>
 <% end %>
 <%= render 'form' %>
-<%= link_to "Cancel", reviews_path %>
+<%= link_to "Cancel", :back %>

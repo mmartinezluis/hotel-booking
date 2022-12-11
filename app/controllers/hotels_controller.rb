@@ -11,6 +11,7 @@ class HotelsController < ApplicationController
       api = AmadeusApi.new
       AmadeusApi.hotels.clear
       user_id = current_user.id
+      flash[:msg] = ""
       begin
         @hotels = api.query_city(city_code, convert_dates[0], convert_dates[1], params[:guests], user_id)
       rescue Amadeus::ResponseError => e
@@ -26,20 +27,20 @@ class HotelsController < ApplicationController
   def show
     # If request comes from the 'city/hotel' nested route, check that the city and the hotel are valid (:check_city_id filter)
     # If request comes from 'hotel_path',show the hotel from the database by user id and hotel id
-    if params[:id]  
-      @hotel = current_user.find_hotel(params[:id])
-      if @hotel.nil?
-        flash[:msg] = "Hotel not found." 
-        redirect_to user_hotels_path(current_user) and return
-      end
-    # If no nested city or no hotel from database, show the hotel using the hotelId from the API
-    elsif params[:hotelId]
-      @hotel = AmadeusApi.hotels.find { |hotel| hotel.hotelId == params[:hotelId] }
-      if @hotel.nil?
-        flash[:msg] = "Hotel not found." 
-        redirect_to hotels_path
-      end
+    @hotel = current_user.find_hotel(params[:id])
+    if @hotel.nil?
+      flash[:msg] = "Hotel not found." 
+      redirect_to user_hotels_path(current_user) and return
     end
+  end
+
+  def search_results
+    @hotel = AmadeusApi.hotels.find { |hotel| hotel.hotelId == params[:hotelId] }
+    if @hotel.nil?
+      flash[:msg] = "Hotel not found." 
+      redirect_to hotels_path and return
+    end
+    render :show
   end
 
   def reserve

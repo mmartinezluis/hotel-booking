@@ -36,10 +36,11 @@
           <%= review.reservation.user.username %><br>
           Posted on <%= review.creation_time %><br>
         </p>
-        <blockquote class="blockquote">
-          <%= review.description %>
+        <blockquote class="review-block">
+          "<em><%= review.description %></em>"
         </blockquote>
       <% end %>  
+
     </div>
   </div>
 
