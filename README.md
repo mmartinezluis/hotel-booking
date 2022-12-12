@@ -1,4 +1,6 @@
 # Hotel Booking
+![alt text](https://user-images.githubusercontent.com/75151961/206912626-081da6f9-c6df-43a9-ad63-23f2ffdf930a.png "Hotel Booking hotel search page")
+
 Hi, welcome to Hotel Booking. This is the third milestone project for Flatiron school's software engineering program. The project involves using Ruby on Rails to build an application that processes data through complex forms using RESTful routes and the MVC framework. Some of the project requirements include: nested forms, nested routes, scope methods, using OmniAuth for user authentication, and proper handling and displaying of errors. You can find a Medium article for Hotel Booking [here](https://luis-mmartinez.medium.com/using-an-external-api-in-your-ruby-on-rails-application-d560ab410801).
 
 ## Functionality
