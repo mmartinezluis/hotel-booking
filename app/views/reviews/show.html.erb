@@ -8,7 +8,7 @@
 </p>
 
 <h3>Review description:</h3>
-<%= @review.description %><br><br>
+<em>"<%= @review.description %>"</em><br><br>
 
 <%= link_to 'Edit review', edit_review_path(@review) %><br>
 <%= link_to 'Delete review', @review, method: :delete, data: { confirm: "Are you sure?" } %><br>

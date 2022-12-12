@@ -32,6 +32,10 @@
   padding-top: 4.5rem;
  }
 
+ ul {
+  list-style-type: none;
+ }
+
  #hotel-show {
   display: grid;
   grid-template-columns: 70%;
