@@ -3,8 +3,6 @@
 <img src="https://user-images.githubusercontent.com/75151961/206912626-081da6f9-c6df-43a9-ad63-23f2ffdf930a.png" alt="Hotel Booking hotel search page">
 </kbd>
 
-Hi, welcome to Hotel Booking. This is the third milestone project for Flatiron school's software engineering program. The project involves using Ruby on Rails to build an application that processes data through complex forms using RESTful routes and the MVC framework. Some of the project requirements include: nested forms, nested routes, scope methods, using OmniAuth for user authentication, and proper handling and displaying of errors. You can find a Medium article for Hotel Booking [here](https://luis-mmartinez.medium.com/using-an-external-api-in-your-ruby-on-rails-application-d560ab410801).
-
 ## Functionality
 Hotel Booking uses the [Amadeus Hotel Search API](https://developers.amadeus.com/self-service/category/hotel/api-doc/hotel-search) that comprises more than 150,000 hotels worldwide. The Amadeus API finds the cheapest hotels for a given location. In Hotel Booking users have the ability to:
 
