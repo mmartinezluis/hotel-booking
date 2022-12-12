@@ -1,27 +1,26 @@
 # Hotel Booking
+
 <kbd>
 <img src="https://user-images.githubusercontent.com/75151961/206912626-081da6f9-c6df-43a9-ad63-23f2ffdf930a.png" alt="Hotel Booking hotel search page">
 </kbd>
+&nbsp;
+
+## Introduction
+Hotel Booking is a full-stack Ruby on Rails app for making hotel reservations worldwide. Hotel Booking follows the MVC (models-views-controllers) architecture to render code on its pages, and utlizes RESTful API conventions for serving the data needed in the frontend. Hotel Booking utilizes models associations involving cities, hotels, reservations, and reviews to produce a rich user experience.
 
 ## Functionality
-Hotel Booking uses the [Amadeus Hotel Search API](https://developers.amadeus.com/self-service/category/hotel/api-doc/hotel-search) that comprises more than 150,000 hotels worldwide. The Amadeus API finds the cheapest hotels for a given location. In Hotel Booking users have the ability to:
+Hotel Booking consumes the [Amadeus Hotel Search API](https://developers.amadeus.com/self-service/category/hotel/api-doc/hotel-search) that comprises 150,000+ hotels worldwide to display real-time hotel offers for the selected city, checkin-date, checkout-date, and numbers of guests in the hotel search form. Hotel<-- Reservation<-- Room double-nested objects are built on the fly during the search process and are persisted to the database only when a reservation is made to optimze database storage space. When clicking on "Reserve" for a given offer, the offer availability is checked in real-time: if the offer is still avaialble, the booking is made, otherwise a no-longer-available message is displayed.
 
-* Log in to the app by creating a new user account or by OmniAuth authentication through their Google accounts.
-* Search for hotel reservations by a given city, check-in date, checkout-date, and number of guests in real-time.
-* Book a hotel reservation in real-time (note: reservations are valid in real-time at moment of booking but booking occurs within the app only). 
-* Browse a list of the cities of their booked hotels.
-* Browse a list of their booked hotels.
-* See a list of their booked hotels at a given city upon click on a city name. 
-* See their upcoming and/or previous reservations for a given hotel upon click on the hotel name.
-* Write a review for past hotel reservations.
-* Edit or delete their hotel reviews. 
-* Browse a list of their reservations.
-* Some more features ...
+Models associations along with nested routes and partials are used to produce a net of interconnected views allowing the user to access a variety of information from multiple sources. For example, a user can access a given hotel page from the hotels index page, the reservations index page, or the cities index page. Also, a user can access the new review form from a hotel show page, the reservations index page or the reviews index page. 
 
-Video walkthrough on YouTube: [Hotel Booking Demo](https://www.youtube.com/watch?v=p1-Fz3bk0QE&t=7s)
+Reservations open for review past 24 hours of the reservation's checkout date. Accessing the reviews index page will show your upcoming and/or previous reservations, and a New Review link is dynamically shown on the page if you have reservations that are open for review that takes you to the new review form. 
+
+
+## Deployment
+Hotel Booking has yet been deployed to production as I'm going to use it as an opportunity to learn and use infrastructure as code tools and CI/CD tools (Terraform, Kafka, Docker, Kuberetes), and apply software architecture design principles to make a higly-avialable and higly-scalable system in the cloud. In the mean time, you can here rich [demo images](https://github.com/mmartinezluis/hotel-booking/issues/1) and a [video walkthrough](https://www.youtube.com/watch?v=p1-Fz3bk0QE&t=7s) of the app. 
 
 ## Getting Started
-To get started with the app, make sure you have Rails installed on your machine. 
+To get started with the app, first make sure you have Rails installed. Then: 
 1. Clone the repo to your local machine:
 ``` ruby
 $ git clone https://github.com/mmartinezluis/hotel-booking.git
@@ -49,11 +48,17 @@ AMADEUS_API_SECRET = MY_API_SECRET
 $ rails db:migrate
 ```
 
-7. Finally, on the root path run a local server:
+7. Run the dabase seed so that the hotel search form can load the IATA city codes used for hotel search:
+```ruby
+$ rails db:seed
+```
+
+8. Finally, on the root path run a local server:
 ``` ruby
 $ rails server
 ```
-8. Open your browser at `http://localhost:3000` to run the app.
+
+9. Open your browser at `http://localhost:3000` to run the app.
 
 ## Contributing
 Contributions and pull requests are welcomed. You can also create an issue to report a bug or make a request. For pull requests, you may follow these steps:
