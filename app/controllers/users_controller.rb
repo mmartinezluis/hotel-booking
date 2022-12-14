@@ -11,7 +11,7 @@ class UsersController < ApplicationController
     if @user.valid? 
       @user.save
       session[:user_id] = @user.id
-      redirect_to hotels_path
+      redirect_to hotel_search_path
     else
       render :new
     end

@@ -18,7 +18,7 @@ class ApplicationController < ActionController::Base
 
   def redirect_if_logged_in
     if logged_in
-      redirect_to hotels_path
+      redirect_to hotel_search_path
     end
   end
 
