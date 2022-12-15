@@ -1,12 +1,10 @@
-
 <div class= "view index" >
-
   <div>
     <%= render 'hotel_search' unless @nested_city || @nested_user %>
   </div>
 
   <%= render partial: 'messages/msg' %>
-  
+
   <div class="series" id="hotels" >
     <% if @hotels %>
       <% if @nested_city.nil? && @nested_user.nil? %>
@@ -14,22 +12,19 @@
           <%= render partial: 'search_results', collection: @hotels, as: :hotel %>
         </div>
       <% else %>
-        <h1><%= @nested_city ? "My Hotels in #{@nested_city.name}" : "My Hotels" %></h1><br>
+        <h1><%= @nested_city ? "My Hotels in #{@nested_city.name}" : "My Hotels" %></h1>
+        <br>
         <ul>
           <% @hotels.each do |hotel| %>
             <div>
               <li>
                 <h5><%= link_to hotel.name, @nested_city ? "#{city_hotel_path(@nested_city, hotel.id)}" : "#{hotel_path(hotel.id)}" %></h5>
-              </li><br>
+              </li>
+              <br>
             </div>
           <% end %>
         </ul>
       <% end %>
     <% end %>
   </div>
-  
 </div>
-
-
-
-

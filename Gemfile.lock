@@ -116,6 +116,7 @@ GEM
     globalid (0.4.2)
       activesupport (>= 4.2.0)
     hashie (4.1.0)
+    htmlbeautifier (1.4.2)
     http-accept (1.7.0)
     http-cookie (1.0.3)
       domain_name (~> 0.5)
@@ -300,6 +301,7 @@ DEPENDENCIES
   byebug
   capybara (>= 3.26)
   dotenv-rails
+  htmlbeautifier
   jbuilder (~> 2.7)
   jquery-rails
   json
@@ -325,7 +327,7 @@ DEPENDENCIES
   webpacker (~> 5.0)
 
 RUBY VERSION
-   ruby 2.6.1p33
+   ruby 3.0.1p64
 
 BUNDLED WITH
-   2.2.14
+   2.3.26
