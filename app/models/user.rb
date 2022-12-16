@@ -24,6 +24,7 @@ class User < ApplicationRecord
 
   # Used by the API to show a hotel reservation offer; needs to use native Ruby methods as the offer is not persited in database
   def unbooked_reservation(hotel)
+    puts "unbokked called"
     hotel.reservations.find{|reservation| reservation.id == nil && reservation.user_id = self.id}
   end
 
@@ -54,9 +55,11 @@ class User < ApplicationRecord
   end
 
   def upcoming_reservations(hotel = nil)
+    # used in hotels show page
     if hotel
       booked_reservations(hotel).where("checkin_date >= :todays_date", {todays_date: Date.today.to_s}).includes(hotel: [:city]).order(checkin_date: :asc)
     else
+      # used in reservations index page
       self.reservations.where("checkin_date >= ?", Date.today.to_s).includes(hotel: [:city]).order(checkin_date: :asc)
     end
   end

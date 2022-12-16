@@ -1,8 +1,9 @@
 <div class="row">
   <h3><%= link_to hotel.name, search_results_path(hotelId: hotel.hotelId) %></h3>
+  <% reservation_data = @user.unbooked_reservation(hotel) %> 
   <p>
-    Guests: <%= hotel_guests(hotel, @user) %><br>
-    Beds: <%= hotel_beds(hotel, @user) %><br>
-    Price: <%= hotel_currency(hotel, @user) %> <%= hotel_price(hotel, @user) %>
+    Guests: <%= reservation_data.guests %><br>
+    Beds: <%= reservation_data.room.beds %><br>
+    Price: <%= reservation_data.currency %> <%= reservation_data.price %>
   </p>
 </div>

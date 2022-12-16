@@ -46,7 +46,6 @@ class HotelsController < ApplicationController
   def reserve
     api = AmadeusApi.all.last
     @hotel = AmadeusApi.hotels.find { |hotel| hotel.hotelId == params[:hotelId] }
-    # 'reservation', below, can cause an exception and it needs to be rescued
     begin
       # Use the HOTEL_OFFER API ENDPOINT to check in real-time whether the reservation is still available 
       reservation = api.amadeus.shopping.hotel_offer(params[:code]).get.data 

@@ -24,7 +24,7 @@ module HotelsHelper
     user.unbooked_reservation(hotel).checkout_date
   end
 
-  def reservation_code(hotel, user)
+  def hotel_reservation_code(hotel, user)
     user.unbooked_reservation(hotel).code
   end
 

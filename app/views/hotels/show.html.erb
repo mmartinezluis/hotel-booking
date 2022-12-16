@@ -1,33 +1,42 @@
 <div class="view" id="hotel-show">
-
+  
   <%= render partial: 'messages/msg' %>
+  
+  <%# This view is composed of three components: hotel, reservation, and reviews %>
 
+  <%# Hotel component %>
   <div class="box" id="hotel">
     <%= render partial: 'hotels/info', locals: { hotel: @hotel}  %>
   </div>
 
+  <%# Reservation component %>
   <div class="box" id="reservations">
-    <% if unbooked_reservation?(@user, @hotel) %>  
+    <%# An unbooked_reservation occurs when the user search for hotels, and clicks on a hotel link from search results %>
+    <% unbooked_reservation = @user.unbooked_reservation(@hotel) %>
+    <% if unbooked_reservation %>  
       <h3>Offer:</h3>
-      <%= render partial: 'reservations/info_no_links', locals: { reservation: @user.unbooked_reservation(@hotel) } %><br>
-      <a href="/reserve/<%= @hotel.hotelId %>/<%= reservation_code(@hotel, @user) %>">Reserve</a>
+      <%= render partial: 'reservations/info_no_links', locals: { reservation: unbooked_reservation } %><br>
+      <a href="/reserve/<%= @hotel.hotelId %>/<%= unbooked_reservation.code %>">Reserve</a>
     <% elsif @single_reservation %>
       <h3>Reservation</h3>
       <p><%= upcoming_single_reservation?(@single_reservation) ? 'Upcoming' : 'Previous' %></p>
       <%= render partial: 'reservations/info', locals: {reservation: @single_reservation} %>
     <% else %>
       <h3>Reservations</h3>
-      <% if upcoming_reservations?(@user, @hotel) %>
+      <% upcoming_reservations = @user.upcoming_reservations(@hotel) %>
+      <% if !upcoming_reservations.empty? %>
         <p>Upcoming:</p>
-        <%= render partial: 'reservations/info', collection: @user.upcoming_reservations(@hotel), as: :reservation %>
+        <%= render partial: 'reservations/info', collection: upcoming_reservations, as: :reservation %>
       <% end %>
-      <% if previous_reservations?(@user, @hotel) %>
+      <% previous_reservations = @user.previous_reservations(@hotel) %>
+      <% if !previous_reservations.empty? %>
         <p>Previous:</p>
-        <%= render partial: 'reservations/info', collection: @user.previous_reservations(@hotel), as: :reservation %>
+        <%= render partial: 'reservations/info', collection: previous_reservations, as: :reservation %>
       <% end %>
     <% end %>
   </div>
 
+  <%# Reviews component %>
   <div class="box" id="reviews">
     <h3>Reviews</h3>
     <div>
@@ -40,7 +49,6 @@
           "<em><%= review.description %></em>"
         </blockquote>
       <% end %>  
-
     </div>
   </div>
 
