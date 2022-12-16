@@ -3,7 +3,7 @@
 <h1>My Reservations</h1><br>
 
 <% if @reservations.empty? %>
-  <h3>It seems you haven't booked any reservations yet :)</h3>
+  <p>It seems you haven't booked any reservations yet :)</p>
 <% else %>
 
   <% if upcoming_reservations?(@user) %>

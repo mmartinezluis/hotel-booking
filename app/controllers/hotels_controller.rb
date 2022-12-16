@@ -112,7 +112,7 @@ class HotelsController < ApplicationController
         @hotels = current_user.all_hotels_sorted
         if current_user != @nested_user
           flash[:msg] = "Users can only see their own hotels."
-          redirect_to hotels_path and return
+          redirect_to user_hotels_path(current_user) and return
         end
       end
     end

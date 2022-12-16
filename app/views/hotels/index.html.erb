@@ -2,11 +2,14 @@
   <div>
     <%= render 'hotel_search' unless @nested_city || @nested_user %>
   </div>
-
+  
   <%= render partial: 'messages/msg' %>
-
+ 
   <div class="series" id="hotels" >
+    <%# If the @hotels variable is not defined, show the hotel search form from above only  %>
     <% if @hotels %>
+      <%# @nested_city is defined when accessing hotels_index via a city nested rooute %>
+      <%# @nested_user is defined when accessing hotels_index via a user nested route %>
       <% if @nested_city.nil? && @nested_user.nil? %>
         <div class="container">
           <%= render partial: 'search_results', collection: @hotels, as: :hotel %>
@@ -14,16 +17,20 @@
       <% else %>
         <h1><%= @nested_city ? "My Hotels in #{@nested_city.name}" : "My Hotels" %></h1>
         <br>
-        <ul>
-          <% @hotels.each do |hotel| %>
-            <div>
-              <li>
-                <h5><%= link_to hotel.name, @nested_city ? "#{city_hotel_path(@nested_city, hotel.id)}" : "#{hotel_path(hotel.id)}" %></h5>
-              </li>
-              <br>
-            </div>
-          <% end %>
-        </ul>
+        <% if @hotels.empty? %>
+          <p>You haven't booked any hotels yet!!!</p>
+        <% else %>
+          <ul>
+            <% @hotels.each do |hotel| %>
+              <div>
+                <li>
+                  <h5><%= link_to hotel.name, @nested_city ? "#{city_hotel_path(@nested_city, hotel.id)}" : "#{hotel_path(hotel.id)}" %></h5>
+                </li>
+                <br>
+              </div>
+            <% end %>
+          </ul>
+        <% end %>
       <% end %>
     <% end %>
   </div>
