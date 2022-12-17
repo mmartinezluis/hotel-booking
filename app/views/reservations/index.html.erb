@@ -5,11 +5,12 @@
 <% if @reservations.empty? %>
   <p>It seems you haven't booked any reservations yet :)</p>
 <% else %>
+
   <% upcoming_reservations = @user.upcoming_reservations %>
-  <% if upcoming_reservations?(@user) %>
+  <% if !upcoming_reservations.empty? %>
     <p>Upcoming:</p>
     <ul>
-      <% @user.upcoming_reservations.each do |reservation| %>
+      <% upcoming_reservations.each do |reservation| %>
         <li>
           <h3><%= link_to reservation.hotel.name, reservation_path(reservation) %></h3>
           <%= reservation.hotel.city.name %>
@@ -18,11 +19,12 @@
       <% end %>
     </ul>
   <% end %>
- 
-  <% if previous_reservations?(@user) %>
+
+  <% previous_reservations = @user.previous_reservations %>
+  <% if !previous_reservations.empty? %>
     <p>Previous:</p>
     <ul>
-      <% @user.previous_reservations.each do |reservation| %>
+      <% previous_reservations.each do |reservation| %>
         <li>
           <h3><%= link_to reservation.hotel.name, reservation_path(reservation) %></h3>
           <%= reservation.hotel.city.name %>

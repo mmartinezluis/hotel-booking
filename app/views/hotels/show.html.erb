@@ -11,7 +11,7 @@
 
   <%# Reservation component %>
   <div class="box" id="reservations">
-    <%# An unbooked_reservation occurs when the user search for hotels, and clicks on a hotel link from search results %>
+    <%# An unbooked_reservation occurs when the user search for hotels and clicks on a hotel link from search results %>
     <% unbooked_reservation = @user.unbooked_reservation(@hotel) %>
     <% if unbooked_reservation %>  
       <h3>Offer:</h3>
@@ -40,7 +40,7 @@
   <div class="box" id="reviews">
     <h3>Reviews</h3>
     <div>
-      <% @hotel.reviews.each do |review| %>
+      <% @hotel.reviews.includes(reservation: [:user]).each do |review| %>
         <p>
           <%= review.reservation.user.username %><br>
           Posted on <%= review.creation_time %><br>
