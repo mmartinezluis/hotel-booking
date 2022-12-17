@@ -2,7 +2,7 @@
 
 <h1>My Reviews</h1><br>
 
-<% if @user.open_for_review_reservations != [] && @user.open_for_review_reservations != nil %>
+<% if @user.open_for_review_reservations.exists? %>
   <p>You have open-for-review reservations: <%= link_to "New Review", new_review_path %></p><br>
 <% elsif @reviews.empty? %>
   <p>You don't currently have open-for-review reservations. Reviews open one day after a reservation's checkout date.</p><br>
@@ -14,7 +14,6 @@
       <li class="review-block">
         <h3><%= review.reservation.hotel.name %></h3>
         <p><%= review.reservation.hotel.city.name %></p>
-        <%# <%= render 'reservations/info_no_links', :reservation => review.reservation %>
         <h6>Review description:</h6>
         <em>"<%= review.description -%>"</em><br>
         <%= link_to 'Show review', review_path(review) %><br><br>

@@ -1,5 +1,7 @@
 <h1>New Review</h1>
 <%= render partial: 'messages/error', locals: { agnostic: @review } %>
+<%# the new review comes with its parent reservation loaded when opened through the new_reservation_review path in a hotel show page or reservations index page %>
+<%# otherwise the new review comes with no reservation when opened through the New Review link in the reviews index page %>
 <% unless @review.reservation.nil? %>
   <p><%= @review.reservation.hotel.name %><br>
      <%= @review.reservation.hotel.city.code %>

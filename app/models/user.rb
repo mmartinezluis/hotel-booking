@@ -47,7 +47,8 @@ class User < ApplicationRecord
   end
 
   def all_reviews_sorted
-    self.reviews.includes(:reservation).order(checkin_date: :desc) 
+    # self.reviews.includes(:reservation).order(checkin_date: :desc) 
+    self.reviews.includes(reservation: [hotel: [:city]]).order(checkin_date: :desc) 
   end
 
   def all_reservations_sorted

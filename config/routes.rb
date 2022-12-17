@@ -32,7 +32,7 @@ Rails.application.routes.draw do
   end
 
   resources :reservations, only: [:show] do
-    resources :reviews, only: [:show, :new, :edit]
+    resources :reviews, only: [:show, :new]
   end
 
   get 'trending', to: 'hotels#trending'
