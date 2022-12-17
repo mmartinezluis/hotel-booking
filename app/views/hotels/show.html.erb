@@ -17,11 +17,13 @@
       <h3>Offer:</h3>
       <%= render partial: 'reservations/info_no_links', locals: { reservation: unbooked_reservation } %><br>
       <a href="/reserve/<%= @hotel.hotelId %>/<%= unbooked_reservation.code %>">Reserve</a>
+    <%# single_reservation occurs when user clicks on a reservation link in reservations index page %>
     <% elsif @single_reservation %>
       <h3>Reservation</h3>
       <p><%= upcoming_single_reservation?(@single_reservation) ? 'Upcoming' : 'Previous' %></p>
       <%= render partial: 'reservations/info', locals: {reservation: @single_reservation} %>
     <% else %>
+      <%# In this view, upcoming_reservations and previous_reservations occur when user clicks on a hotel name in the hotels index page %>
       <h3>Reservations</h3>
       <% upcoming_reservations = @user.upcoming_reservations(@hotel) %>
       <% if !upcoming_reservations.empty? %>
