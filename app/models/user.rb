@@ -58,7 +58,7 @@ class User < ApplicationRecord
   def upcoming_reservations(hotel = nil)
     # used in hotels show page
     if hotel
-      booked_reservations(hotel).where("checkin_date >= :todays_date", {todays_date: Date.today.to_s}).includes(hotel: [:city]).order(checkin_date: :asc)
+      booked_reservations(hotel).where("checkin_date >= :todays_date", {todays_date: Date.today.to_s}).includes(:review, hotel: [:city]).order(checkin_date: :asc)
     else
       # used in reservations index page
       self.reservations.where("checkin_date >= ?", Date.today.to_s).includes(:review, hotel: [:city]).order(checkin_date: :asc)
@@ -67,7 +67,7 @@ class User < ApplicationRecord
 
   def previous_reservations(hotel = nil)
     if hotel
-      booked_reservations(hotel).where("checkin_date < :todays_date", {todays_date: Date.today.to_s}).includes(hotel: [:city]).order(checkin_date: :desc)
+      booked_reservations(hotel).where("checkin_date < :todays_date", {todays_date: Date.today.to_s}).includes(:review, hotel: [:city]).order(checkin_date: :desc)
     else
       self.reservations.where("checkin_date < ?", Date.today.to_s).includes(:review, hotel: [:city]).order(checkin_date: :desc)
     end
