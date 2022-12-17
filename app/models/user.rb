@@ -61,7 +61,7 @@ class User < ApplicationRecord
       booked_reservations(hotel).where("checkin_date >= :todays_date", {todays_date: Date.today.to_s}).includes(hotel: [:city]).order(checkin_date: :asc)
     else
       # used in reservations index page
-      self.reservations.where("checkin_date >= ?", Date.today.to_s).includes(hotel: [:city]).order(checkin_date: :asc)
+      self.reservations.where("checkin_date >= ?", Date.today.to_s).includes(:review, hotel: [:city]).order(checkin_date: :asc)
     end
   end
 
@@ -69,7 +69,7 @@ class User < ApplicationRecord
     if hotel
       booked_reservations(hotel).where("checkin_date < :todays_date", {todays_date: Date.today.to_s}).includes(hotel: [:city]).order(checkin_date: :desc)
     else
-      self.reservations.where("checkin_date < ?", Date.today.to_s).includes(hotel: [:city]).order(checkin_date: :desc)
+      self.reservations.where("checkin_date < ?", Date.today.to_s).includes(:review, hotel: [:city]).order(checkin_date: :desc)
     end
   end
 
