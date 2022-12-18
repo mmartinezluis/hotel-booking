@@ -55,13 +55,6 @@ class User < ApplicationRecord
   end
 
   def upcoming_reservations(hotel = nil)
-    # # used in hotels show page
-    # if hotel
-    #   booked_reservations(hotel).where("checkin_date >= :todays_date", {todays_date: Date.today.to_s}).includes(:review, hotel: [:city]).order(checkin_date: :asc)
-    # else
-    #   # used in reservations index page
-    #   self.reservations.where("checkin_date >= ?", Date.today.to_s).includes(:review, hotel: [:city]).order(checkin_date: :asc)
-    # end
     # if a hotel is specified, retrieve the upcoming reservations at the given hotel; otherwise, retrieve all upcoming reservations
     # method called with a hotel in hotels show page, and without hotel in reservations index page
     reservations = hotel ? booked_reservations(hotel) : self.reservations
@@ -69,11 +62,6 @@ class User < ApplicationRecord
   end
 
   def previous_reservations(hotel = nil)
-    # if hotel
-    #   booked_reservations(hotel).where("checkin_date < :todays_date", {todays_date: Date.today.to_s}).includes(:review, hotel: [:city]).order(checkin_date: :desc)
-    # else
-    #   self.reservations.where("checkin_date < ?", Date.today.to_s).includes(:review, hotel: [:city]).order(checkin_date: :desc)
-    # end
     reservations = hotel ? booked_reservations(hotel) : self.reservations
     reservations = reservations.where("checkin_date < :todays_date", {todays_date: Date.today.to_s}).includes(:review, hotel: [:city]).order(checkin_date: :desc)
   end
