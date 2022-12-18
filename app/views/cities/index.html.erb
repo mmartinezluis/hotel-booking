@@ -7,7 +7,7 @@
     <p>You haven't visited any cities yet<p>
   <% else %>
     <ul>
-      <% @user.cities.distinct.each do |city| %>
+      <% @cities.each do |city| %>
         <li>
          <h5><%= link_to city.name, city_hotels_path(city.id) %></h5>
         </li><br>

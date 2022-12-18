@@ -11,19 +11,21 @@
 
   <%# Reservation component %>
   <div class="box" id="reservations">
-    <%# An unbooked_reservation occurs when the user search for hotels and clicks on a hotel link from search results %>
+    <%# An unbooked_reservation occurs when the user searches for hotels and clicks on a hotel link from search results %>
+    <%# the reservation displayed in the hotel show page is an unbooked reservation %>
     <% unbooked_reservation = @user.unbooked_reservation(@hotel) %>
     <% if unbooked_reservation %>  
       <h3>Offer:</h3>
       <%= render partial: 'reservations/info_no_links', locals: { reservation: unbooked_reservation } %><br>
       <a href="/reserve/<%= @hotel.hotelId %>/<%= unbooked_reservation.code %>">Reserve</a>
-    <%# single_reservation occurs when user clicks on a reservation link in reservations index page %>
+    <%# single_reservation occurs when user clicks on a reservation's hotel name link in reservations index page %>
+    <%# which activates the hotel show page with the clicked reservation %>
     <% elsif @single_reservation %>
       <h3>Reservation</h3>
       <p><%= upcoming_single_reservation?(@single_reservation) ? 'Upcoming' : 'Previous' %></p>
       <%= render partial: 'reservations/info', locals: {reservation: @single_reservation} %>
     <% else %>
-      <%# In this view, upcoming_reservations and previous_reservations occur when user clicks on a hotel name in the hotels index page %>
+      <%# upcoming_reservations and previous_reservations occur when user clicks on a hotel name in the hotels index page %>
       <h3>Reservations</h3>
       <% upcoming_reservations = @user.upcoming_reservations(@hotel) %>
       <% if !upcoming_reservations.empty? %>

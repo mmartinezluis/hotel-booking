@@ -6,10 +6,11 @@
   <%= render partial: 'messages/msg' %>
  
   <div class="series" id="hotels" >
-    <%# If the @hotels variable is not defined, show the hotel search form from above only  %>
+    <%# If the @hotels variable is not defined, only show the hotel search form from above %>
     <% if @hotels %>
-      <%# @nested_city is defined when accessing hotels_index via a city nested rooute %>
-      <%# @nested_user is defined when accessing hotels_index via a user nested route %>
+      <%# @nested_city is defined when accessing the hotels index page via a city nested rooute %>
+      <%# @nested_user is defined when accessing the hotels index via a user nested route %>
+      <%# show the hotel search results if user is accessing the hotels index page via regular (non-nested) route %>
       <% if @nested_city.nil? && @nested_user.nil? %>
         <div class="container">
           <%= render partial: 'search_results', collection: @hotels, as: :hotel %>

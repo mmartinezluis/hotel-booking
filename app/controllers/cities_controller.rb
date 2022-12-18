@@ -1,7 +1,7 @@
 class CitiesController < ApplicationController
 
   def index
-    @cities = current_user.cities
+    @cities = current_user.cities.distinct.includes(hotels: [:reservations]).order("reservations.checkin_date desc")
   end
 
   def datalist

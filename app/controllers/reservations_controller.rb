@@ -1,7 +1,6 @@
 class ReservationsController < ApplicationController
 
   def index
-    # @reservations = current_user.all_reservations_sorted
     @reservations = current_user.reservations.any?
   end
 

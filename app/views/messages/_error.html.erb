@@ -1,8 +1,8 @@
 <% if agnostic.errors.any? %>
-  <div>
-    <h3>
+  <div class="errors-container">
+    <h5>
       There were some errors:
-    </h3>
+    </h5>
 
     <ul>
       <% agnostic.errors.full_messages.each do |msg| %>
