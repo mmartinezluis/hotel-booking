@@ -18,7 +18,7 @@ Reservations open for review past 24 hours of the reservation's checkout date. A
 The app counts with a Trending page, which features the top-three most reserved hotels in the app. You can login to the app via email and password or using your Gmail account. 
 
 ## Deployment
-Hotel Booking has not yet been deployed to production as I'm going to use it as an opportunity to learn and use infrastructure as code tools, CI/CD tools, and containerization tools (Terraform, Kafka, Docker, Kuberetes), and apply software architecture design principles to make a higly-available and higly-scalable system in the cloud. 
+Hotel Booking has not yet been deployed to production as I'm going to use it as an opportunity to learn and use infrastructure as code tools, CI/CD tools, and containerization tools (Terraform, Kafka, Docker, Kubernetes), and apply software architecture design principles to make a higly-available and higly-scalable system in the cloud. 
 
 ## Demo
 You can find here rich [demo images](https://github.com/mmartinezluis/hotel-booking/issues/1) and a [video walkthrough](https://www.youtube.com/watch?v=p1-Fz3bk0QE&t=7s) of the app. 
