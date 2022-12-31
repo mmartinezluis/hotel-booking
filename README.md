@@ -18,7 +18,7 @@ Reservations open for review past 24 hours of the reservation's checkout date. A
 The app counts with a Trending page, which features the top-three most reserved hotels in the app. You can login to the app via email and password or using your Gmail account. 
 
 ## Deployment
-Hotel Booking has yet been deployed to production as I'm going to use it as an opportunity to learn and use infrastructure as code tools, CI/CD tools, and containerization tools (Terraform, Kafka, Docker, Kuberetes), and apply software architecture design principles to make a higly-available and higly-scalable system in the cloud. 
+Hotel Booking has not yet been deployed to production as I'm going to use it as an opportunity to learn and use infrastructure as code tools, CI/CD tools, and containerization tools (Terraform, Kafka, Docker, Kuberetes), and apply software architecture design principles to make a higly-available and higly-scalable system in the cloud. 
 
 ## Demo
 You can find here rich [demo images](https://github.com/mmartinezluis/hotel-booking/issues/1) and a [video walkthrough](https://www.youtube.com/watch?v=p1-Fz3bk0QE&t=7s) of the app. 
@@ -40,7 +40,7 @@ $ bundle install
 
 4. Create a new file in the main directory of this repository in your local machine called `.env`
 
-5. Then, in this `.env` file include the following lines, replacing "MY_API_KEY" and "MY_API_SECRET" with your API key and API secret, respectively:
+5. Then, in this `.env` file include the following lines, replacing "MY_API_KEY" and "MY_API_SECRET" with your API key and API secret, respectively (get your Amadeus API key and secret [here](https://developers.amadeus.com/self-service/category/hotel/api-doc/hotel-search/api-reference)):
 
 ```
 AMADEUS_API_KEY = MY_API_KEY
