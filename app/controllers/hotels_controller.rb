@@ -109,6 +109,8 @@ class HotelsController < ApplicationController
       if params[:user_id] 
         @nested_user = User.find_by(id: params[:user_id])
         @hotels = current_user.all_hotels_sorted
+        # hotel_ids = HotelTracker::ForUser.new(current_user.all_reservations_sorted).hotel_ids
+        # @hotels = Hotel.find(hotel_ids)
         if current_user != @nested_user
           flash[:msg] = "Users can only see their own hotels."
           redirect_to user_hotels_path(current_user) and return
