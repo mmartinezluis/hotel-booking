@@ -9,6 +9,7 @@ module HotelTracker
             raise TypeError, "If supplied, the argument must be an array" if reservations && !reservations.length
             info = HotelTracker::ReservationsPriorityQueue.new(reservations)
             @hotel_ids = info.values
+            # byebug
             @upcoming_reservations_counter = info.upcoming
         end
     end
@@ -34,9 +35,9 @@ module HotelTracker
             reservations.each do |re|
                 prev_re = map[re.hotel_id]    
                 map[re.hotel_id] = re if !prev_re
-                upcoming += 1 if re.checkin_date >= today
+                @upcoming += 1 if re.checkin_date >= today
             end
-            values = map.keys
+            @values = map.keys
         end
 
         # for later, write method and data structures to add a reservation and keep hotel ids

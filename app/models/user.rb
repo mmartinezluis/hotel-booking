@@ -69,5 +69,9 @@ class User < ApplicationRecord
   def open_for_review_reservations
     self.reservations.where("checkout_date < ?", Date.today.to_s).includes(:review).where(review: {id: nil })
   end
+
+  def reservations_counter
+    # Retrieve counter from cache
+  end
       
 end
