@@ -1,0 +1,8 @@
+development:
+  cache_url: 'redis://localhost:6379/1'
+test:
+  cache_url: 'redis://<%= ENV['REDIS_HOST'].presence || 'localhost' %>:6379/15'
+uat:
+  cache_url: 'redis://10.0.0.5:6379/1'
+production:
+  cache_url: 'redis://10.0.0.6:6379/1'

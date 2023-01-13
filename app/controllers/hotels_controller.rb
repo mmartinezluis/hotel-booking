@@ -109,7 +109,10 @@ class HotelsController < ApplicationController
       if params[:user_id] 
         @nested_user = User.find_by(id: params[:user_id])
         # @hotels = current_user.all_hotels_sorted
+        byebug
+        temp = Rails.cache.fetch("my_key4", expires_in: 20.minutes) {"this is my key #4"}
         hotel_ids = HotelTracker::ForUser.new(current_user.all_reservations_sorted).hotel_ids
+        # hotel_ids = Rails.cache.fetch(current_user) {}
         @hotels = Hotel.find(hotel_ids)
         if current_user != @nested_user
           flash[:msg] = "Users can only see their own hotels."
