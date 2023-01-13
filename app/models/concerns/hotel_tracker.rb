@@ -6,10 +6,15 @@ module HotelTracker
     class ForUser
         attr_accessor :hotel_ids, :upcoming_reservations_counter
         def initialize(user, reservations = [])
+            # Need to find a better way of checking for an array or Active Record relation instance
             raise TypeError, "If supplied, the argument must be an array" if reservations && !reservations.length
             info = HotelTracker::HotelsSortedSet.new(user, reservations)
             @hotel_ids = info.values
             @upcoming_reservations_counter = info.upcoming
+        end
+
+        def self.retrieve_hotels_list(user)
+            Rails.cache.redis.with { |c| c.zrevrange(HotelTracker.hotels_list_cache_key(user), 0, -1) }
         end
     end
 
@@ -37,7 +42,15 @@ module HotelTracker
     end
 
     def self.upcoming_re_counter_cache_key(user)
-        "upcoming_re_counter/#{user.cache_key}"
+      "upcoming_re_counter/#{user.cache_key}"
+    end
+
+    def self.hotels_list_cache_key(user)
+      "hotels_list/#{user.cache_key}"
+    end
+  
+    def self.most_popular_cache_key
+      "most_popular_hotels"
     end
 
     private
@@ -79,13 +92,5 @@ module HotelTracker
             Rails.cache.redis.with { |c| c.expire(user_hotels_key, 3600) }
             Rails.cache.redis.with { |c| c.expire(rev_counter_key, 3600*5) }
         end
-    end
-
-    def self.hotels_list_cache_key(user)
-      "hotels_list/#{user.cache_key}"
-    end
-
-    def self.most_popular_cache_key
-      "most_popular_hotels"
     end
 end
