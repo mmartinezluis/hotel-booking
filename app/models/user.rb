@@ -51,7 +51,8 @@ class User < ApplicationRecord
   end
 
   def all_reservations_sorted
-    self.reservations.order(checkin_date: :desc)
+    # self.reservations.order(checkin_date: :desc)
+    self.reservations.includes(hotel: [:city]).order(checkin_date: :desc)
   end
 
   def upcoming_reservations(hotel = nil)

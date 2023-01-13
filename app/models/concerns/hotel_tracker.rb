@@ -68,11 +68,13 @@ module HotelTracker
         def build_sorted_set(user, reservations)
             user_hotels_key = HotelTracker.hotels_list_cache_key(user)
             rev_counter_key = HotelTracker.upcoming_re_counter_cache_key(user)
+            user_cities_key = CityTracker.cities_list_cache_key(user)
 
             Rails.cache.redis.with do |conn|
                 # Clean up the hotels sorted set and upcoming reservations counter caches
                 conn.del user_hotels_key
                 conn.set(rev_counter_key, 0)
+                conn.del user_cities_key
 
                 today = Date.today.to_time.to_i
 
@@ -81,7 +83,8 @@ module HotelTracker
                     re_time = re.checkin_date.to_time.to_i
                     if !prev_re 
                         map[re.hotel_id] = re
-                        conn.zadd(user_hotels_key, re.checkin_date.to_time.to_i, re.hotel_id)
+                        conn.zadd(user_hotels_key, re_time, re.hotel_id)
+                        conn.zadd(user_cities_key, re_time, re.hotel.city_id, gt: true)
                     end
                     conn.incr(rev_counter_key) if re_time >= today
                 end
@@ -90,6 +93,7 @@ module HotelTracker
             @values = Rails.cache.redis.with { |c| c.zrevrange(user_hotels_key, 0, -1) }
             @upcoming = Rails.cache.redis.with { |c| c.get(rev_counter_key) }
             Rails.cache.redis.with { |c| c.expire(user_hotels_key, 3600) }
+            Rails.cache.redis.with { |c| c.expire(user_cities_key, 3600) }
             Rails.cache.redis.with { |c| c.expire(rev_counter_key, 3600*5) }
         end
     end
