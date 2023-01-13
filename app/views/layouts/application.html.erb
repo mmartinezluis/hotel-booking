@@ -37,7 +37,8 @@
                   <a class="nav-link <%= 'active' if current_page?(user_hotels_path(@user.id)) or (!request.path.include?('cities') && request.path.include?('hotels')) %>" aria-current="page" href="/users/<%= @user.id %>/hotels">Hotels</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link <%= 'active' if request.path.include? 'reservations' %>" aria-current="page" href="/reservations">Reservations (<%= @user.upcoming_reservations.length if @user.upcoming_reservations != [] %>)</a>
+                  <% upcoming = Rails.cache.redis.with {|c| c.get(HotelTracker.upcoming_re_counter_cache_key(@user)) } %> 
+                  <a class="nav-link <%= 'active' if request.path.include? 'reservations' %>" aria-current="page" href="/reservations">Reservations (<%= upcoming %>)</a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link <%= 'active' if request.path.include? 'cities' %>" aria-current="page" href="/cities">Cities</a>

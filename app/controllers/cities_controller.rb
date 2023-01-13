@@ -6,8 +6,9 @@ class CitiesController < ApplicationController
 
   def datalist
     # this route is used to populate the city name datalist for the hotel search form via Javascript
-    cities = City.all
-    render json: cities, except: [:created_at, :updated_at]
+    # cities = City.all
+    # render json: cities, except: [:created_at, :updated_at]
+    render json: CityTracker.retrieve_cities
   end
   
 end
