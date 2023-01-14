@@ -16,7 +16,7 @@
           <%= render partial: 'search_results', collection: @hotels, as: :hotel %>
         </div>
       <% else %>
-        <h1><%= @nested_city ? "My Hotels in #{@nested_city.name}" : "My Hotels" %></h1>
+        <h1><%= @nested_city ? "My Hotels in #{@nested_city.name.titleize}" : "My Hotels" %></h1>
         <br>
         <% if @hotels.empty? %>
           <p>You haven't booked any hotels yet!!!</p>

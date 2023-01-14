@@ -5,10 +5,8 @@ module HotelTracker
     # Maintains user hotels sorted by reservations checkin date descending
     class ForUser
         attr_accessor :hotel_ids, :upcoming_reservations_counter
-        def initialize(user, reservations = [])
-            # Need to find a better way of checking for an array or Active Record relation instance
-            raise TypeError, "If supplied, the argument must be an array" if reservations && !reservations.length
-            info = HotelTracker::HotelsSortedSet.new(user, reservations)
+        def initialize(user)
+            info = HotelTracker::HotelsSortedSet.new(user)
             @hotel_ids = info.values
             @upcoming_reservations_counter = info.upcoming
         end
@@ -57,15 +55,19 @@ module HotelTracker
     class HotelsSortedSet
         attr_accessor :map, :values, :upcoming
 
-        def initialize(user, reservations)            
+        def initialize(user)            
             @map = {}
-            @values = []
-            @upcoming = 0
-            self.build_sorted_set(user, reservations) if reservations.length > 0
+            self.build_sorted_set(user)
         end
 
         # reservations should be sorted already by checkin date descending 
-        def build_sorted_set(user, reservations)
+        def build_sorted_set(user)
+            reservations = user.all_reservations_sorted.presence
+            if !reservations 
+                @values = []
+                @upcoming = 0
+                return
+            end
             user_hotels_key = HotelTracker.hotels_list_cache_key(user)
             rev_counter_key = HotelTracker.upcoming_re_counter_cache_key(user)
             user_cities_key = CityTracker.cities_list_cache_key(user)
@@ -88,7 +90,6 @@ module HotelTracker
                     end
                     conn.incr(rev_counter_key) if re_time >= today
                 end
-                @values = map.keys
             end
             @values = Rails.cache.redis.with { |c| c.zrevrange(user_hotels_key, 0, -1) }
             @upcoming = Rails.cache.redis.with { |c| c.get(rev_counter_key) }

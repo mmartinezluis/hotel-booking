@@ -122,7 +122,7 @@ class HotelsController < ApplicationController
         # @hotels = @nested_user.all_hotels_sorted
         # todo: make retrieve+hotels_method build the hotels_list if list is empty
         hotel_ids = HotelTracker::ForUser.retrieve_hotels_list(@nested_user)
-        hotel_ids = HotelTracker::ForUser.new(@nested_user, @nested_user.all_reservations_sorted).hotel_ids if hotel_ids.empty?
+        hotel_ids = HotelTracker::ForUser.new(@nested_user).hotel_ids if hotel_ids.empty?
         @hotels = Hotel.find(hotel_ids)
         render :index and return
       end

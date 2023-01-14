@@ -1,15 +1,15 @@
 <div class="view index">
 <%= render partial: 'messages/msg' %>
 
-  <h1>Cities Visited</h1>
-
+  <h1>My Cities</h1>
+  <br>
   <% if @cities.blank? %>
     <p>You haven't visited any cities yet<p>
   <% else %>
     <ul>
       <% @cities.each do |city| %>
         <li>
-         <h5><%= link_to city.name, city_hotels_path(city.id) %></h5>
+         <h5><%= link_to city.name.titleize, city_hotels_path(city.id) %></h5>
         </li><br>
       <% end %>
     </ul>

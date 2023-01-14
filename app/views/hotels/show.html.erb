@@ -47,7 +47,7 @@
       <% @hotel.reviews.includes(reservation: [:user]).each do |review| %>
         <p>
           <%= review.reservation.user.username %><br>
-          Posted on <%= review.creation_time %><br>
+          Posted on <%= review.creation_time %>:<br>
         </p>
         <blockquote class="review-block">
           "<em><%= review.description %></em>"
