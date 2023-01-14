@@ -56,13 +56,20 @@ class HotelsController < ApplicationController
       # If no exception is raised, check whether reservertion is avaiable
       if reservation && reservation["available"]  == true
         # Check that the reservation attributes did not change since first time reservation was displayed
-        checkin = reservation["offers"][0]["checkInDate"] == @hotel.reservations.last.checkin_date
-        checkout = reservation["offers"][0]["checkOutDate"] == @hotel.reservations.last.checkout_date
-        guests = reservation["offers"][0]["guests"]["adults"] == @hotel.reservations.last.guests
+        original = @hotel.reservations.last
+        checkin = reservation["offers"][0]["checkInDate"] 
+        checkout = reservation["offers"][0]["checkOutDate"] 
+        guests = reservation["offers"][0]["guests"]["adults"] 
         # price = reservation["offers"][0]["price"]["total"] == @hotel.last_reservation.price
-        if checkin && checkout && guests #&& price
+        if checkin == original.checkin_date && checkout == original.checkout_date && guests && original.guests #&& price
           AmadeusApi.hotels.clear
           @hotel.save
+          # Update caches
+          checkin = checkin.to_time.to_i
+          Rails.cache.redis.with { |c| c.zadd(HotelTracker.hotels_list_cache_key(@user), checkin, @hotel.id, gt: true) } 
+          Rails.cache.redis.with { |c| c.zadd(CityTracker.cities_list_cache_key(@user), checkin, @hotel.city_id, gt: true) }
+          Rails.cache.redis.with { |c| c.incr(HotelTracker.upcoming_re_counter_cache_key(@user)) } 
+
           flash[:msg] = "Congratulations! Your reservation was successfully processed."
           redirect_to hotel_search_path
         else
@@ -113,7 +120,7 @@ class HotelsController < ApplicationController
           redirect_to user_hotels_path(@user) and return
         end
         # @hotels = @nested_user.all_hotels_sorted
-        # temp = Rails.cache.fetch("my_key4", expires_in: 20.minutes) {"this is my key #4"}
+        # todo: make retrieve+hotels_method build the hotels_list if list is empty
         hotel_ids = HotelTracker::ForUser.retrieve_hotels_list(@nested_user)
         hotel_ids = HotelTracker::ForUser.new(@nested_user, @nested_user.all_reservations_sorted).hotel_ids if hotel_ids.empty?
         @hotels = Hotel.find(hotel_ids)

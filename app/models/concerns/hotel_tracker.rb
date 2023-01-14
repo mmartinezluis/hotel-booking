@@ -94,7 +94,7 @@ module HotelTracker
             @upcoming = Rails.cache.redis.with { |c| c.get(rev_counter_key) }
             Rails.cache.redis.with { |c| c.expire(user_hotels_key, 3600) }
             Rails.cache.redis.with { |c| c.expire(user_cities_key, 3600) }
-            Rails.cache.redis.with { |c| c.expire(rev_counter_key, 3600*5) }
+            Rails.cache.redis.with { |c| c.expire(rev_counter_key, (Date.tomorrow.to_time - Time.now).to_i) }
         end
     end
 end
