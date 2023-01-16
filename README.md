@@ -1,6 +1,8 @@
 # Hotel Booking
 This app is currently being architected for deployment with distrubted systems and microservices.
 
+Architecture documentation and progress: [Google Doc](https://docs.google.com/document/d/1RgbhkaBQDWfMmR6Uyu72R0tLLKNyHyo2QymdpmcCq-s/edit?usp=sharing)
+
 ------------------------------------------------------------
 <kbd>
 <img src="https://user-images.githubusercontent.com/75151961/206912626-081da6f9-c6df-43a9-ad63-23f2ffdf930a.png" alt="Hotel Booking hotel search page">
