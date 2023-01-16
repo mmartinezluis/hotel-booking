@@ -6,7 +6,7 @@ module CityTracker
 
     def self.retrieve_cities_list(user)
         city_ids = Rails.cache.redis.with { |c| c.zrevrange(CityTracker.cities_list_cache_key(user), 0, -1) }
-        city_ids = self.build_cities(user) if city_ids.empty?
+        city_ids = self.build_cities_list(user) if city_ids.empty?
         city_ids
     end
     

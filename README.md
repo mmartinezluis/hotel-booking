@@ -1,5 +1,7 @@
 # Hotel Booking
+This app is currently being architected for deployment with distrubted systems and microservices.
 
+------------------------------------------------------------
 <kbd>
 <img src="https://user-images.githubusercontent.com/75151961/206912626-081da6f9-c6df-43a9-ad63-23f2ffdf930a.png" alt="Hotel Booking hotel search page">
 </kbd>
@@ -21,7 +23,7 @@ The app counts with a Trending page, which features the top-three most reserved 
 Hotel Booking has not yet been deployed to production as I'm going to use it as an opportunity to learn and use infrastructure as code tools, CI/CD tools, and containerization tools (Terraform, Kafka, Docker, Kubernetes), and apply software architecture design principles to make a higly-available and higly-scalable system in the cloud. 
 
 ## Demo
-You can find here rich [demo images](https://github.com/mmartinezluis/hotel-booking/issues/1) and a [video walkthrough](https://www.youtube.com/watch?v=p1-Fz3bk0QE&t=7s) of the app. 
+You can find here rich [demo images](https://github.com/mmartinezluis/hotel-booking/issues/1) and a [video walkthrough](https://www.youtube.com/watch?v=WQBDlivswpM&t=65s) of the app. 
 
 
 ## Developing Locally
